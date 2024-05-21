@@ -1,69 +1,75 @@
 package com.mycompany.mavenproject2.Equipment;
 
 public class Equipment {
-    private Armor armor;
-    private Pants pants;
-    private Necklace necklace;
-    private Ring ring;
-    private Weapon weapon;
+
+    private Item armor;
+    private Item pants;
+    private Item necklace;
+    private Item ring;
+    private Item weapon;
 
     public Equipment() {
     }
 
     public Armor getArmor() {
-        return armor;
+        return (Armor) armor.getItem();
     }
 
     public Pants getPants() {
-        return pants;
+        return (Pants) pants.getItem();
     }
 
     public Necklace getNecklace() {
-        return necklace;
+        return (Necklace) necklace.getItem();
     }
 
     public Ring getRing() {
-        return ring;
+        return (Ring) ring.getItem();
     }
 
     public Weapon getWeapon() {
-        return weapon;
+        return (Weapon) weapon.getItem();
     }
-    
-    public Item equip(Item item){
+
+    public Item equip(Item item) throws Exception {
         Item res = null;
-        if (item.getItem() instanceof Armor){
-            if(this.armor != null)  res = new Item(this.armor, true, false, 1);
-            this.armor =(Armor) item.getItem();
-            
-            return res;
+        if (item.getItem() instanceof Armor) {
+            if (this.armor != null) {
+                res = this.armor;
+            }
+            this.armor = item;
         }
-        if (item.getItem() instanceof Pants){
-            if(this.armor != null)  res = new Item(this.pants, true, false, 1);
-            this.pants =(Pants) item.getItem();
-            
-            return res;
+        else if (item.getItem() instanceof Pants) {
+            if (this.armor != null) {
+                res = this.pants;
+            }
+            this.pants = item;
         }
-        if (item.getItem() instanceof Necklace){
-            if(this.necklace != null)  res = new Item(this.necklace, true, false, 1);
-            this.necklace =(Necklace) item.getItem();
-            
-            return res;
+        else if (item.getItem() instanceof Necklace) {
+            if (this.necklace != null) {
+                res = this.necklace;
+            }
+            this.necklace = item;
         }
-        if (item.getItem() instanceof Ring){
-            if(this.ring != null)  res = new Item(this.ring, true, false, 1);
-            this.ring =(Ring) item.getItem();
-            
-            return res;
+        else if (item.getItem() instanceof Ring) {
+            if (this.ring != null) {
+                res = this.ring;
+            }
+            this.ring = item;
+        }
+
+        else if (item.getItem() instanceof Weapon) {
+            if (this.weapon != null) {
+                res = this.weapon;
+            }
+            this.weapon = item;
         }
         
-        if (item.getItem() instanceof Weapon){
-            if(this.weapon != null)  res = new Item(this.weapon, true, false, 1);
-            this.weapon =(Weapon) item.getItem();
-            
-            return res;
+        else {
+            throw new Exception("Não equipável.");
         }
+        
         return res;
     }
-    
+
 }

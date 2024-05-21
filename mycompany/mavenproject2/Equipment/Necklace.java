@@ -4,11 +4,13 @@
  */
 package com.mycompany.mavenproject2.Equipment;
 
+import com.mycompany.mavenproject2.Utils.hasName;
+
 /**
  *
  * @author aluno
  */
-public class Necklace {
+public class Necklace implements hasName{
 
     private final String name;
     private final String atributeMultiplier;
@@ -20,6 +22,7 @@ public class Necklace {
         this.multiplier = multiplier;
     }
 
+    @Override
     public String getName() {
         return name;
     }

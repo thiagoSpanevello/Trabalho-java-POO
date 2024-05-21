@@ -1,6 +1,8 @@
 package com.mycompany.mavenproject2.Mage;
 
-public class Spell {
+import com.mycompany.mavenproject2.Utils.hasName;
+
+public class Spell implements hasName {
 
     private final int levelRequired;
     private final int mana;
@@ -30,6 +32,7 @@ public class Spell {
         return damage;
     }
 
+    @Override
     public String getName() {
         return name;
     }

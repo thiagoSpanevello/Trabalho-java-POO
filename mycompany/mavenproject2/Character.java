@@ -2,8 +2,10 @@ package com.mycompany.mavenproject2;
 
 import com.mycompany.mavenproject2.Equipment.Item;
 import com.mycompany.mavenproject2.Equipment.Equipment;
+import com.mycompany.mavenproject2.Utils.Utils;
+import com.mycompany.mavenproject2.Utils.hasName;
 
-public class Character {
+public class Character implements hasName{
 
     private final String name;
     private int level;
@@ -23,6 +25,7 @@ public class Character {
         this.skillPoints = 0;
     }
     
+    @Override
     public String getName() {
         return name;
     }
@@ -55,8 +58,36 @@ public class Character {
             }
         }
         System.out.println("Inventário cheio");
+        System.out.println("Selecione o item a ser equipado: (0 descartar o atual)");
+        int selected = Utils.select(inventory, 30);
+        if(selected < 0) return;
+        inventory[selected] = item;
     }
 
+    public void equip(Item item){
+        try{
+            Item res = this.equipment.equip(item);
+            if(res != null) putOnInventory(res);
+        
+            System.out.println("Equipado.");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } 
+    }
+    
+    public void equip(){
+        System.out.println("Selecione o item a ser equipado: ");
+        int selected = Utils.select(inventory, 30);
+        
+        try{
+            Item res = this.equipment.equip(inventory[selected]);
+            if(res != null) putOnInventory(res);
+             System.out.println("Equipado.");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } 
+    }
+    
     public Item[] getInventory() {
         return inventory;
     }
