@@ -12,22 +12,37 @@ public class Equipment {
     }
 
     public Armor getArmor() {
+        if (armor == null) {
+            return null;
+        }
         return (Armor) armor.data;
     }
 
     public Pants getPants() {
+        if (pants == null) {
+            return null;
+        }
         return (Pants) pants.data;
     }
 
     public Necklace getNecklace() {
+        if (necklace == null) {
+            return null;
+        }
         return (Necklace) necklace.data;
     }
 
     public Ring getRing() {
+        if (ring == null) {
+            return null;
+        }
         return (Ring) ring.data;
     }
 
     public Weapon getWeapon() {
+        if (weapon == null) {
+            return null;
+        }
         return (Weapon) weapon.data;
     }
 
@@ -38,37 +53,30 @@ public class Equipment {
                 res = this.armor;
             }
             this.armor = item;
-        }
-        else if (item.data instanceof Pants) {
+        } else if (item.data instanceof Pants) {
             if (this.armor != null) {
                 res = this.pants;
             }
             this.pants = item;
-        }
-        else if (item.data instanceof Necklace) {
+        } else if (item.data instanceof Necklace) {
             if (this.necklace != null) {
                 res = this.necklace;
             }
             this.necklace = item;
-        }
-        else if (item.data instanceof Ring) {
+        } else if (item.data instanceof Ring) {
             if (this.ring != null) {
                 res = this.ring;
             }
             this.ring = item;
-        }
-
-        else if (item.data instanceof Weapon) {
+        } else if (item.data instanceof Weapon) {
             if (this.weapon != null) {
                 res = this.weapon;
             }
             this.weapon = item;
-        }
-        
-        else {
+        } else {
             throw new Exception("Não equipável.");
         }
-        
+
         return res;
     }
 

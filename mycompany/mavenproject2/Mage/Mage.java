@@ -11,8 +11,8 @@ public class Mage extends Character{
     private int intelligence;
     private int focus;
 
-    public Mage(int maxMana, int intelligence, int focus, String name, int hp) {
-        super(name, hp);
+    public Mage (String name, int hp, int speed, int maxMana, int intelligence, int focus) {
+        super(name, hp, speed);
         this.mana = maxMana;
         this.maxMana = maxMana;
         this.intelligence = intelligence;
@@ -146,7 +146,7 @@ public class Mage extends Character{
         }
         Scanner scan = new Scanner(System.in);
         int op = scan.nextInt();
-        if(op < 1 || op > 3 || attacker.getSpells()[op] == null) {
+        if(op < 1 || op > 3 || attacker.getSpells()[op - 1] == null) {
             System.out.println("Escolha uma posição que tenha uma magia");
             return;
         }

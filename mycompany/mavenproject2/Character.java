@@ -15,16 +15,30 @@ public class Character implements hasName {
     private int skillPoints;
     private final Item[] inventory = new Item[30];
     public final Equipment equipment = new Equipment();
+    private final int speed;
+    private int coins;
 
-    public Character(String name, int hp) {
+    public Character(String name, int hp, int speed) {
         this.name = name;
         this.hp = hp;
         this.maxHp = hp;
-        this.level = 0;
+        this.level = 1;
         this.xp = 0;
         this.skillPoints = 0;
+        this.speed = speed;
+        this.coins = 0;
     }
 
+    public int getCoins() {
+        return coins;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
+    }
+
+    
+    
     @Override
     public String getName() {
         return name;
@@ -51,11 +65,22 @@ public class Character implements hasName {
     }
 
     public void putOnInventory(Item item) {
+        item = new Item(item.data, item.price, item.sellable, item.stackable, item.getCurrentStack());
+
         if (item.stackable) {
             for (int i = 0; i < 30; i++) {
-                if (inventory[i] != null && inventory[i].id == item.id) {
-                    inventory[i].incrementStack();
-                    return;
+                if (inventory[i] != null && inventory[i].data.getName() == item.data.getName()) {
+                    if (inventory[i].getCurrentStack() == 64) {
+                        continue;
+                    }
+                    try {
+                        inventory[i].incrementStack(item.getCurrentStack());
+                        return;
+                    } catch (Exception e) {
+                        int n = Integer.parseInt(e.getMessage());
+                        putOnInventory(new Item(item.data, item.price, item.sellable, true, n));
+                        return;
+                    }
                 }
             }
         }

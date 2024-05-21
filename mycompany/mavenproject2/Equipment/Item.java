@@ -2,33 +2,26 @@ package com.mycompany.mavenproject2.Equipment;
 import com.mycompany.mavenproject2.Utils.hasName;
 
 public class Item<K extends hasName>{
-    public final int id;
     public final K data;
     public final double price;
     public final boolean sellable;
     public final boolean stackable;
     private int currentStack;
     
-    static private int key = 1;
-
     public Item(K data, double price, boolean sellable, boolean stackable, int currentStack) {
-        this.id = key;
         this.data = data;
         this.price = price;
         this.sellable = sellable;
         this.stackable = stackable;
         this.currentStack = currentStack;
-        Item.key++;
     }
     
     public Item(K data, double price, boolean sellable, boolean stackable) {
-        this.id = key;
         this.data = data;
         this.price = price;
         this.sellable = sellable;
         this.stackable = stackable;
         this.currentStack = 1;
-        Item.key++;
     }
 
     public int getCurrentStack() {
@@ -39,11 +32,23 @@ public class Item<K extends hasName>{
         this.currentStack = currentStack;
     }
     
-    public void incrementStack(){
+    public void incrementStack() throws Exception {
+        if(this.currentStack == 64) throw new Exception(Integer.toString(this.currentStack - 64));
         this.currentStack++;
     }
     
-    public void decreaseStack(){
+    public void incrementStack(int n) throws Exception {
+        if(this.currentStack + n > 64) {
+            int prev = this.currentStack;
+            this.currentStack = 64;
+            throw new Exception(Integer.toString(prev + n - 64));
+        }
+
+        this.currentStack+= n;
+    }
+    
+    public void decreaseStack() throws Exception  {
+        if(this.currentStack == 1) throw new Exception("Removido");
         this.currentStack++;
     }
 }

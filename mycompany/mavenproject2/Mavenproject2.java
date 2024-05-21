@@ -10,19 +10,21 @@ import com.mycompany.mavenproject2.Utils.Utils;
 public class Mavenproject2 {
 
     public static void main(String[] args) {
-        Mage mage = new Mage(100, 10, 5, "Carioquinha gente fina", 100);
-        Mage mage2 = new Mage(200, 50, 10, "Vitor", 100);
+        Mage mage = new Mage("Carioquinha gente fina", 100, 100, 10, 5, 10);
+        Mage mage2 = new Mage("Vitor", 100, 200, 50, 10, 12);
         mage.setXp(500);
+        mage.checkXp();
+        mage2.setXp(500);
         mage.checkXp();
         Weapon cajadaoDosCria = new Weapon("Pauzão", "Cajado", 0, 0.02);
         Spell bolaDFogo = new Spell(1,10, 15, "As bola dos deuses", 0.02, 10);
 
-        Item testeStack = new Item(new Ring("teste", "inteligencia", 0.02), 10, false, true);
+        mage.equip(new Item(cajadaoDosCria, 100, true, false));
+        mage.learnSpell(bolaDFogo);
+
+        mage2.equip(new Item(cajadaoDosCria, 100, true, false));
+        mage2.learnSpell(bolaDFogo);
         
-        mage2.putOnInventory(new Item(cajadaoDosCria, 10.0, true, false, 1));
-        mage2.putOnInventory(testeStack);
-        mage2.putOnInventory(testeStack);
-        
-        Utils.print(mage2.getInventory(), 30);
+        mage.Combat(mage, mage2);
     }
 }
