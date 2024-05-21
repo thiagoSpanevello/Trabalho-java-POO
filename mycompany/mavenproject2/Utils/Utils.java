@@ -8,7 +8,10 @@ public class Utils {
     
     public static void print(Item[] arr, int size){
         for(int i = 0; i<size; i++){
-            System.out.println(i+1 + ": " + arr[i].getItem().getName());
+            if(arr[i] == null) continue;
+            System.out.print(i+1 + ": " + arr[i].data.getName());
+            if(arr[i].stackable) System.out.print(" x" + arr[i].getCurrentStack());
+            System.out.println();
         }
     }
     

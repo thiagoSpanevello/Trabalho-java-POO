@@ -5,7 +5,7 @@ import com.mycompany.mavenproject2.Equipment.Equipment;
 import com.mycompany.mavenproject2.Utils.Utils;
 import com.mycompany.mavenproject2.Utils.hasName;
 
-public class Character implements hasName{
+public class Character implements hasName {
 
     private final String name;
     private int level;
@@ -24,7 +24,7 @@ public class Character implements hasName{
         this.xp = 0;
         this.skillPoints = 0;
     }
-    
+
     @Override
     public String getName() {
         return name;
@@ -51,6 +51,14 @@ public class Character implements hasName{
     }
 
     public void putOnInventory(Item item) {
+        if (item.stackable) {
+            for (int i = 0; i < 30; i++) {
+                if (inventory[i] != null && inventory[i].id == item.id) {
+                    inventory[i].incrementStack();
+                    return;
+                }
+            }
+        }
         for (int i = 0; i < 30; i++) {
             if (inventory[i] == null) {
                 inventory[i] = item;
@@ -60,34 +68,40 @@ public class Character implements hasName{
         System.out.println("Inventário cheio");
         System.out.println("Selecione o item a ser equipado: (0 descartar o atual)");
         int selected = Utils.select(inventory, 30);
-        if(selected < 0) return;
+        if (selected < 0) {
+            return;
+        }
         inventory[selected] = item;
     }
 
-    public void equip(Item item){
-        try{
+    public void equip(Item item) {
+        try {
             Item res = this.equipment.equip(item);
-            if(res != null) putOnInventory(res);
-        
+            if (res != null) {
+                putOnInventory(res);
+            }
+
             System.out.println("Equipado.");
         } catch (Exception e) {
             System.out.println(e.getMessage());
-        } 
+        }
     }
-    
-    public void equip(){
+
+    public void equip() {
         System.out.println("Selecione o item a ser equipado: ");
         int selected = Utils.select(inventory, 30);
-        
-        try{
+
+        try {
             Item res = this.equipment.equip(inventory[selected]);
-            if(res != null) putOnInventory(res);
-             System.out.println("Equipado.");
+            if (res != null) {
+                putOnInventory(res);
+            }
+            System.out.println("Equipado.");
         } catch (Exception e) {
             System.out.println(e.getMessage());
-        } 
+        }
     }
-    
+
     public Item[] getInventory() {
         return inventory;
     }
@@ -125,13 +139,13 @@ public class Character implements hasName{
         }
         return false;
     }
-    
-    public void Combat(Character char1, Character char2){
-    
+
+    public void Combat(Character char1, Character char2) {
+
     }
-    
-    public double attack(){
+
+    public double attack() {
         return 0;
     }
-    
+
 }
