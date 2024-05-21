@@ -4,8 +4,7 @@ import com.mycompany.mavenproject2.Mage.Spell;
 import com.mycompany.mavenproject2.Mage.Mage;
 import com.mycompany.mavenproject2.Equipment.Weapon;
 import com.mycompany.mavenproject2.Equipment.Item;
-import com.mycompany.mavenproject2.Equipment.Ring;
-import com.mycompany.mavenproject2.Utils.Utils;
+import com.mycompany.mavenproject2.Utils.Combat;
 
 public class Mavenproject2 {
 
@@ -25,6 +24,6 @@ public class Mavenproject2 {
         mage2.equip(new Item(cajadaoDosCria, 100, true, false));
         mage2.learnSpell(bolaDFogo);
         
-        mage.Combat(mage, mage2);
+        Combat.attack(mage, mage2);
     }
 }

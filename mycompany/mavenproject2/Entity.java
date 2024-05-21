@@ -2,6 +2,7 @@ package com.mycompany.mavenproject2;
 
 import com.mycompany.mavenproject2.Equipment.Equipment;
 import com.mycompany.mavenproject2.Equipment.Item;
+import com.mycompany.mavenproject2.Utils.Damage;
 import com.mycompany.mavenproject2.Utils.Utils;
 import com.mycompany.mavenproject2.Utils.hasName;
 
@@ -12,7 +13,7 @@ public class Entity implements hasName {
     private double hp;
     private final Item[] inventory = new Item[30];
     public final Equipment equipment = new Equipment();
-    private final int speed;
+    private int speed;
     private int coins; 
     
     public Entity(String name, double hp, int speed) {
@@ -132,12 +133,16 @@ public class Entity implements hasName {
             System.out.println(e.getMessage());
         }
     }
-    
-    public void Combat(Entity char1, Entity char2) {
 
+    public Damage attack() {
+        return new Damage(0.0, "physical");
     }
 
-    public double attack() {
-        return 0;
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 }

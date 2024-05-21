@@ -1,10 +1,5 @@
 package com.mycompany.mavenproject2;
 
-import com.mycompany.mavenproject2.Equipment.Item;
-import com.mycompany.mavenproject2.Equipment.Equipment;
-import com.mycompany.mavenproject2.Utils.Utils;
-import com.mycompany.mavenproject2.Utils.hasName;
-
 public class Character extends Entity {
     private double xp;
     private int skillPoints;

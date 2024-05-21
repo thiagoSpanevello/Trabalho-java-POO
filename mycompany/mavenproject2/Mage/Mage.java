@@ -1,9 +1,10 @@
 package com.mycompany.mavenproject2.Mage;
 
 import com.mycompany.mavenproject2.Character;
+import com.mycompany.mavenproject2.Utils.Damage;
 import java.util.Scanner;
 
-public class Mage extends Character{
+public class Mage extends Character {
 
     private int mana;
     private int maxMana;
@@ -11,7 +12,7 @@ public class Mage extends Character{
     private int intelligence;
     private int focus;
 
-    public Mage (String name, double hp, int speed, int maxMana, int intelligence, int focus) {
+    public Mage(String name, double hp, int speed, int maxMana, int intelligence, int focus) {
         super(name, hp, speed);
         this.mana = maxMana;
         this.maxMana = maxMana;
@@ -99,7 +100,21 @@ public class Mage extends Character{
         this.mana = this.maxMana;
     }
 
-    public double attack(int spell) {
+    public Damage attack() {
+        Scanner scan = new Scanner(System.in);
+        int op;
+        System.out.println("Escolha a magia que deseja usar: ");
+        do {
+            for (int i = 0; i < 3; i++) {
+                if (this.getSpells()[i] != null) {
+                    System.out.println(i + 1 + " Magia: " + this.getSpells()[i].getName() + " Dano: " + this.getSpells()[i].getDamage());
+                }
+            }
+            op = scan.nextInt();
+        } while (op < 1 || op > 3 || this.getSpells()[op-1] == null);
+
+        int spell = op-1;
+        
         double multiplier = 0;
         String weapon = "";
         if (this.equipment.getWeapon() != null) {
@@ -134,36 +149,6 @@ public class Mage extends Character{
 
         System.out.println(name + " usou " + spellName + weapon + " causando " + damage + " de dano.");
 
-        return damage;
-    }
-
-    public void Combat(Mage attacker, Character defender) {
-        System.out.println("Escolha a magia que deseja usar: ");
-        for (int i = 0; i < 3; i++) {
-            if (attacker.getSpells()[i] != null) {
-                System.out.println(i+1 + " Magia: " + attacker.getSpells()[i].getName()+" Dano: " +attacker.getSpells()[i].getDamage());
-            }
-        }
-        Scanner scan = new Scanner(System.in);
-        int op = scan.nextInt();
-        if(op < 1 || op > 3 || attacker.getSpells()[op - 1] == null) {
-            System.out.println("Escolha uma posição que tenha uma magia");
-            return;
-        }
-        double damage = attacker.attack(op-1);
-        double magicResist = 0;
-        if(defender.equipment.getArmor() != null){
-            magicResist += defender.equipment.getArmor().getMagicResist();
-        }
-        if(defender.equipment.getPants() != null){
-            magicResist += defender.equipment.getPants().getMagicResist();
-        }
-        double resistedDamage = damage * magicResist;
-        double damageDealt = damage - resistedDamage;
-        System.out.printf("%s bloqueou %.2f de dano",defender.getName(), resistedDamage);
-        System.out.printf("\n%s recebeu %.2f de dano",defender.getName(), damageDealt);
-        double currentHp = (int) defender.getHp() - damageDealt;
-        defender.setHp((int)currentHp);
-        System.out.println(defender.getName()+" está com "+ defender.getHp()+" pontos de vida;");
+        return new Damage(damage, "magic");
     }
 }
