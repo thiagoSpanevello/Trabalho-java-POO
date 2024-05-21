@@ -11,7 +11,7 @@ public class Mage extends Character{
     private int intelligence;
     private int focus;
 
-    public Mage (String name, int hp, int speed, int maxMana, int intelligence, int focus) {
+    public Mage (String name, double hp, int speed, int maxMana, int intelligence, int focus) {
         super(name, hp, speed);
         this.mana = maxMana;
         this.maxMana = maxMana;

@@ -1,4 +1,5 @@
 package com.mycompany.mavenproject2.Equipment;
+
 import com.mycompany.mavenproject2.Utils.hasName;
 
 public class Item<K extends hasName>{

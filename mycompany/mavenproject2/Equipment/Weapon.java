@@ -2,7 +2,6 @@ package com.mycompany.mavenproject2.Equipment;
 
 import com.mycompany.mavenproject2.Utils.hasName;
 
-
 public class Weapon implements hasName{
     private final String name;
     private final String type;

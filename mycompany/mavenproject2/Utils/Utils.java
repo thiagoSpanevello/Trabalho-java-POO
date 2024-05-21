@@ -1,4 +1,5 @@
 package com.mycompany.mavenproject2.Utils;
+
 import com.mycompany.mavenproject2.Equipment.Item;
 import java.util.Scanner;
 
