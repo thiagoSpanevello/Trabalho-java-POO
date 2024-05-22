@@ -15,6 +15,8 @@ public class Entity implements hasName {
     public final Equipment equipment = new Equipment();
     private int speed;
     private int coins; 
+    private double xp;
+    private double maxXp;
     
     public Entity(String name, double hp, int speed) {
         this.name = name;
@@ -23,6 +25,8 @@ public class Entity implements hasName {
         this.level = 1;
         this.speed = speed;
         this.coins = 0;
+        this.xp = 0;
+        this.maxXp = 100;
     }
     
     public Entity(String name, double hp, int speed, int coins) {
@@ -98,7 +102,7 @@ public class Entity implements hasName {
             }
         }
         System.out.println("Inventário cheio");
-        System.out.println("Selecione o item a ser equipado: (0 descartar o atual)");
+        System.out.println("Selecione o item a ser descartado: (0 descartar o atual)");
         int selected = Utils.select(inventory, 30);
         if (selected < 0) {
             return;
@@ -134,6 +138,10 @@ public class Entity implements hasName {
         }
     }
 
+    public Item[] getInventory() {
+        return inventory;
+    }
+
     public Damage attack() {
         return new Damage(0.0, "physical");
     }
@@ -144,5 +152,37 @@ public class Entity implements hasName {
 
     public void setSpeed(int speed) {
         this.speed = speed;
+    }
+
+    public double getXp() {
+        return xp;
+    }
+
+    public void setXp(double xp) {
+        this.xp = xp;
+    }
+
+    public double getMaxXp() {
+        return maxXp;
+    }
+
+    public void setMaxXp(double maxXp) {
+        this.maxXp = maxXp;
+    }
+    
+    public void increaseLevel() {
+        this.level = this.level + 1;
+        double newHp = this.getMaxHp() * 1.05;
+        this.setMaxHp(newHp);
+        this.setHp(newHp);
+    }
+    
+    public boolean checkXp() {
+        if (xp >= maxXp) {
+            increaseLevel();
+            setXp(xp - maxXp);
+            return true;
+        }
+        return false;
     }
 }

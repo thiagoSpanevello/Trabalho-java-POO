@@ -37,30 +37,28 @@ public class Mage extends Character {
     }
 
     public void learnSpell(Spell spell) {
-        if (spell.getLevelRequired() > this.getLevel()) {
-            System.out.println("Você não tem nível necessário para aprender essa magia!");
-        } else {
-            for (int i = 0; i < 3; i++) {
-                if (spells[i] == null) {
-                    spells[i] = spell;
-                    System.out.println(this.getName() + " aprendeu " + spell.getName());
-                    return;
-                }
-            }
 
-            System.out.println("Máximo de feitiços aprendidos, substitua algum (0 para cancelar):");
-            for (int i = 0; i < 3; i++) {
-                System.out.println((i + 1) + ": " + spells[i].getName());
-            }
-            Scanner scanner = new Scanner(System.in);
-            int option = scanner.nextInt();
-            if (option < 1 || option > 3) {
+        for (int i = 0; i < 3; i++) {
+            if (spells[i] == null) {
+                spells[i] = spell;
+                System.out.println(this.getName() + " aprendeu " + spell.getName());
                 return;
             }
-            spells[option - 1] = spell;
-            System.out.println(this.getName() + " aprendeu " + spell.getName());
-            scanner.close();
         }
+
+        System.out.println("Máximo de feitiços aprendidos, substitua algum (0 para cancelar):");
+        for (int i = 0; i < 3; i++) {
+            System.out.println((i + 1) + ": " + spells[i].getName());
+        }
+        Scanner scanner = new Scanner(System.in);
+        int option = scanner.nextInt();
+        if (option < 1 || option > 3) {
+            return;
+        }
+        spells[option - 1] = spell;
+        System.out.println(this.getName() + " aprendeu " + spell.getName());
+        scanner.close();
+
     }
 
     public Spell[] getSpells() {
@@ -111,10 +109,10 @@ public class Mage extends Character {
                 }
             }
             op = scan.nextInt();
-        } while (op < 1 || op > 3 || this.getSpells()[op-1] == null);
+        } while (op < 1 || op > 3 || this.getSpells()[op - 1] == null);
 
-        int spell = op-1;
-        
+        int spell = op - 1;
+
         double multiplier = 0;
         String weapon = "";
         if (this.equipment.getWeapon() != null) {
@@ -133,16 +131,10 @@ public class Mage extends Character {
 
         multiplier += spells[spell].getMultiplier() * intelligence;
 
-        double casting = spells[spell].getCastingTime() - focus * spells[spell].getCastingTime() * spells[spell].getMultiplier();
-
         setMana(this.getMana() - spells[spell].getMana());
         String name = this.getName();
-        try {
-            Thread.sleep((long) casting);
-            System.out.println("Mago " + name + " está conjurando...");
-        } catch (InterruptedException e) {
-            System.out.println(e);
-        }
+
+        System.out.println("Mago " + name + " está conjurando...");
 
         String spellName = spells[spell].getName();
         double damage = spells[spell].getDamage() * (1 + multiplier);

@@ -5,8 +5,7 @@ public class Damage {
     public final String type;
 
     public Damage(double damage, String type) {
-        if(type == "magic") this.type = "magicResist";
-        else this.type = "defense";
+        this.type = type;
         this.damage = damage;
     }
 }
