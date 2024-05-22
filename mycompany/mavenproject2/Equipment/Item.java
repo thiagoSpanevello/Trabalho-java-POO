@@ -6,23 +6,24 @@ public class Item<K extends hasName>{
     public final K data;
     public final double price;
     public final boolean sellable;
-    public final boolean stackable;
-    private int currentStack;
+    private int currentStack;    
+    public final int maxStack;
+
     
-    public Item(K data, double price, boolean sellable, boolean stackable, int currentStack) {
+    public Item(K data, double price, boolean sellable, int currentStack, int maxStack) {
         this.data = data;
         this.price = price;
         this.sellable = sellable;
-        this.stackable = stackable;
         this.currentStack = currentStack;
+        this.maxStack = maxStack;
     }
     
-    public Item(K data, double price, boolean sellable, boolean stackable) {
+    public Item(K data, double price, boolean sellable, int maxStack) {
         this.data = data;
         this.price = price;
         this.sellable = sellable;
-        this.stackable = stackable;
         this.currentStack = 1;
+        this.maxStack = maxStack;
     }
 
     public int getCurrentStack() {
@@ -34,15 +35,15 @@ public class Item<K extends hasName>{
     }
     
     public void incrementStack() throws Exception {
-        if(this.currentStack == 64) throw new Exception(Integer.toString(this.currentStack - 64));
+        if(this.currentStack == this.maxStack) throw new Exception(Integer.toString(this.currentStack - this.maxStack));
         this.currentStack++;
     }
     
     public void incrementStack(int n) throws Exception {
-        if(this.currentStack + n > 64) {
+        if(this.currentStack + n > this.maxStack) {
             int prev = this.currentStack;
-            this.currentStack = 64;
-            throw new Exception(Integer.toString(prev + n - 64));
+            this.currentStack = this.maxStack;
+            throw new Exception(Integer.toString(prev + n - this.maxStack));
         }
 
         this.currentStack+= n;

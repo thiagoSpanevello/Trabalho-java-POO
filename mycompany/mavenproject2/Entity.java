@@ -76,12 +76,11 @@ public class Entity implements hasName {
     }
     
     public void putOnInventory(Item item) {
-        item = new Item(item.data, item.price, item.sellable, item.stackable, item.getCurrentStack());
-
-        if (item.stackable) {
+        item = new Item(item.data, item.price, item.sellable, item.getCurrentStack(), item.maxStack);
+        if (item.maxStack > 1) {
             for (int i = 0; i < 30; i++) {
                 if (inventory[i] != null && inventory[i].data.getName() == item.data.getName()) {
-                    if (inventory[i].getCurrentStack() == 64) {
+                    if (inventory[i].getCurrentStack() == item.maxStack) {
                         continue;
                     }
                     try {
@@ -89,7 +88,7 @@ public class Entity implements hasName {
                         return;
                     } catch (Exception e) {
                         int n = Integer.parseInt(e.getMessage());
-                        putOnInventory(new Item(item.data, item.price, item.sellable, true, n));
+                        putOnInventory(new Item(item.data, item.price, item.sellable, n, item.maxStack));
                         return;
                     }
                 }
