@@ -33,6 +33,11 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cisco's Medieval RPG: ULTIMATE EDITION ");
+        setMaximumSize(new java.awt.Dimension(578, 491));
+        setMinimumSize(new java.awt.Dimension(578, 491));
+        setPreferredSize(new java.awt.Dimension(578, 491));
+        setResizable(false);
+        setSize(new java.awt.Dimension(578, 491));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton2.setBackground(new java.awt.Color(0, 0, 0));
