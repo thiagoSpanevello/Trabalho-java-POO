@@ -26,6 +26,7 @@ public class Creditos extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cisco's Medieval RPG: ULTIMATE EDITION ");
         setMaximumSize(new java.awt.Dimension(578, 491));
         setMinimumSize(new java.awt.Dimension(578, 491));
         setPreferredSize(new java.awt.Dimension(578, 491));
