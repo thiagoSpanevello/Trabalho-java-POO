@@ -40,10 +40,11 @@ public class Principal extends javax.swing.JFrame {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cisco's Medieval RPG: ULTIMATE EDITION ");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton2.setBackground(new java.awt.Color(0, 0, 0));
-        jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Thiago\\Downloads\\jogar.png")); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/jogar.png"))); // NOI18N
         jButton2.setMaximumSize(new java.awt.Dimension(100, 50));
         jButton2.setMinimumSize(new java.awt.Dimension(100, 50));
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -56,19 +57,19 @@ public class Principal extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 210, 40));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, 210, 40));
 
         jButton3.setBackground(new java.awt.Color(0, 0, 0));
-        jButton3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Thiago\\Downloads\\creditos.png")); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/creditos.png"))); // NOI18N
         jButton3.setAutoscrolls(true);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 210, 40));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 360, 210, 40));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Thiago\\Desktop\\cisco logo.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cisco logo.png"))); // NOI18N
         jLabel1.setToolTipText("");
         jLabel1.setMaximumSize(new java.awt.Dimension(680, 620));
         jLabel1.setMinimumSize(new java.awt.Dimension(680, 620));
@@ -82,10 +83,6 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel2ComponentShown
 
-    private void jButton2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseEntered
-
-    }//GEN-LAST:event_jButton2MouseEntered
-
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         Creditos credits = new Creditos();
         credits.setVisible(true);
@@ -93,9 +90,13 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        CharCreation createChar = new CharCreation();
-        createChar.setVisible(true);
+                CharCreation createChar = new CharCreation();
+                createChar.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseEntered
+
+    }//GEN-LAST:event_jButton2MouseEntered
 
     /**
      * @param args the command line arguments
