@@ -26,6 +26,7 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         menu = new javax.swing.JPanel();
+        money = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         advice = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -49,6 +50,11 @@ public class Principal extends javax.swing.JFrame {
 
         menu.setBackground(new java.awt.Color(255, 102, 102));
         menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        money.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        money.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/coin.png"))); // NOI18N
+        money.setText("  0");
+        menu.add(money, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 120, -1));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/luigi.png"))); // NOI18N
         menu.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 320, -1, -1));
@@ -171,6 +177,9 @@ public class Principal extends javax.swing.JFrame {
             characterName.setText(Context.getSession().getName());
             menu.setVisible(true);
             landing.setVisible(false);
+            
+            money.setText("  " + Context.getSession().getCoins());
+            
         } else {
             menu.setVisible(true);
             landing.setVisible(false);
@@ -223,5 +232,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel landing;
     private javax.swing.JPanel menu;
+    private javax.swing.JLabel money;
     // End of variables declaration//GEN-END:variables
 }

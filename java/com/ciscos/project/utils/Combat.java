@@ -56,8 +56,8 @@ public class Combat {
                 Combat.attack(a, b);
             } else {
                 Random random = new Random();
-                int op = random.nextInt(2 - 1 + 1) + 1;
-                if (op == 1) {
+                int op = random.nextInt(10);
+                if (op <= 5) {
                     Combat.attack(a, b);
                     if (b.getHp() == 0) {
                         break;
