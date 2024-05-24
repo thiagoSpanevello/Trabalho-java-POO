@@ -26,7 +26,7 @@ public class Creditos extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cisco's Medieval RPG: ULTIMATE EDITION ");
+        setTitle("Cisco's Medieval RPG: Créditos");
         setMaximumSize(new java.awt.Dimension(578, 491));
         setMinimumSize(new java.awt.Dimension(578, 491));
         setPreferredSize(new java.awt.Dimension(578, 491));
@@ -51,8 +51,6 @@ public class Creditos extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         dispose();
-        Principal principal = new Principal();
-        principal.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {

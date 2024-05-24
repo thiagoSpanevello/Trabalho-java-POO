@@ -45,6 +45,7 @@ public class CharCreation extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cisco's Medieval RPG: Criação");
         setResizable(false);
         setSize(new java.awt.Dimension(580, 490));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
