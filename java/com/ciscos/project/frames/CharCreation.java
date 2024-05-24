@@ -202,7 +202,7 @@ public class CharCreation extends javax.swing.JFrame {
             }
             p = Context.getSession();
             JOptionPane.showMessageDialog(this, "Personagem " + p.player.getName() + " da classe " + cbClass.getSelectedItem().toString() + " foi criado com sucesso!");
-            Principal.isThereASession();
+            Context.getMainWindow().isThereASession();
             dispose();
         }else{
             JOptionPane.showMessageDialog(this, "O nome do personagem precisa ter quatro letras ou mais!");

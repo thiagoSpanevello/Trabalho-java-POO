@@ -8,12 +8,14 @@ import com.ciscos.project.equipment.Weapon;
 import com.ciscos.project.items.Item;
 import com.ciscos.project.frames.Principal;
 import com.ciscos.project.utils.Combat;
+import com.ciscos.project.utils.Context;
 import com.ciscos.project.utils.Utils;
 
 public class Ciscos {
 
     public static void main(String[] args) {
         Principal principal = new Principal();
+        Context.setMainWindow(principal);
         principal.setVisible(true);
         Mage mage = new Mage("Carioquinha gente fina", 100, 100, 10, 5);
         Mage mage2 = new Mage("Vitor", 100, 200, 50, 10);

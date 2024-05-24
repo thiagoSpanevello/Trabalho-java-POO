@@ -16,21 +16,19 @@ public class Principal extends javax.swing.JFrame {
         int y = (dim.height-h)/2;
 
         this.setLocation(x, y);
+        
+        menu.setVisible(false);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        menu = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        landing = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-
-        jLabel2.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                jLabel2ComponentShown(evt);
-            }
-        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cisco's Medieval RPG: ULTIMATE EDITION ");
@@ -40,6 +38,16 @@ public class Principal extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(578, 491));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        menu.setBackground(new java.awt.Color(255, 102, 102));
+        menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/archer.gif"))); // NOI18N
+        menu.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, 120, 120));
+
+        getContentPane().add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 490));
+
+        landing.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton2.setBackground(new java.awt.Color(0, 0, 0));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/jogar.png"))); // NOI18N
@@ -55,7 +63,7 @@ public class Principal extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 210, 40));
+        landing.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 210, 40));
 
         jButton3.setBackground(new java.awt.Color(0, 0, 0));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/creditos.png"))); // NOI18N
@@ -65,21 +73,19 @@ public class Principal extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 390, 210, 40));
+        landing.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 390, 210, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cisco logo.png"))); // NOI18N
         jLabel1.setToolTipText("");
         jLabel1.setMaximumSize(new java.awt.Dimension(680, 620));
         jLabel1.setMinimumSize(new java.awt.Dimension(680, 620));
         jLabel1.setPreferredSize(new java.awt.Dimension(680, 620));
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 490));
+        landing.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 490));
+
+        getContentPane().add(landing, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 490));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel2ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jLabel2ComponentShown
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel2ComponentShown
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         Creditos credits = new Creditos();
@@ -99,8 +105,17 @@ public class Principal extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     
-    public static void isThereASession(){
-        System.out.println(Context.getSession().player.getName());
+    public void isThereASession(){
+        if(Context.getSession().player != null){
+            
+            jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/" + Context.getSession().player.getClass().getSimpleName().toLowerCase() + ".gif")));
+            
+            menu.setVisible(true);
+            landing.setVisible(false);
+        }else {
+            menu.setVisible(true);
+            landing.setVisible(false);
+        }
     }
     
     public static void main(String args[]) {
@@ -140,5 +155,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel landing;
+    private javax.swing.JPanel menu;
     // End of variables declaration//GEN-END:variables
 }
