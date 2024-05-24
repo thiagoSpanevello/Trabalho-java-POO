@@ -49,9 +49,9 @@ public class List {
 
     public static final HashMap<String, Item> getNecklaces() {
         HashMap<String, Item> necklaces = new HashMap<>();
-        final Item berserkerNecklace = new Item(new Ring("colar  da força", "strength", 0), 0, true, 1);
+        final Item berserkerNecklace = new Item(new Ring("colar da força", "strength", 0), 0, true, 1);
         final Item mageNecklace = new Item(new Ring("colar da inteligência", "intelligence", 0), 0, true, 1);
-        final Item archerNecklace = new Item(new Ring("colar  da inteligência", "dexterity", 0), 0, true, 1);
+        final Item archerNecklace = new Item(new Ring("colar da destreza", "dexterity", 0), 0, true, 1);
 
         necklaces.put("Berserker", berserkerNecklace);
         necklaces.put("Mage", mageNecklace);
@@ -78,7 +78,7 @@ public class List {
             new Item(new Weapon("Presa de dragão do fim", "Espada", 24, 0.06), 0, true, 1),
             new Item(new Weapon("Presa de jormungandr", "Espada", 28, 0.075), 0, true, 1),
             new Item(new Weapon("Machado do Chaos", "Machado", 30, 0.1), 0, true, 1),
-            new Item(new Weapon("poção de vida", "", 0, 0), 0, true, 1),};
+        };
         final Item[] mageWeapons = {
             new Item(new Weapon("Cajado de mago iniciante", "Cajado", 5, 0.01), 0, true, 1),
             new Item(new Weapon("Cajado de mago intermediario", "Cajado", 8, 0.015), 0, true, 1),
@@ -110,5 +110,5 @@ public class List {
     }
 
     public static Item[] randoms = {
-        new Item(new Arrow(12, 0.02), 0, true, 64),};
+        new Item(new Arrow(12, 0.02), 2, true, 64),};
 }

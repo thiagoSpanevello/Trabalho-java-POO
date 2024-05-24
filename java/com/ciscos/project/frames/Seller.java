@@ -4,6 +4,7 @@
  */
 package com.ciscos.project.frames;
 
+import com.ciscos.project.Entity;
 import com.ciscos.project.archer.Arrow;
 import com.ciscos.project.equipment.Armor;
 import com.ciscos.project.equipment.Necklace;
@@ -12,19 +13,82 @@ import com.ciscos.project.equipment.Ring;
 import com.ciscos.project.equipment.Weapon;
 import com.ciscos.project.utils.Context;
 import com.ciscos.project.items.Item;
+import com.ciscos.project.items.List;
 import com.ciscos.project.utils.Utils;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Random;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author lilia
  */
 public class Seller extends javax.swing.JFrame {
-    private int sellerCoinsValue = 0;
+
+    private Entity seller;
     private Item[] userInventory;
+
+    private void mountSellerList(Item[] inv) {
+        int size = 0;
+
+        String[] items = new String[inv.length];
+        for (int i = 0; i < inv.length; i++) {
+            String text;
+
+            text = inv[i].data.getName().substring(0, 1).toUpperCase() + inv[i].data.getName().substring(1);
+            if (inv[i].maxStack > 1) {
+                text += " x" + inv[i].getCurrentStack();
+            }
+
+            if (inv[i].data.getClass().getSimpleName().equals("Armor")) {
+                Armor a = (Armor) inv[i].data;
+                text += " (res: " + a.defense + ", mag: " + a.magicResist + ")";
+            }
+
+            if (inv[i].data.getClass().getSimpleName().equals("Pants")) {
+                Pants a = (Pants) inv[i].data;
+                text += " (res: " + a.defense + ", mag: " + a.magicResist + ")";
+            }
+
+            if (inv[i].data.getClass().getSimpleName().equals("Ring")) {
+                Ring r = (Ring) inv[i].data;
+                text += " (mult: " + r.getMultiplier() + ")";
+            }
+
+            if (inv[i].data.getClass().getSimpleName().equals("Necklace")) {
+                Necklace r = (Necklace) inv[i].data;
+                text += " (mult: " + r.getMultiplier() + ")";
+            }
+
+            if (inv[i].data.getClass().getSimpleName().equals("Weapon")) {
+                Weapon w = (Weapon) inv[i].data;
+                text += " (dam: " + w.getDamage() + ", mult: " + w.getMultiplier() + ")";
+            }
+
+            int price = (int) Math.ceil(inv[i].price * 1.1 * inv[i].getCurrentStack());
+
+            text += " - " + price;
+
+            items[i] = text;
+        }
+
+        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = items;
+
+            @Override
+            public int getSize() {
+                return strings.length;
+            }
+
+            @Override
+            public String getElementAt(int i) {
+                return strings[i];
+            }
+        });
+    }
 
     private void mountClientList(Item[] inv) {
         int size = 0;
@@ -74,17 +138,21 @@ public class Seller extends javax.swing.JFrame {
                 Weapon w = (Weapon) inv[i].data;
                 text += " (dam: " + w.getDamage() + ", mult: " + w.getMultiplier() + ")";
             }
+            int price = (int) Math.floor(inv[i].price * 0.9 * inv[i].getCurrentStack());
 
-            text += " - " + (int) inv[i].price * inv[i].getCurrentStack();
+            text += " - " + price;
 
             userInventory[index] = inv[i];
             items[index] = text;
             index++;
         }
-
-        for (int i = 0; i < size; i++) {
-            System.out.println(items[i]);
-        }
+        
+        Arrays.sort(items, new Comparator<String>() {
+            @Override
+            public int compare(String a, String b) {
+                return a.compareTo(b);
+            }
+        });
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = items;
@@ -103,14 +171,45 @@ public class Seller extends javax.swing.JFrame {
 
     public Seller() {
         initComponents();
-
+        equipButton.setVisible(false);
         Context.setSeller(this);
 
         Random random = new Random();
-        this.sellerCoinsValue = random.nextInt(3000 - 1000 + 1000) + 1000;
-        
-        sellerCoins.setText("  "+this.sellerCoinsValue);
-        
+        seller = new Entity(35, random.nextInt(3000 - 1000 + 1000) + 1000);
+
+        Item[] armors = List.armors;
+        for (int i = 0; i < armors.length; i++) {
+            seller.putOnInventory(armors[i]);
+        }
+
+        Item[] pants = List.pants;
+        for (int i = 0; i < pants.length; i++) {
+            seller.putOnInventory(pants[i]);
+        }
+
+        Item[] weapons = List.getWeapons().get(Context.getSession().getClass().getSimpleName());
+        for (int i = 0; i < pants.length; i++) {
+            seller.putOnInventory(weapons[i]);
+        }
+
+        Item ring = List.getRings().get(Context.getSession().getClass().getSimpleName());
+        seller.putOnInventory(ring);
+
+        Item necklaces = List.getNecklaces().get(Context.getSession().getClass().getSimpleName());
+        seller.putOnInventory(necklaces);
+
+        Item[] potions = List.potions;
+        for (int i = 0; i < potions.length; i++) {
+            seller.putOnInventory(potions[i]);
+        }
+
+        Item[] randoms = List.randoms;
+        for (int i = 0; i < randoms.length; i++) {
+            seller.putOnInventory(randoms[i]);
+        }
+
+        sellerCoins.setText("  " + this.seller.getCoins());
+
         if (Context.getSession().getInventory()[0] == null) {
             Context.getSession().putOnInventory(new Item(new Arrow(12, 0.02), 12, true, 20, 64));
             Context.getSession().putOnInventory(new Item(new Arrow(12, 0.02), 12, true, 20, 64));
@@ -122,12 +221,13 @@ public class Seller extends javax.swing.JFrame {
             Context.getSession().putOnInventory(new Item(new Ring("Anel", "Inteligencia", 12), 20, true, 1));
             Context.getSession().putOnInventory(new Item(new Necklace("Colar", "Inteligencia", 12), 20, true, 1));
             Context.getSession().putOnInventory(new Item(new Weapon("Espada", "espada", 12, 12), 20, true, 1));
+            Context.getSession().setCoins(400);
         }
 
         userCoins.setText("  " + Context.getSession().getCoins());
-        
-        Utils.print(Context.getSession().getInventory());
 
+        Utils.print(Context.getSession().getInventory());
+        mountSellerList(seller.getInventory());
         mountClientList(Context.getSession().getInventory());
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -153,7 +253,7 @@ public class Seller extends javax.swing.JFrame {
         sellerCoins = new javax.swing.JLabel();
         userCoins = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        equipButton = new javax.swing.JButton();
         jToggleButton1 = new javax.swing.JToggleButton();
         jButton1 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -190,10 +290,20 @@ public class Seller extends javax.swing.JFrame {
         getContentPane().add(userCoins, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 120, -1));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/buy.png"))); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 410, 196, 40));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/equip.png"))); // NOI18N
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 410, 152, 40));
+        equipButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/equip.png"))); // NOI18N
+        equipButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                equipButtonMouseClicked(evt);
+            }
+        });
+        getContentPane().add(equipButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 410, 152, 40));
 
         jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sell.png"))); // NOI18N
         getContentPane().add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 410, 40, 40));
@@ -212,6 +322,7 @@ public class Seller extends javax.swing.JFrame {
         jList2.setBackground(new java.awt.Color(0, 0, 0));
         jList2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
         jList2.setForeground(new java.awt.Color(255, 255, 255));
+        jList2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane3.setViewportView(jList2);
 
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 60, 430, 340));
@@ -222,6 +333,12 @@ public class Seller extends javax.swing.JFrame {
         jList1.setBackground(new java.awt.Color(0, 0, 0));
         jList1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
         jList1.setForeground(new java.awt.Color(255, 255, 255));
+        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jList1ValueChanged(evt);
+            }
+        });
         jScrollPane2.setViewportView(jList1);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 430, 340));
@@ -247,6 +364,70 @@ public class Seller extends javax.swing.JFrame {
         this.dispose();
         Context.setSeller(null);
     }//GEN-LAST:event_formWindowClosed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        Item item = seller.getInventory()[jList2.getSelectedIndex()];
+        int price = (int) Math.ceil(item.price * 1.1 * item.getCurrentStack());
+        if (Context.getSession().getCoins() >= price) {
+            Context.getSession().setCoins(Context.getSession().getCoins() - price);
+            seller.setCoins(seller.getCoins() + price);
+            Context.getSession().putOnInventory(item);
+            mountClientList(Context.getSession().getInventory());
+            userCoins.setText("  " + Context.getSession().getCoins());
+            sellerCoins.setText("  " + this.seller.getCoins());
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private boolean isEquipable(Object obj) {
+        if (obj.getClass().getSimpleName().equals("Armor")) {
+            return true;
+        }
+        if (obj.getClass().getSimpleName().equals("Pants")) {
+            return true;
+        }
+        if (obj.getClass().getSimpleName().equals("Weapon")) {
+            return true;
+        }
+        if (obj.getClass().getSimpleName().equals("Ring")) {
+            return true;
+        }
+        if (obj.getClass().getSimpleName().equals("Necklace")) {
+            return true;
+        }
+        return false;
+    }
+
+    private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
+        // TODO add your handling code here:
+        Item item = userInventory[jList1.getSelectedIndex()];
+        if (isEquipable(item.data)) {
+            equipButton.setVisible(true);
+        }
+    }//GEN-LAST:event_jList1ValueChanged
+
+    private void equipButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_equipButtonMouseClicked
+        // TODO add your handling code here:
+        Item item = userInventory[jList1.getSelectedIndex()];
+
+        int i = 0;
+        Item[] inv = Context.getSession().getInventory();
+        while (i < inv.length) {
+            if (inv[i] == item) {
+                break;
+            }
+            i++;
+        }
+
+        Context.getSession().equip(i);
+
+        mountClientList(Context.getSession().getInventory());
+
+        JOptionPane.showMessageDialog(this, item.data.getName() + " foi equipado com sucesso!");
+
+        jList1.clearSelection();
+        equipButton.setVisible(false);
+    }//GEN-LAST:event_equipButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -284,8 +465,8 @@ public class Seller extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton equipButton;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

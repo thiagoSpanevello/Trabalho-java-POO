@@ -7,11 +7,11 @@ import com.ciscos.project.utils.Utils;
 import com.ciscos.project.utils.hasName;
 
 public class Entity implements hasName {
-    private final String name;
+    private String name;
     private int level;
     private double maxHp;
     private double hp;
-    private final Item[] inventory = new Item[30];
+    private Item[] inventory = new Item[30];
     public final Equipment equipment = new Equipment();
     private int speed;
     private int coins; 
@@ -35,6 +35,11 @@ public class Entity implements hasName {
         this.maxHp = hp;
         this.level = 1;
         this.speed = speed;
+        this.coins = coins;
+    }
+    
+    public Entity(int invSize, int coins) {
+        this.inventory = new Item[invSize];
         this.coins = coins;
     }
 
@@ -78,7 +83,7 @@ public class Entity implements hasName {
     public void putOnInventory(Item item) {
         item = new Item(item.data, item.price, item.sellable, item.getCurrentStack(), item.maxStack);
         if (item.maxStack > 1) {
-            for (int i = 0; i < 30; i++) {
+            for (int i = 0; i < this.inventory.length; i++) {
                 if (inventory[i] != null && inventory[i].data.getName() == item.data.getName()) {
                     if (inventory[i].getCurrentStack() == item.maxStack) {
                         continue;
@@ -94,7 +99,7 @@ public class Entity implements hasName {
                 }
             }
         }
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < this.inventory.length; i++) {
             if (inventory[i] == null) {
                 inventory[i] = item;
                 return;
@@ -102,7 +107,7 @@ public class Entity implements hasName {
         }
         System.out.println("Inventário cheio");
         System.out.println("Selecione o item a ser descartado: (0 descartar o atual)");
-        int selected = Utils.select(inventory, 30);
+        int selected = Utils.select(inventory, this.inventory.length);
         if (selected < 0) {
             return;
         }
@@ -121,10 +126,23 @@ public class Entity implements hasName {
             System.out.println(e.getMessage());
         }
     }
+    
+     public void equip(int selected) {
+        try {
+            Item res = this.equipment.equip(inventory[selected]);
+            inventory[selected] = null;
+            if (res != null) {
+                putOnInventory(res);
+            }
+            System.out.println("Equipado.");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     public void equip() {
         System.out.println("Selecione o item a ser equipado: ");
-        int selected = Utils.select(inventory, 30);
+        int selected = Utils.select(inventory, this.inventory.length);
 
         try {
             Item res = this.equipment.equip(inventory[selected]);
@@ -142,7 +160,7 @@ public class Entity implements hasName {
     }
     
     public void removeFromInventory(int i) {
-        if(i < 0 || i >= 30) return;
+        if(i < 0 || i >= this.inventory.length) return;
         inventory[i] = null;
     }
 
