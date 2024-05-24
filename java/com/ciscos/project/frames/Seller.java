@@ -371,6 +371,25 @@ public class Seller extends javax.swing.JFrame {
 
         Item item = seller.getInventory()[jList2.getSelectedIndex()];
         int price = (int) Math.ceil(item.price * 1.1 * item.getCurrentStack());
+        
+        boolean isFull = true;
+            
+        Item[] inv = Context.getSession().getInventory();
+         
+        for(int i = 0; i < inv.length; i++){
+            if(inv[i] != null) {
+                isFull = true;
+            } else{
+                isFull = false;
+                break;
+            }
+        }
+        
+        if(isFull){
+            JOptionPane.showMessageDialog(this, Context.getSession().getName() + " está com inventário cheio!");
+            return;
+        }
+        
         if (Context.getSession().getCoins() >= price) {
             Context.getSession().setCoins(Context.getSession().getCoins() - price);
             seller.setCoins(seller.getCoins() + price);
@@ -379,7 +398,7 @@ public class Seller extends javax.swing.JFrame {
             userCoins.setText("  " + Context.getSession().getCoins());
             sellerCoins.setText("  " + this.seller.getCoins());
         } else {
-            JOptionPane.showMessageDialog(this, Context.getSession().getCoins() + " não tem dinheiro suficiente para comprar!");
+            JOptionPane.showMessageDialog(this, Context.getSession().getName() + " não tem dinheiro suficiente para comprar!");
         }
 
         jList2.clearSelection();
