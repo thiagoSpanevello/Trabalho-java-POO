@@ -4,12 +4,14 @@ import com.ciscos.project.Character;
 import com.ciscos.project.frames.CharCreation;
 import com.ciscos.project.frames.Creditos;
 import com.ciscos.project.frames.Principal;
+import com.ciscos.project.frames.Seller;
 
 public class Context {
     private static Character session = null;
     private static Principal window = null;
     private static Creditos credits = null;
     private static CharCreation creation = null;
+    private static Seller seller = null;
     
     private static boolean hasEverShopped = false;
     
@@ -54,7 +56,13 @@ public class Context {
     public static void setHasEverShopped(boolean hasEverShopped) {
         Context.hasEverShopped = hasEverShopped;
     }
-    
-    
+
+    public static Seller getSeller() {
+        return seller;
+    }
+
+    public static void setSeller(Seller seller) {
+        Context.seller = seller;
+    }
 }
 

@@ -6,17 +6,17 @@ import com.ciscos.project.utils.Context;
 import com.ciscos.project.Character;
 
 public class Principal extends javax.swing.JFrame {
-    
+
     public Principal() {
         initComponents();
         Context.setMainWindow(this);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        
+
         int w = this.getSize().width;
         int h = this.getSize().height;
         int x = (dim.width - w) / 2;
         int y = (dim.height - h) / 2;
-        
+
         this.setLocation(x, y);
         advice.setVisible(!Context.hasEverShopped());
         menu.setVisible(false);
@@ -41,11 +41,10 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cisco's Medieval RPG: ULTIMATE EDITION ");
-        setMaximumSize(new java.awt.Dimension(578, 491));
-        setMinimumSize(new java.awt.Dimension(578, 491));
-        setPreferredSize(new java.awt.Dimension(578, 491));
+        setMaximumSize(new java.awt.Dimension(580, 490));
+        setMinimumSize(new java.awt.Dimension(580, 490));
         setResizable(false);
-        setSize(new java.awt.Dimension(578, 491));
+        setSize(new java.awt.Dimension(580, 490));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         menu.setBackground(new java.awt.Color(255, 102, 102));
@@ -138,7 +137,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
         if (Context.getCreation() != null) {
             return;
         }
@@ -153,6 +152,12 @@ public class Principal extends javax.swing.JFrame {
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // TODO add your handling code here:
         Context.setHasEverShopped(true);
+
+//        if (Context.getSeller() != null) {
+            Seller seller = new Seller();
+            seller.setVisible(true);
+//        }
+
         advice.setVisible(false);
     }//GEN-LAST:event_jLabel4MouseClicked
 
@@ -161,7 +166,7 @@ public class Principal extends javax.swing.JFrame {
      */
     public void isThereASession() {
         if (Context.getSession() != null) {
-            
+
             jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/" + Context.getSession().getClass().getSimpleName().toLowerCase() + ".gif")));
             characterName.setText(Context.getSession().getName());
             menu.setVisible(true);
@@ -171,7 +176,7 @@ public class Principal extends javax.swing.JFrame {
             landing.setVisible(false);
         }
     }
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
