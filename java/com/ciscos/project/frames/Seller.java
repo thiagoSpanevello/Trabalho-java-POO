@@ -146,13 +146,6 @@ public class Seller extends javax.swing.JFrame {
             items[index] = text;
             index++;
         }
-        
-        Arrays.sort(items, new Comparator<String>() {
-            @Override
-            public int compare(String a, String b) {
-                return a.compareTo(b);
-            }
-        });
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = items;
@@ -250,11 +243,11 @@ public class Seller extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         sellerCoins = new javax.swing.JLabel();
         userCoins = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         equipButton = new javax.swing.JButton();
-        jToggleButton1 = new javax.swing.JToggleButton();
         jButton1 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
@@ -276,6 +269,14 @@ public class Seller extends javax.swing.JFrame {
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sell.png"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 410, 40, 40));
 
         sellerCoins.setForeground(new java.awt.Color(255, 255, 255));
         sellerCoins.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -304,9 +305,6 @@ public class Seller extends javax.swing.JFrame {
             }
         });
         getContentPane().add(equipButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 410, 152, 40));
-
-        jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sell.png"))); // NOI18N
-        getContentPane().add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 410, 40, 40));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/return.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -367,6 +365,10 @@ public class Seller extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        if (jList2.getSelectedIndex() < 0) {
+            return;
+        }
+
         Item item = seller.getInventory()[jList2.getSelectedIndex()];
         int price = (int) Math.ceil(item.price * 1.1 * item.getCurrentStack());
         if (Context.getSession().getCoins() >= price) {
@@ -376,7 +378,11 @@ public class Seller extends javax.swing.JFrame {
             mountClientList(Context.getSession().getInventory());
             userCoins.setText("  " + Context.getSession().getCoins());
             sellerCoins.setText("  " + this.seller.getCoins());
+        } else {
+            JOptionPane.showMessageDialog(this, Context.getSession().getCoins() + " não tem dinheiro suficiente para comprar!");
         }
+
+        jList2.clearSelection();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private boolean isEquipable(Object obj) {
@@ -403,7 +409,8 @@ public class Seller extends javax.swing.JFrame {
         Item item = userInventory[jList1.getSelectedIndex()];
         if (isEquipable(item.data)) {
             equipButton.setVisible(true);
-        }
+        } else
+            equipButton.setVisible(false);
     }//GEN-LAST:event_jList1ValueChanged
 
     private void equipButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_equipButtonMouseClicked
@@ -420,14 +427,44 @@ public class Seller extends javax.swing.JFrame {
         }
 
         Context.getSession().equip(i);
+        JOptionPane.showMessageDialog(this, item.data.getName() + " foi equipado com sucesso!");
 
         mountClientList(Context.getSession().getInventory());
-
-        JOptionPane.showMessageDialog(this, item.data.getName() + " foi equipado com sucesso!");
 
         jList1.clearSelection();
         equipButton.setVisible(false);
     }//GEN-LAST:event_equipButtonMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        if (jList1.getSelectedIndex() < 0) {
+            return;
+        }
+
+        Item item = userInventory[jList1.getSelectedIndex()];
+        int price = (int) Math.floor(item.price * 0.9 * item.getCurrentStack());
+        if (seller.getCoins() >= price) {
+            int i = 0;
+            Item[] inv = Context.getSession().getInventory();
+            while (i < inv.length) {
+                if (inv[i] == item) {
+                    break;
+                }
+                i++;
+            }
+
+            Context.getSession().setCoins(Context.getSession().getCoins() + price);
+            seller.setCoins(seller.getCoins() - price);
+            userCoins.setText("  " + Context.getSession().getCoins());
+            sellerCoins.setText("  " + this.seller.getCoins());
+            Context.getSession().removeFromInventory(i);
+            mountClientList(Context.getSession().getInventory());
+        } else {
+            JOptionPane.showMessageDialog(this, "O vendedor não tem dinheiro suficiente para comprar!");
+        }
+
+        jList1.clearSelection();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -467,6 +504,7 @@ public class Seller extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton equipButton;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -475,7 +513,6 @@ public class Seller extends javax.swing.JFrame {
     private javax.swing.JList<String> jList2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel sellerCoins;
     private javax.swing.JLabel userCoins;
     // End of variables declaration//GEN-END:variables
