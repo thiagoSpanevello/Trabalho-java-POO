@@ -2,16 +2,17 @@ package com.ciscos.project.berserker;
 
 import com.ciscos.project.Character;
 import com.ciscos.project.utils.Damage;
+import java.util.Random;
 
 public class Berserker extends Character {
 
     private int strength;
     private int currentStrength;
-    private double critRate;
-    public double rageCritRate;
+    private int critRate;
+    public int rageCritRate;
     private int inRage;
 
-    public Berserker(String name, double hp, int speed, int strength, double critRate) {
+    public Berserker(String name, double hp, int speed, int strength, int critRate) {
         super(name, hp, speed);
         this.strength = strength;
         this.critRate = critRate;
@@ -45,6 +46,53 @@ public class Berserker extends Character {
 
     @Override
     public Damage attack() {
-        return new Damage(0, "physical");
+        checkRage();
+        double multiplier = 0;
+        double damage = 0;
+        String name = this.getName();
+        Random aleatorio = new Random();
+        int sorteado = aleatorio.nextInt(100);
+
+        if (this.equipment.getNecklace() != null && this.equipment.getNecklace().getAtributeMultiplier().equals("strength")) {
+            multiplier += this.equipment.getNecklace().getMultiplier();
+            System.out.println("O Item: " + this.equipment.getNecklace().getName() + " está buffando o atributo " + this.equipment.getNecklace().getAtributeMultiplier());
+        }
+
+        if (this.equipment.getRing() != null && this.equipment.getRing().getAtributeMultiplier().equals("strength")) {
+            multiplier += this.equipment.getRing().getMultiplier();
+            System.out.println("O Item: " + this.equipment.getRing().getName() + " está buffando o atributo " + this.equipment.getRing().getAtributeMultiplier());
+        }
+
+        switch (this.inRage) {
+            case 0:
+                break;
+            case 1:
+                this.currentStrength = (int) Math.ceil(this.strength * 1.2);
+                this.rageCritRate = 50;
+                break;
+            case 2:
+                this.currentStrength = (int) Math.ceil(this.strength * 1.4);
+                this.rageCritRate = 70;
+                break;
+            default:
+                throw new AssertionError();
+        }
+        if (this.equipment.getWeapon() != null) {
+            multiplier += this.equipment.getWeapon().getMultiplier();
+            String weapon = " com seu " + this.equipment.getWeapon().getType() + " '" + this.equipment.getWeapon().getName() + "'";
+            multiplier += this.equipment.getWeapon().getMultiplier() * this.currentStrength;
+
+            damage = this.equipment.getWeapon().getDamage() * (1 + multiplier);
+            if (sorteado <= rageCritRate) {
+                System.out.println("Golpe critico");
+                damage = damage * 1.5;
+            }
+            System.out.printf("%s bateu %s causando %.2f de dano.\n",name ,weapon ,damage);
+            return new Damage(damage, "physical");
+        } else {
+            System.out.printf("%s bateu sem armas causando %.2f de dano.\n",name ,damage);
+            return new Damage(damage, "physical");
+        }
+
     }
 }
