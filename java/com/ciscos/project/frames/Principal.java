@@ -2,6 +2,7 @@ package com.ciscos.project.frames;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import com.ciscos.project.utils.Context;
 
 public class Principal extends javax.swing.JFrame {
 
@@ -54,7 +55,7 @@ public class Principal extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, 210, 40));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 210, 40));
 
         jButton3.setBackground(new java.awt.Color(0, 0, 0));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/creditos.png"))); // NOI18N
@@ -64,7 +65,7 @@ public class Principal extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 360, 210, 40));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 390, 210, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cisco logo.png"))); // NOI18N
         jLabel1.setToolTipText("");
@@ -97,6 +98,11 @@ public class Principal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    
+    public static void isThereASession(){
+        System.out.println(Context.getSession().player.getName());
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

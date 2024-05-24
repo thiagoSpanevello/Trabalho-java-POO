@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Utils {
-    public static <K, T> T getClassKeyName(K obj, HashMap<String, T> map) {
+    public static < T> T getClassKeyName(Object obj, HashMap<String, T> map) {
         try {
             String className = obj.getClass().getSimpleName();
             return map.get(className);
@@ -15,8 +15,11 @@ public class Utils {
     }
 
     public static void print(Item[] arr) {
+        int count = 0;
         for (int i = 0; i < arr.length; i++) {
+            if(count == arr.length-1 && arr[i] == null) System.err.println("empty");
             if (arr[i] == null) {
+                count++;
                 continue;
             }
             System.out.print(i + 1 + ": " + arr[i].data.getName());

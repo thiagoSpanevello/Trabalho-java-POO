@@ -10,14 +10,12 @@ public class Mage extends Character {
     private int maxMana;
     private Spell[] spells = new Spell[3];
     private int intelligence;
-    private int focus;
 
-    public Mage(String name, double hp, int speed, int maxMana, int intelligence, int focus) {
+    public Mage(String name, double hp, int speed, int maxMana, int intelligence) {
         super(name, hp, speed);
         this.mana = maxMana;
         this.maxMana = maxMana;
         this.intelligence = intelligence;
-        this.focus = focus;
     }
 
     public int getMaxMana() {
@@ -73,18 +71,11 @@ public class Mage extends Character {
         this.intelligence = intelligence;
     }
 
-    public int getFocus() {
-        return focus;
-    }
-
-    public void setFocus(int focus) {
-        this.focus = focus;
-    }
-
     @Override
     public void increaseLevel() {
         super.increaseLevel();
-
+        double newIntelligence = this.intelligence * 1.1;
+        this.intelligence = (int) Math.ceil(newIntelligence);
         double newMana = this.maxMana * 1.05;
         this.maxMana = (int) newMana;
         this.mana = this.maxMana;
@@ -119,28 +110,39 @@ public class Mage extends Character {
             multiplier += this.equipment.getWeapon().getMultiplier();
             weapon = " com seu " + this.equipment.getWeapon().getType() + " '" + this.equipment.getWeapon().getName() + "'";
         }
-        if (this.equipment.getNecklace() != null && this.equipment.getNecklace().getAtributeMultiplier() == "Intelligence") {
+        if (this.equipment.getNecklace() != null && this.equipment.getNecklace().getAtributeMultiplier().equals("intelligence")) {
             multiplier += this.equipment.getNecklace().getMultiplier();
             System.out.println("O Item: " + this.equipment.getNecklace().getName() + " está buffando o atributo " + this.equipment.getNecklace().getAtributeMultiplier());
         }
 
-        if (this.equipment.getRing() != null && this.equipment.getRing().getAtributeMultiplier() == "Intelligence") {
+        if (this.equipment.getRing() != null && this.equipment.getRing().getAtributeMultiplier().equals("intelligence")) {
             multiplier += this.equipment.getRing().getMultiplier();
             System.out.println("O Item: " + this.equipment.getRing().getName() + " está buffando o atributo " + this.equipment.getRing().getAtributeMultiplier());
         }
 
         multiplier += spells[spell].getMultiplier() * intelligence;
 
-        setMana(this.getMana() - spells[spell].getMana());
         String name = this.getName();
+        
+        if (this.getMana() - spells[spell].getMana() >= 0) {
 
-        System.out.println("Mago " + name + " está conjurando...");
+            setMana(this.getMana() - spells[spell].getMana());
+            System.out.println("Mago " + name + " está conjurando...");
 
-        String spellName = spells[spell].getName();
-        double damage = spells[spell].getDamage() * (1 + multiplier);
+            String spellName = spells[spell].getName();
+            double damage = spells[spell].getDamage() * (1 + multiplier);
 
-        System.out.println(name + " usou " + spellName + weapon + " causando " + damage + " de dano.");
+            System.out.println(name + " usou " + spellName + weapon + " causando " + damage + " de dano.");
 
-        return new Damage(damage, "magic");
+            return new Damage(damage, "magic");
+        }
+        
+        else if(this.equipment.getWeapon() != null){
+            System.out.println(name + " bateu "  + weapon + " causando " + this.equipment.getWeapon().getDamage() + " de dano.");
+            return new Damage(this.equipment.getWeapon().getDamage(), "physical");
+        }
+        
+        System.out.println(name + " quer bater com o seu tico...");
+        return new Damage(0, "magic");
     }
 }

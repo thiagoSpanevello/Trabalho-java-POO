@@ -1,6 +1,7 @@
 package com.ciscos.project.berserker;
 
 import com.ciscos.project.Character;
+import com.ciscos.project.utils.Damage;
 
 public class Berserker extends Character{
     private int strength;
@@ -30,11 +31,18 @@ public class Berserker extends Character{
     @Override
     public void restore(){
         super.restore();
+        
+        double newStrength = this.strength * 1.1;
+        this.strength = (int) Math.ceil(newStrength);
+        
         inRage = 0;
         this.currentStrength = this.strength;
         this.rageCritRate = this.critRate;
     }
     
     
-    
+    @Override
+    public Damage attack(){
+        return new Damage(0, "physical");
+    }
 }

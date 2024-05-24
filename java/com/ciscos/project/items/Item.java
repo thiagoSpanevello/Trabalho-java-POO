@@ -51,6 +51,6 @@ public class Item<K extends hasName>{
     
     public void decreaseStack() throws Exception  {
         if(this.currentStack == 1) throw new Exception("Removido");
-        this.currentStack++;
+        this.currentStack--;
     }
 }

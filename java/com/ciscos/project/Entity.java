@@ -140,6 +140,11 @@ public class Entity implements hasName {
     public Item[] getInventory() {
         return inventory;
     }
+    
+    public void removeFromInventory(int i) {
+        if(i < 0 || i >= 30) return;
+        inventory[i] = null;
+    }
 
     public Damage attack() {
         return new Damage(0.0, "physical");
@@ -174,6 +179,9 @@ public class Entity implements hasName {
         double newHp = this.getMaxHp() * 1.05;
         this.setMaxHp(newHp);
         this.setHp(newHp);
+        
+        double newSpeed = this.speed * 1.1;
+        this.speed = (int) Math.ceil(newSpeed);
     }
     
     public boolean checkXp() {
