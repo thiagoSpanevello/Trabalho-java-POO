@@ -4,7 +4,7 @@ import com.ciscos.project.archer.Archer;
 import com.ciscos.project.berserker.Berserker;
 import com.ciscos.project.mage.Mage;
 import com.ciscos.project.utils.Context;
-import com.ciscos.project.utils.Player;
+import com.ciscos.project.Character;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
@@ -13,7 +13,7 @@ public class CharCreation extends javax.swing.JFrame {
 
     public CharCreation() {
         initComponents();
-        
+        Context.setCreation(this);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
         int w = this.getSize().width;
@@ -48,6 +48,11 @@ public class CharCreation extends javax.swing.JFrame {
         setTitle("Cisco's Medieval RPG: Criação");
         setResizable(false);
         setSize(new java.awt.Dimension(580, 490));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         specialField.setForeground(new java.awt.Color(255, 255, 255));
@@ -190,11 +195,11 @@ public class CharCreation extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(nameInput.getText().length() >= 4){
-            Player p;
-            if (cbClass.getSelectedItem().toString() == "Berserker"){
+            Character p;
+            if (cbClass.getSelectedItem().toString().equals("Berserker")){
                 Berserker berserker = new Berserker(nameInput.getText(), 70, 10, 5, 10);
                 Context.setSession(berserker);
-            }else if(cbClass.getSelectedItem().toString() == "Mago"){
+            }else if(cbClass.getSelectedItem().toString().equals("Mago")){
                 Mage mago = new Mage(nameInput.getText(), 50, 10, 100, 5);
                 Context.setSession(mago);
             }else{
@@ -202,9 +207,9 @@ public class CharCreation extends javax.swing.JFrame {
                 Context.setSession(arqueiro);
             }
             p = Context.getSession();
-            JOptionPane.showMessageDialog(this, "Personagem " + p.player.getName() + " da classe " + cbClass.getSelectedItem().toString() + " foi criado com sucesso!");
-            Context.getMainWindow().isThereASession();
+            JOptionPane.showMessageDialog(this, "Personagem " + p.getName() + " da classe " + cbClass.getSelectedItem().toString() + " foi criado com sucesso!");
             dispose();
+            Context.getMainWindow().isThereASession();
         }else{
             JOptionPane.showMessageDialog(this, "O nome do personagem precisa ter quatro letras ou mais!");
         }
@@ -231,6 +236,11 @@ public class CharCreation extends javax.swing.JFrame {
     private void hpInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hpInputActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_hpInputActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        Context.setCreation(null);
+    }//GEN-LAST:event_formWindowClosed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

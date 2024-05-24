@@ -1,5 +1,6 @@
 package com.ciscos.project.frames;
 
+import com.ciscos.project.utils.Context;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
@@ -7,7 +8,7 @@ public class Creditos extends javax.swing.JFrame {
 
     public Creditos() {
         initComponents();
-        
+        Context.setCredits(this);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
         int w = this.getSize().width;
@@ -32,6 +33,11 @@ public class Creditos extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(578, 491));
         setResizable(false);
         setSize(new java.awt.Dimension(578, 491));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -50,8 +56,14 @@ public class Creditos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Context.setCredits(null);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        Context.setCredits(null);
+    }//GEN-LAST:event_formWindowClosed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
