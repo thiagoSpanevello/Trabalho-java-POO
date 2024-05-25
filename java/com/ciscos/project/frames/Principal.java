@@ -41,7 +41,7 @@ public class Principal extends javax.swing.JFrame {
             
             labelXp.setText("Nível: " + Context.getSession().getLevel() + "   XP: " + Context.getSession().getXp() + "/100");
             money.setText("  " + Context.getSession().getCoins());
-            advice1.setVisible(!Context.isHasEverHealed() && Context.getSession().getHp() < Context.getSession().getMaxXp());
+            advice1.setVisible(!Context.isHasEverHealed() && Context.getSession().getHp() < Context.getSession().getMaxHp());
             labelHPP.setText("HP: " + Context.getSession().getHp() + "/" + Context.getSession().getMaxHp());
     }
     
@@ -141,10 +141,10 @@ public class Principal extends javax.swing.JFrame {
 
         labelXp.setForeground(new java.awt.Color(255, 255, 255));
         labelXp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        menu.add(labelXp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 230, 20));
+        menu.add(labelXp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 230, 20));
 
         XPbar.setBackground(new java.awt.Color(102, 102, 102));
-        menu.add(XPbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 230, 20));
+        menu.add(XPbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 230, 20));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/gui.png"))); // NOI18N
         menu.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -283,7 +283,7 @@ public class Principal extends javax.swing.JFrame {
             labelXp.setText("Nível: " + Context.getSession().getLevel() + "   XP: " + Context.getSession().getXp() + "/100");
             menu.setVisible(true);
             landing.setVisible(false);
-            advice1.setVisible(!Context.isHasEverHealed() && Context.getSession().getHp() < Context.getSession().getMaxXp());
+            advice1.setVisible(!Context.isHasEverHealed() && Context.getSession().getHp() < Context.getSession().getMaxHp());
             money.setText("  " + Context.getSession().getCoins());
         } else {
             menu.setVisible(true);
