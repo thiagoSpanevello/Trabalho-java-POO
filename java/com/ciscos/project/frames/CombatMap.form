@@ -56,6 +56,9 @@
           <Image iconType="3" name="/images/flag.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="flagMouseClicked"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="int[][] positions = {{30, 230}, {60, 260}, {90, 290}, {100, 170}, {50, 110}, {50, 50}, {180, 90}, {224, 126}, {230, 70}, {300, 170}, {280, 200}, {250, 280}, {350, 250}, {520, 190}, {460, 180}, {430, 280}, {390, 180}, {500, 10}, {310, 30}};&#xa;&#xa;Random random = new Random();&#xa;flag.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));&#xa;int i = random.nextInt(positions.length);"/>
         <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="CombatMap_flag"/>

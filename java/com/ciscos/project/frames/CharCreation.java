@@ -68,7 +68,6 @@ public class CharCreation extends javax.swing.JFrame {
 
         specialInput.setEditable(false);
         specialInput.setBackground(new java.awt.Color(40, 40, 40));
-        specialInput.setForeground(new java.awt.Color(221, 221, 221));
         specialInput.setText("5");
         specialInput.setActionCommand("<Not Set>");
         specialInput.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -87,7 +86,6 @@ public class CharCreation extends javax.swing.JFrame {
 
     speedInput.setEditable(false);
     speedInput.setBackground(new java.awt.Color(40, 40, 40));
-    speedInput.setForeground(new java.awt.Color(221, 221, 221));
     speedInput.setText("15");
     speedInput.setActionCommand("<Not Set>");
     speedInput.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -116,7 +114,6 @@ getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(
 
 hpInput.setEditable(false);
 hpInput.setBackground(new java.awt.Color(40, 40, 40));
-hpInput.setForeground(new java.awt.Color(221, 221, 221));
 hpInput.setText("60");
 hpInput.setActionCommand("<Not Set>");
 hpInput.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -143,8 +140,6 @@ hpInput.setBorder(BorderFactory.createCompoundBorder(
     jLabel2.setText("Nome do Personagem");
     getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
 
-    nameInput.setBackground(new java.awt.Color(40, 40, 40));
-    nameInput.setForeground(new java.awt.Color(221, 221, 221));
     nameInput.setActionCommand("<Not Set>");
     nameInput.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     nameInput.setBorder(BorderFactory.createCompoundBorder(
@@ -158,7 +153,6 @@ nameInput.addCaretListener(new javax.swing.event.CaretListener() {
     getContentPane().add(nameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 270, 30));
 
     cbClass.setBackground(new java.awt.Color(40, 40, 40));
-    cbClass.setForeground(new java.awt.Color(221, 221, 221));
     cbClass.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Arqueiro", "Berserker", "Mago" }));
     cbClass.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     cbClass.setOpaque(true);
