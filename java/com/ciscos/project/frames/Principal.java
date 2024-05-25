@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import com.ciscos.project.utils.Context;
 import com.ciscos.project.Character;
+import java.awt.Color;
 
 public class Principal extends javax.swing.JFrame {
 
@@ -34,6 +35,13 @@ public class Principal extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         characterName = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        labelHP = new javax.swing.JLabel();
+        HPbar = new javax.swing.JProgressBar();
+        HPbar1 = new javax.swing.JProgressBar();
+        labelXp = new javax.swing.JLabel();
+        XPbar = new javax.swing.JProgressBar();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         landing = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
@@ -87,6 +95,37 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/archer.gif"))); // NOI18N
         menu.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 120, 120));
+
+        labelHP.setForeground(new java.awt.Color(255, 255, 255));
+        labelHP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelHP.setPreferredSize(new java.awt.Dimension(146, 16));
+        menu.add(labelHP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 230, 20));
+
+        HPbar.setBackground(new java.awt.Color(102, 102, 102));
+        HPbar.setPreferredSize(new java.awt.Dimension(146, 16));
+        menu.add(HPbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 230, 20));
+
+        HPbar1.setBackground(new java.awt.Color(102, 102, 102));
+        HPbar1.setPreferredSize(new java.awt.Dimension(146, 16));
+        menu.add(HPbar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 230, 20));
+
+        labelXp.setForeground(new java.awt.Color(255, 255, 255));
+        labelXp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        menu.add(labelXp, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 230, 20));
+
+        XPbar.setBackground(new java.awt.Color(102, 102, 102));
+        menu.add(XPbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 230, 20));
+
+        jLabel9.setText("jLabel9");
+        menu.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/mapIcon.png"))); // NOI18N
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
+        menu.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 60, -1, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/background menu.png"))); // NOI18N
         jLabel3.setText("jLabel3");
@@ -167,6 +206,11 @@ public class Principal extends javax.swing.JFrame {
         advice.setVisible(false);
     }//GEN-LAST:event_jLabel4MouseClicked
 
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        CombatMap combatMap = new CombatMap();
+        combatMap.setVisible(true);
+    }//GEN-LAST:event_jLabel8MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -175,6 +219,16 @@ public class Principal extends javax.swing.JFrame {
 
             jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/" + Context.getSession().getClass().getSimpleName().toLowerCase() + ".gif")));
             characterName.setText(Context.getSession().getName());
+            Context.getSession().setHp(30);
+            Context.getSession().setXp(30);
+            HPbar.setValue((int)Context.getSession().getHp());
+            HPbar.setMaximum((int)Context.getSession().getMaxHp());
+            HPbar.setForeground(Color.red);
+            labelHP.setText("HP: " + Context.getSession().getHp()+"/"+Context.getSession().getMaxHp());
+            XPbar.setValue((int) Context.getSession().getXp());
+            XPbar.setMaximum(100);
+            XPbar.setForeground(Color.BLUE);
+            labelXp.setText("XP: " + Context.getSession().getXp()+ "/100");
             menu.setVisible(true);
             landing.setVisible(false);
             
@@ -219,6 +273,9 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JProgressBar HPbar;
+    private javax.swing.JProgressBar HPbar1;
+    private javax.swing.JProgressBar XPbar;
     private javax.swing.JLabel advice;
     private javax.swing.JLabel characterName;
     private javax.swing.JButton jButton2;
@@ -230,6 +287,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel labelHP;
+    private javax.swing.JLabel labelXp;
     private javax.swing.JPanel landing;
     private javax.swing.JPanel menu;
     private javax.swing.JLabel money;
