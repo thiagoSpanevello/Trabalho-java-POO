@@ -169,7 +169,11 @@ public class Entity implements hasName {
     }
 
     public Damage attack() {
-        return new Damage(0.0, "physical");
+        return new Damage(5.0, "physical");
+    }
+    
+    public Damage attack(int i) {
+        return new Damage(5.0, "physical");
     }
 
     public int getSpeed() {

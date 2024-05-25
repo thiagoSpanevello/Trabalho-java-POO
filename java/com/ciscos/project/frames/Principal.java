@@ -240,8 +240,6 @@ public class Principal extends javax.swing.JFrame {
 
             jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/" + Context.getSession().getClass().getSimpleName().toLowerCase() + ".gif")));
             characterName.setText(Context.getSession().getName());
-            Context.getSession().setHp(30);
-            Context.getSession().setXp(30);
             HPbar.setValue((int) Context.getSession().getHp());
             HPbar.setMaximum((int) Context.getSession().getMaxHp());
             HPbar.setForeground(Color.red);

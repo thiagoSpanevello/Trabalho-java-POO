@@ -7,7 +7,10 @@ package com.ciscos.project.frames;
 import com.ciscos.project.Entity;
 import com.ciscos.project.items.Item;
 import com.ciscos.project.mage.Mage;
+import com.ciscos.project.mage.Spell;
 import com.ciscos.project.utils.Context;
+import com.ciscos.project.Character;
+import com.ciscos.project.utils.Damage;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -28,7 +31,9 @@ import javax.swing.Timer;
  */
 public class Combat extends javax.swing.JFrame {
 
-    Entity enemy;
+    private boolean onTurn = true;
+    private Entity enemy;
+    private int option = 0;
 
     /**
      * Creates new form Combat
@@ -106,6 +111,12 @@ public class Combat extends javax.swing.JFrame {
             manaBar.setValue((int) m.getMana());
             manaBar.setMaximum((int) m.getMaxMana());
             manaBar.setForeground(Color.blue);
+            
+            Spell[] spells = m.getSpells();
+            
+            jLabel5.setText(""+spells[0].getMana());
+            jLabel6.setText(""+spells[1].getMana());
+            jLabel4.setText(""+spells[2].getMana());
         }
 
         if (hasManaPotion()) {
@@ -117,7 +128,7 @@ public class Combat extends javax.swing.JFrame {
             heal.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             heal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/heal.png"))); // NOI18N
         }
-
+        checkTurn();
         JLabel[] buttons = {attack, spell2, spell3, run};
 
         for (int i = 0; i < buttons.length; i++) {
@@ -189,6 +200,12 @@ public class Combat extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        block6 = new javax.swing.JLabel();
+        block5 = new javax.swing.JLabel();
+        block4 = new javax.swing.JLabel();
+        block3 = new javax.swing.JLabel();
+        block2 = new javax.swing.JLabel();
+        block1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -222,6 +239,24 @@ public class Combat extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        block6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/blocked.png"))); // NOI18N
+        getContentPane().add(block6, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 260, -1, -1));
+
+        block5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/blocked.png"))); // NOI18N
+        getContentPane().add(block5, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 190, -1, -1));
+
+        block4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/blocked.png"))); // NOI18N
+        getContentPane().add(block4, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 140, -1, -1));
+
+        block3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/blocked.png"))); // NOI18N
+        getContentPane().add(block3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, -1, -1));
+
+        block2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/blocked.png"))); // NOI18N
+        getContentPane().add(block2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, -1, -1));
+
+        block1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/blocked.png"))); // NOI18N
+        getContentPane().add(block1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, -1, -1));
+
         jLabel6.setFont(new java.awt.Font("SF Pro Display", 0, 8)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("10");
@@ -243,13 +278,28 @@ public class Combat extends javax.swing.JFrame {
         heal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noHeal.png"))); // NOI18N
         getContentPane().add(heal, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 140, -1, -1));
 
-        spell2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noSpell2.png"))); // NOI18N
+        spell2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/spell2.png"))); // NOI18N
+        spell2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                spell2MouseClicked(evt);
+            }
+        });
         getContentPane().add(spell2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, -1, -1));
 
-        spell3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noSpell3.png"))); // NOI18N
+        spell3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/spell3.png"))); // NOI18N
+        spell3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                spell3MouseClicked(evt);
+            }
+        });
         getContentPane().add(spell3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, -1, -1));
 
-        attack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noSpell1.png"))); // NOI18N
+        attack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/spell1.png"))); // NOI18N
+        attack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                attackMouseClicked(evt);
+            }
+        });
         getContentPane().add(attack, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, -1, -1));
 
         run.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/run.png"))); // NOI18N
@@ -305,7 +355,7 @@ public class Combat extends javax.swing.JFrame {
                 ms
         );
     }
-    
+
 //    delayAction(() -> {
 //                JOptionPane.showMessageDialog(this, text);
 //                return 0;
@@ -320,13 +370,16 @@ public class Combat extends javax.swing.JFrame {
 
         JOptionPane.showMessageDialog(this, "tentano fugi");
 
+        
+        onTurn = false;
+        
         if (runTry < 7) {
             int xp = 5 - Context.getRunningCount();
             String message = Context.getSession().getName() + " fugiu com sucesso e ganhou " + xp + " de experiência!";
             if (Context.getRunningCount() > 0) {
                 message += " (perdeu " + Context.getRunningCount() + " de xp por suas fugas consecutivas)";
             }
-            
+
             final String text = message;
 
             JOptionPane.showMessageDialog(this, text);
@@ -339,7 +392,176 @@ public class Combat extends javax.swing.JFrame {
         }
 
         JOptionPane.showMessageDialog(this, Context.getSession().getName() + " não conseguiu fugir!");
+
+        Entity a = (Entity) Context.getSession();
+        Entity b = enemy;
+        
+        onTurn = true;
+        attack(b, a);
     }//GEN-LAST:event_runMouseClicked
+
+    private void checkTurn() {
+        if (onTurn) {
+            block1.setVisible(false);
+            block2.setVisible(false);
+            block3.setVisible(false);
+            block4.setVisible(false);
+            block5.setVisible(false);
+            block6.setVisible(false);
+        } else {
+            if (Context.getSession().getClass().getSimpleName().equals("Mage")) {
+                block1.setVisible(true);
+                block2.setVisible(true);
+            }
+
+            block3.setVisible(true);
+            block4.setVisible(true);
+            block5.setVisible(true);
+            block6.setVisible(true);
+        }
+    }
+    
+    private void checkMana(){
+        Mage m = (Mage) Context.getSession();
+        
+        double currentMana = m.getMana();
+        
+        manaBar.setValue((int) currentMana);
+        
+        Spell[] spells = m.getSpells();
+        
+        if(currentMana >= spells[0].getMana()){
+            attack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/spell1.png")));
+        } else {
+            attack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noSpell1.png")));
+        }
+        
+        if(currentMana >= spells[1].getMana()){
+           spell2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/spell2.png")));
+        } else {
+            spell2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noSpell2.png")));
+        }
+        
+        if(currentMana >= spells[2].getMana()){
+           spell3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/spell3.png")));
+        } else {
+            spell3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noSpell3.png")));
+        }
+    }
+
+    private void attack(Entity a, Entity b) {
+        Damage damage;
+
+        if (a.getClass().getSimpleName().equals("Entity")) {
+            damage = a.attack();
+        } else if (a.getClass().getSimpleName().equals("Berserker") || a.getClass().getSimpleName().equals("Archer")) {
+            damage = a.attack();
+        } else {
+            damage = a.attack(option);
+            checkMana();
+        }
+
+        double resist = 0;
+
+        if (b.equipment.getArmor() != null) {
+            if (damage.type.equals("magic")) {
+                resist += b.equipment.getArmor().magicResist;
+            } else {
+                resist += b.equipment.getArmor().defense;
+            }
+        }
+        if (b.equipment.getPants() != null) {
+            if (damage.type.equals("magic")) {
+                resist += b.equipment.getPants().magicResist;
+            } else {
+                resist += b.equipment.getPants().defense;
+            }
+        }
+        double resistedDamage = damage.damage * resist;
+        double damageDealt = damage.damage - resistedDamage;
+        double currentHp = b.getHp() - damageDealt;
+        if (currentHp < 0) {
+            b.setHp(0);
+        } else {
+            b.setHp(currentHp);
+        }
+
+        if (b.getClass().getSimpleName().equals("Entity")) {
+            jProgressBar2.setValue((int) b.getHp());
+        } else {
+            jProgressBar3.setValue((int) b.getHp());
+        }
+
+        checkTurn();
+
+        if (b.getHp() == 0) {
+            JOptionPane.showMessageDialog(this, b.getName() + "foi derrotado por " + a.getName() + "!");
+            this.dispose();
+        }
+    }
+
+    private void combat() {
+        onTurn = false;
+        Entity a = (Entity) Context.getSession();
+        Entity b = enemy;
+
+        if (a.getSpeed() > b.getSpeed()) {
+            attack(a, b);
+            delayAction(() -> {
+                onTurn = true;
+                attack(b, a);
+
+                return 0;
+            }, 2000
+            );
+        } else if (a.getSpeed() < b.getSpeed()) {
+            attack(b, a);
+            delayAction(() -> {
+                onTurn = true;
+                attack(a, b);
+
+                return 0;
+            }, 2000
+            );
+        } else {
+            Random random = new Random();
+            int op = random.nextInt(10);
+            if (op <= 5) {
+                attack(a, b);
+                delayAction(() -> {
+                    onTurn = true;
+                    attack(b, a);
+
+                    return 0;
+                }, 2000
+                );
+            } else {
+                attack(b, a);
+                delayAction(() -> {
+                    onTurn = true;
+                    attack(a, b);
+
+                    return 0;
+                }, 2000
+                );
+            }
+        }
+    }
+
+    private void attackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_attackMouseClicked
+        option = 0;
+        combat();
+    }//GEN-LAST:event_attackMouseClicked
+
+    private void spell2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_spell2MouseClicked
+        option = 1;
+        combat();        // TODO add your handling code here:
+    }//GEN-LAST:event_spell2MouseClicked
+
+    private void spell3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_spell3MouseClicked
+        option = 2;
+        combat();        // TODO add your handling code here:
+    }//GEN-LAST:event_spell3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -378,6 +600,12 @@ public class Combat extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel attack;
+    private javax.swing.JLabel block1;
+    private javax.swing.JLabel block2;
+    private javax.swing.JLabel block3;
+    private javax.swing.JLabel block4;
+    private javax.swing.JLabel block5;
+    private javax.swing.JLabel block6;
     private javax.swing.JLabel charIcon;
     private javax.swing.JLabel charName;
     private javax.swing.JLabel enemyIcon;

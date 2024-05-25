@@ -200,20 +200,6 @@ public class Seller extends javax.swing.JFrame {
 
         sellerCoins.setText("  " + this.seller.getCoins());
 
-        if (Context.getSession().getInventory()[0] == null) {
-            Context.getSession().putOnInventory(new Item(new Arrow(12, 0.02), 12, true, 20, 64));
-            Context.getSession().putOnInventory(new Item(new Arrow(12, 0.02), 12, true, 20, 64));
-            Context.getSession().putOnInventory(new Item(new Arrow(12, 0.02), 12, true, 20, 64));
-            Context.getSession().putOnInventory(new Item(new Arrow(12, 0.02), 12, true, 20, 64));
-            Context.getSession().putOnInventory(new Item(new Arrow(12, 0.02), 12, true, 20, 64));
-            Context.getSession().putOnInventory(new Item(new Armor("armadura das escamas do dragão do fim", 12, 10), 20, true, 1));
-            Context.getSession().putOnInventory(new Item(new Pants("Calça", 12, 10), 20, true, 1));
-            Context.getSession().putOnInventory(new Item(new Ring("Anel", "Inteligencia", 12), 20, true, 1));
-            Context.getSession().putOnInventory(new Item(new Necklace("Colar", "Inteligencia", 12), 20, true, 1));
-            Context.getSession().putOnInventory(new Item(new Weapon("Espada", "espada", 12, 12), 20, true, 1));
-            Context.getSession().setCoins(400);
-        }
-
         userCoins.setText("  " + Context.getSession().getCoins());
 
         Utils.print(Context.getSession().getInventory());

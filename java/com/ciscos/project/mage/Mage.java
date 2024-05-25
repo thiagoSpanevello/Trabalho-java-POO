@@ -16,6 +16,9 @@ public class Mage extends Character {
         this.mana = maxMana;
         this.maxMana = maxMana;
         this.intelligence = intelligence;
+        spells[0] = new Spell(10, 5, "Fogo", 0.02);
+        spells[1] = new Spell(10, 5, "Água", 0.02);
+        spells[2] = new Spell(10, 5, "Raio", 0.02);
     }
 
     public int getMaxMana() {
@@ -88,7 +91,8 @@ public class Mage extends Character {
         super.restore();
         this.mana = this.maxMana;
     }
-
+    
+    @Override
     public Damage attack() {
         Scanner scan = new Scanner(System.in);
         int op;
@@ -103,6 +107,52 @@ public class Mage extends Character {
         } while (op < 1 || op > 3 || this.getSpells()[op - 1] == null);
 
         int spell = op - 1;
+
+        double multiplier = 0;
+        String weapon = "";
+        if (this.equipment.getWeapon() != null) {
+            multiplier += this.equipment.getWeapon().getMultiplier();
+            weapon = " com seu " + this.equipment.getWeapon().getType() + " '" + this.equipment.getWeapon().getName() + "'";
+        }
+        if (this.equipment.getNecklace() != null && this.equipment.getNecklace().getAtributeMultiplier().equals("intelligence")) {
+            multiplier += this.equipment.getNecklace().getMultiplier();
+            System.out.println("O Item: " + this.equipment.getNecklace().getName() + " está buffando o atributo " + this.equipment.getNecklace().getAtributeMultiplier());
+        }
+
+        if (this.equipment.getRing() != null && this.equipment.getRing().getAtributeMultiplier().equals("intelligence")) {
+            multiplier += this.equipment.getRing().getMultiplier();
+            System.out.println("O Item: " + this.equipment.getRing().getName() + " está buffando o atributo " + this.equipment.getRing().getAtributeMultiplier());
+        }
+
+        multiplier += spells[spell].getMultiplier() * intelligence;
+
+        String name = this.getName();
+        
+        if (this.getMana() - spells[spell].getMana() >= 0) {
+
+            setMana(this.getMana() - spells[spell].getMana());
+            System.out.println("Mago " + name + " está conjurando...");
+
+            String spellName = spells[spell].getName();
+            double damage = spells[spell].getDamage() * (1 + multiplier);
+
+            System.out.println(name + " usou " + spellName + weapon + " causando " + damage + " de dano.");
+
+            return new Damage(damage, "magic");
+        }
+        
+        else if(this.equipment.getWeapon() != null){
+            System.out.println(name + " bateu "  + weapon + " causando " + this.equipment.getWeapon().getDamage() + " de dano.");
+            return new Damage(this.equipment.getWeapon().getDamage(), "physical");
+        }
+        
+        System.out.println(name + " quer bater com o seu tico...");
+        return new Damage(0, "magic");
+    }
+    
+    @Override
+    public Damage attack(int op) {
+        int spell = op;
 
         double multiplier = 0;
         String weapon = "";
