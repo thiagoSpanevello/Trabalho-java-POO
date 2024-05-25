@@ -495,7 +495,7 @@ public class Combat extends javax.swing.JFrame {
         checkTurn();
 
         if (b.getHp() == 0) {
-            JOptionPane.showMessageDialog(this, b.getName() + "foi derrotado por " + a.getName() + "!");
+            JOptionPane.showMessageDialog(this, b.getName() + " foi derrotado por " + a.getName() + "!");
             this.dispose();
         }
     }
