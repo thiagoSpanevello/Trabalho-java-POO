@@ -71,6 +71,10 @@ public class Combat extends javax.swing.JFrame {
             spell2.setVisible(false);
             spell3.setVisible(false);
             manaBar.setVisible(false);
+            
+            jLabel4.setVisible(false);
+            jLabel5.setVisible(false);
+            jLabel6.setVisible(false);
         }
         
         if(Context.getSession().getClass().getSimpleName().equals("Berserker")) {
@@ -107,7 +111,7 @@ public class Combat extends javax.swing.JFrame {
         }
         
         String[] undeads = {" esqueleto", " morto-vivo", " ancestral", " milenar", " soberano"};
-        String[] mythicals = {" puro-sange", " ancestral", " divino", " primordial", " soberano"};
+        String[] mythicals = {" pidão", " puro-sange", " ancestral", " divino", " primordial", " soberano"};
 
         String[] variant = {" sanguinário", " amaldiçoado", " selado"};
 
@@ -279,10 +283,14 @@ public class Combat extends javax.swing.JFrame {
         int runTry = random.nextInt(10);
         
         if(runTry < 7) {
-            int xp = 5;
-            JOptionPane.showMessageDialog(this, Context.getSession().getName() + " fugiu com sucesso e ganhou " + xp + " de experiência!");
+            int xp = 5 - Context.getRunningCount();
+            String message = Context.getSession().getName() + " fugiu com sucesso e ganhou " + xp + " de experiência!";
+            if(Context.getRunningCount() > 0) message+= " (perdeu " + Context.getRunningCount() + " de xp por suas fugas consecutivas)";
+            JOptionPane.showMessageDialog(this, message);
             Context.getSession().addXp(xp);
             Context.getMainWindow().sync();
+            
+            Context.increaseRunningCount();
             this.dispose();
             return;
         } 

@@ -17,6 +17,8 @@ public class Context {
     private static CombatMap map = null;
     private static Combat combat = null;
     
+    private static int runningCount = 0;
+    
     private static boolean closedCombat = false;
     
     private static boolean hasEverShopped = false;
@@ -86,5 +88,19 @@ public class Context {
     public static void setCombat(Combat combat) {
         Context.combat = combat;
     }
+
+    public static int getRunningCount() {
+        return runningCount;
+    }
+
+    public static void resetRunningCount() {
+        Context.runningCount = 0;
+    }
+    
+    public static void increaseRunningCount() {
+        if(Context.runningCount == 5) return;
+        Context.runningCount++;
+    }
+    
 }
 
