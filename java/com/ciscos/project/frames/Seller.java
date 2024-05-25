@@ -17,8 +17,6 @@ import com.ciscos.project.items.List;
 import com.ciscos.project.utils.Utils;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Random;
 import javax.swing.JOptionPane;
 
@@ -28,12 +26,10 @@ import javax.swing.JOptionPane;
  */
 public class Seller extends javax.swing.JFrame {
 
-    private Entity seller;
+    private final Entity seller;
     private Item[] userInventory;
 
     private void mountSellerList(Item[] inv) {
-        int size = 0;
-
         String[] items = new String[inv.length];
         for (int i = 0; i < inv.length; i++) {
             String text;
@@ -168,7 +164,7 @@ public class Seller extends javax.swing.JFrame {
         Context.setSeller(this);
 
         Random random = new Random();
-        seller = new Entity(35, random.nextInt(3000 - 1000 + 1000) + 1000);
+        seller = new Entity(35, random.nextInt(3000) + 1000);
 
         Item[] armors = List.armors;
         for (int i = 0; i < armors.length; i++) {

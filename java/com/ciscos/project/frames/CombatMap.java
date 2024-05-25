@@ -5,7 +5,9 @@
 package com.ciscos.project.frames;
 
 import java.awt.Dimension;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.util.Random;
 
 /**
  *
@@ -37,17 +39,29 @@ public class CombatMap extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        javax.swing.JLabel flag = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cisco's Medieval RPG: Map");
         setPreferredSize(new java.awt.Dimension(620, 346));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        flag.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/flag.png"))); // NOI18N
+        int[][] positions = {{30, 230}, {60, 260}, {90, 290}, {100, 170}, {50, 110}, {50, 50}, {180, 90}, {224, 126}, {230, 70}, {300, 170}, {280, 200}, {250, 280}, {350, 250}, {520, 190}, {460, 180}, {430, 280}, {390, 180}, {500, 10}, {310, 30}};
+
+        Random random = new Random();
+
+        int i = random.nextInt(positions.length);
+        getContentPane().add(flag, new org.netbeans.lib.awtextra.AbsoluteConstraints(positions[i][0], positions[i][1], -1, -1));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatMap.png"))); // NOI18N
         jLabel1.setText("jLabel1");
+        jLabel1.setMaximumSize(new java.awt.Dimension(620, 346));
+        jLabel1.setMinimumSize(new java.awt.Dimension(620, 346));
         jLabel1.setPreferredSize(new java.awt.Dimension(620, 346));
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 340));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 346));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
