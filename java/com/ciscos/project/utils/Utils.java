@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Utils {
-    public static < T> T getClassKeyName(Object obj, HashMap<String, T> map) {
+    public static <T> T getClassKeyName(Object obj, HashMap<String, T> map) {
         try {
             String className = obj.getClass().getSimpleName();
             return map.get(className);

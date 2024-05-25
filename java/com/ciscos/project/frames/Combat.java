@@ -12,9 +12,16 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.Random;
+import java.util.concurrent.Callable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
+
 /**
  *
  * @author Thiago
@@ -26,29 +33,36 @@ public class Combat extends javax.swing.JFrame {
     /**
      * Creates new form Combat
      */
-    
-    private boolean hasHealPotion(){
+    private boolean hasHealPotion() {
         Item[] inv = Context.getSession().getInventory();
-        
-        for(int i =0; i < inv.length; i++){
-            if(inv[i] == null) continue;
-            if(inv[i].data.getName().equals("poção de vida")) return true;
+
+        for (int i = 0; i < inv.length; i++) {
+            if (inv[i] == null) {
+                continue;
+            }
+            if (inv[i].data.getName().equals("poção de vida")) {
+                return true;
+            }
         }
-        
+
         return false;
     }
-    
-    private boolean hasManaPotion(){
+
+    private boolean hasManaPotion() {
         Item[] inv = Context.getSession().getInventory();
-        
-        for(int i =0; i < inv.length; i++){
-            if(inv[i] == null) continue;
-            if(inv[i].data.getName().equals("poção de mana")) return true;
+
+        for (int i = 0; i < inv.length; i++) {
+            if (inv[i] == null) {
+                continue;
+            }
+            if (inv[i].data.getName().equals("poção de mana")) {
+                return true;
+            }
         }
-        
+
         return false;
     }
-    
+
     public Combat() {
         initComponents();
         charIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/" + Context.getSession().getClass().getSimpleName().toLowerCase() + ".gif")));
@@ -67,25 +81,25 @@ public class Combat extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatBackgrounds/" + random + ".jpeg")));
 
-        if(Context.getSession().getClass().getSimpleName().equals("Berserker") || Context.getSession().getClass().getSimpleName().equals("Archer")) {
+        if (Context.getSession().getClass().getSimpleName().equals("Berserker") || Context.getSession().getClass().getSimpleName().equals("Archer")) {
             spell2.setVisible(false);
             spell3.setVisible(false);
             manaBar.setVisible(false);
-            
+
             jLabel4.setVisible(false);
             jLabel5.setVisible(false);
             jLabel6.setVisible(false);
         }
-        
-        if(Context.getSession().getClass().getSimpleName().equals("Berserker")) {
+
+        if (Context.getSession().getClass().getSimpleName().equals("Berserker")) {
             attack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/berserkerAttack.png"))); // NOI18N
         }
-        
-        if(Context.getSession().getClass().getSimpleName().equals("Archer")) {
+
+        if (Context.getSession().getClass().getSimpleName().equals("Archer")) {
             attack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/archerAttack.png"))); // NOI18N
         }
-        
-        if(Context.getSession().getClass().getSimpleName().equals("Mage")) {
+
+        if (Context.getSession().getClass().getSimpleName().equals("Mage")) {
             Mage m = (Mage) Context.getSession();
             System.out.println(m.getMaxMana() + " " + m.getMaxMana());
             m.setMana(m.getMaxMana());
@@ -93,23 +107,23 @@ public class Combat extends javax.swing.JFrame {
             manaBar.setMaximum((int) m.getMaxMana());
             manaBar.setForeground(Color.blue);
         }
-        
-        if(hasManaPotion()) {
+
+        if (hasManaPotion()) {
             mana.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             mana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/mana.png"))); // NOI18N
         }
-        
-        if(hasHealPotion()) {
+
+        if (hasHealPotion()) {
             heal.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             heal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/heal.png"))); // NOI18N
         }
-        
+
         JLabel[] buttons = {attack, spell2, spell3, run};
-        
-        for(int i =0; i < buttons.length; i++){
+
+        for (int i = 0; i < buttons.length; i++) {
             buttons[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         }
-        
+
         String[] undeads = {" esqueleto", " morto-vivo", " ancestral", " milenar", " soberano"};
         String[] mythicals = {" pidão", " puro-sange", " ancestral", " divino", " primordial", " soberano"};
 
@@ -156,7 +170,7 @@ public class Combat extends javax.swing.JFrame {
 
         enemyName.setText(enemy.getName());
         charName.setText(Context.getSession().getName());
-        
+
         jProgressBar3.setValue((int) Context.getSession().getHp());
         jProgressBar3.setMaximum((int) Context.getSession().getMaxHp());
         jProgressBar3.setForeground(Color.red);
@@ -276,25 +290,55 @@ public class Combat extends javax.swing.JFrame {
         Context.setCombat(null);
     }//GEN-LAST:event_formWindowClosed
 
+    private void delayAction(Callable<Integer> func, int ms) {
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    func.call();
+                } catch (Exception ex) {
+                    Logger.getLogger(Combat.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        },
+                ms
+        );
+    }
+    
+//    delayAction(() -> {
+//                JOptionPane.showMessageDialog(this, text);
+//                return 0;
+//            }, 10000
+//            );
+
     private void runMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_runMouseClicked
         // TODO add your handling code here:
         Random random = new Random();
-        
+
         int runTry = random.nextInt(10);
-        
-        if(runTry < 7) {
+
+        JOptionPane.showMessageDialog(this, "tentano fugi");
+
+        if (runTry < 7) {
             int xp = 5 - Context.getRunningCount();
             String message = Context.getSession().getName() + " fugiu com sucesso e ganhou " + xp + " de experiência!";
-            if(Context.getRunningCount() > 0) message+= " (perdeu " + Context.getRunningCount() + " de xp por suas fugas consecutivas)";
-            JOptionPane.showMessageDialog(this, message);
+            if (Context.getRunningCount() > 0) {
+                message += " (perdeu " + Context.getRunningCount() + " de xp por suas fugas consecutivas)";
+            }
+            
+            final String text = message;
+
+            JOptionPane.showMessageDialog(this, text);
             Context.getSession().addXp(xp);
             Context.getMainWindow().sync();
-            
+
             Context.increaseRunningCount();
             this.dispose();
             return;
-        } 
-        JOptionPane.showMessageDialog(this, Context.getSession().getName() + " não conseguiu fugir!");   
+        }
+
+        JOptionPane.showMessageDialog(this, Context.getSession().getName() + " não conseguiu fugir!");
     }//GEN-LAST:event_runMouseClicked
 
     /**
