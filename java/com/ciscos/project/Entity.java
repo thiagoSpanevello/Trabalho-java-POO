@@ -205,7 +205,7 @@ public class Entity implements hasName {
         double newSpeed = this.speed * 1.1;
         this.speed = (int) Math.ceil(newSpeed);
     }
-    
+        
     public boolean checkXp() {
         if (xp >= maxXp) {
             increaseLevel();
@@ -213,5 +213,10 @@ public class Entity implements hasName {
             return true;
         }
         return false;
+    }
+    
+    public void addXp(double xp) {
+        setXp(this.xp + xp);
+        checkXp();
     }
 }

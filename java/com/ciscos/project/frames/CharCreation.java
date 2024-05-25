@@ -47,8 +47,8 @@ public class CharCreation extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        characterGif = new javax.swing.JLabel();
         characterName = new javax.swing.JLabel();
+        characterGif = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -193,15 +193,15 @@ nameInput.addCaretListener(new javax.swing.event.CaretListener() {
     jPanel1.setBackground(new java.awt.Color(111, 111, 95));
     jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-    characterGif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/archer.gif"))); // NOI18N
-    jPanel1.add(characterGif, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
-
     characterName.setBackground(new java.awt.Color(0, 0, 0));
     characterName.setForeground(new java.awt.Color(255, 255, 255));
     characterName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     characterName.setMaximumSize(new java.awt.Dimension(0, 80));
     characterName.setName(""); // NOI18N
-    jPanel1.add(characterName, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 80, -1));
+    jPanel1.add(characterName, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 140, -1));
+
+    characterGif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/archer.gif"))); // NOI18N
+    jPanel1.add(characterGif, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
     getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 140, 140));
 

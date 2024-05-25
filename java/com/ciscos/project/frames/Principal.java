@@ -37,7 +37,7 @@ public class Principal extends javax.swing.JFrame {
             XPbar.setValue((int) Context.getSession().getXp());
             XPbar.setMaximum(100);
             XPbar.setForeground(Color.BLUE);
-            labelXp.setText("XP: " + Context.getSession().getXp() + "/100");
+            labelXp.setText("Nível: " + Context.getSession().getLevel() + "   XP: " + Context.getSession().getXp() + "/100");
             money.setText("  " + Context.getSession().getCoins());
     }
     
@@ -108,7 +108,7 @@ public class Principal extends javax.swing.JFrame {
         characterName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         characterName.setMaximumSize(new java.awt.Dimension(0, 80));
         characterName.setName(""); // NOI18N
-        menu.add(characterName, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, 80, -1));
+        menu.add(characterName, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 410, 140, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/archer.gif"))); // NOI18N
         menu.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 120, 120));
@@ -249,7 +249,7 @@ public class Principal extends javax.swing.JFrame {
             XPbar.setValue((int) Context.getSession().getXp());
             XPbar.setMaximum(100);
             XPbar.setForeground(Color.BLUE);
-            labelXp.setText("XP: " + Context.getSession().getXp() + "/100");
+            labelXp.setText("Nível: " + Context.getSession().getLevel() + "   XP: " + Context.getSession().getXp() + "/100");
             menu.setVisible(true);
             landing.setVisible(false);
 
