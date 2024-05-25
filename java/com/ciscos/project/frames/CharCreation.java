@@ -18,7 +18,6 @@ public class CharCreation extends javax.swing.JFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         cbClass.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));        
         jButton1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        hpInput.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         int w = this.getSize().width;
         int h = this.getSize().height;
         int x = (dim.width-w)/2 + 50;
@@ -149,7 +148,6 @@ public class CharCreation extends javax.swing.JFrame {
         jPanel1.add(characterGif, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
         characterName.setBackground(new java.awt.Color(0, 0, 0));
-        characterName.setFont(new java.awt.Font("Minecraftia", 0, 13)); // NOI18N
         characterName.setForeground(new java.awt.Color(255, 255, 255));
         characterName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         characterName.setMaximumSize(new java.awt.Dimension(0, 80));
