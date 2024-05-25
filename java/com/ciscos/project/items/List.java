@@ -61,8 +61,8 @@ public class List {
     }
 
     public static final Item[] potions = {
-        new Item(new Potion("poção de vida", "hp", 0), 0, true, 1),
-        new Item(new Potion("poção de mana", "mana", 0), 0, true, 1)
+        new Item(new Potion("poção de vida", "hp", 0.2), 0, true, 1, 30),
+        new Item(new Potion("poção de mana", "mana", 0.2), 0, true, 1, 30)
     };
 
     public static final HashMap<String, Item[]> getWeapons() {

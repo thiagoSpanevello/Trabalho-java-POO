@@ -4,8 +4,10 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import com.ciscos.project.utils.Context;
 import com.ciscos.project.Character;
+import com.ciscos.project.mage.Mage;
 import java.awt.Color;
 import java.awt.Cursor;
+import javax.swing.JOptionPane;
 
 public class Principal extends javax.swing.JFrame {
 
@@ -13,38 +15,42 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         Context.setMainWindow(this);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-
         jButton2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         jButton3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         jLabel4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         jLabel8.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         jLabel7.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        jLabel10.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         int w = this.getSize().width;
         int h = this.getSize().height;
         int x = (dim.width - w) / 2;
         int y = (dim.height - h) / 2;
 
         this.setLocation(x, y);
+        advice1.setVisible(false);
         advice.setVisible(!Context.hasEverShopped());
         menu.setVisible(false);
     }
 
     public void sync(){
-            HPbar.setValue((int) Context.getSession().getHp());
-            HPbar.setMaximum((int) Context.getSession().getMaxHp());
-            HPbar.setForeground(Color.red);
-            labelHP.setText("HP: " + Context.getSession().getHp() + "/" + Context.getSession().getMaxHp());
+            HPbarP.setValue((int) Context.getSession().getHp());
+            HPbarP.setMaximum((int) Context.getSession().getMaxHp());
+            
             XPbar.setValue((int) Context.getSession().getXp());
             XPbar.setMaximum(100);
-            XPbar.setForeground(Color.BLUE);
+            
             labelXp.setText("Nível: " + Context.getSession().getLevel() + "   XP: " + Context.getSession().getXp() + "/100");
             money.setText("  " + Context.getSession().getCoins());
+            advice1.setVisible(!Context.isHasEverHealed() && Context.getSession().getHp() < Context.getSession().getMaxXp());
+            labelHPP.setText("HP: " + Context.getSession().getHp() + "/" + Context.getSession().getMaxHp());
     }
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         menu = new javax.swing.JPanel();
+        advice1 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         money = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         advice = new javax.swing.JLabel();
@@ -53,8 +59,8 @@ public class Principal extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         characterName = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        labelHP = new javax.swing.JLabel();
-        HPbar = new javax.swing.JProgressBar();
+        labelHPP = new javax.swing.JLabel();
+        HPbarP = new javax.swing.JProgressBar();
         labelXp = new javax.swing.JLabel();
         XPbar = new javax.swing.JProgressBar();
         jLabel9 = new javax.swing.JLabel();
@@ -75,6 +81,17 @@ public class Principal extends javax.swing.JFrame {
 
         menu.setBackground(new java.awt.Color(255, 102, 102));
         menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        advice1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/advice.png"))); // NOI18N
+        menu.add(advice1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 330, 10, -1));
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/camp.gif"))); // NOI18N
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
+        menu.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(268, 340, -1, -1));
 
         money.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         money.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/coin.png"))); // NOI18N
@@ -113,24 +130,24 @@ public class Principal extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/archer.gif"))); // NOI18N
         menu.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 120, 120));
 
-        labelHP.setForeground(new java.awt.Color(255, 255, 255));
-        labelHP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelHP.setPreferredSize(new java.awt.Dimension(146, 16));
-        menu.add(labelHP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 230, 20));
+        labelHPP.setForeground(new java.awt.Color(255, 255, 255));
+        labelHPP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelHPP.setPreferredSize(new java.awt.Dimension(146, 16));
+        menu.add(labelHPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 230, 20));
 
-        HPbar.setBackground(new java.awt.Color(102, 102, 102));
-        HPbar.setPreferredSize(new java.awt.Dimension(146, 16));
-        menu.add(HPbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 230, 20));
+        HPbarP.setBackground(new java.awt.Color(102, 102, 102));
+        HPbarP.setPreferredSize(new java.awt.Dimension(146, 16));
+        menu.add(HPbarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 230, 20));
 
         labelXp.setForeground(new java.awt.Color(255, 255, 255));
         labelXp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        menu.add(labelXp, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 230, 20));
+        menu.add(labelXp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 230, 20));
 
         XPbar.setBackground(new java.awt.Color(102, 102, 102));
-        menu.add(XPbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 230, 20));
+        menu.add(XPbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 230, 20));
 
-        jLabel9.setText("jLabel9");
-        menu.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/gui.png"))); // NOI18N
+        menu.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/mapIcon.png"))); // NOI18N
         jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -232,27 +249,42 @@ public class Principal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jLabel8MouseClicked
 
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        // TODO add your handling code here:
+        if(!Context.isHasEverHealed() && Context.getSession().getHp() < Context.getSession().getMaxXp()) {
+            Context.setHasEverHealed(true);
+        }
+        
+        if(Context.getSession().getClass().getSimpleName().equals("Mage")){
+            Mage m = (Mage) Context.getSession();
+            m.setMana(m.getMaxMana());
+        }
+        
+        Context.getSession().setHp(Context.getSession().getMaxHp());
+        this.sync();
+        advice1.setVisible(false);
+        JOptionPane.showMessageDialog(this,  Context.getSession().getName() + " descansou e está em seu perfeito estado!");
+    }//GEN-LAST:event_jLabel10MouseClicked
+
     /**
      * @param args the command line arguments
      */
     public void isThereASession() {
-        if (Context.getSession() != null) {
-
+         if (Context.getSession() != null) {
             jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/" + Context.getSession().getClass().getSimpleName().toLowerCase() + ".gif")));
             characterName.setText(Context.getSession().getName());
-            HPbar.setValue((int) Context.getSession().getHp());
-            HPbar.setMaximum((int) Context.getSession().getMaxHp());
-            HPbar.setForeground(Color.red);
-            labelHP.setText("HP: " + Context.getSession().getHp() + "/" + Context.getSession().getMaxHp());
+            labelHPP.setText("HP: " + Context.getSession().getHp() + "/" + Context.getSession().getMaxHp());
+            HPbarP.setValue((int) Context.getSession().getHp());
+            HPbarP.setMaximum((int) Context.getSession().getMaxHp());
+            HPbarP.setForeground(Color.red);           
             XPbar.setValue((int) Context.getSession().getXp());
             XPbar.setMaximum(100);
             XPbar.setForeground(Color.BLUE);
             labelXp.setText("Nível: " + Context.getSession().getLevel() + "   XP: " + Context.getSession().getXp() + "/100");
             menu.setVisible(true);
             landing.setVisible(false);
-
+            advice1.setVisible(!Context.isHasEverHealed() && Context.getSession().getHp() < Context.getSession().getMaxXp());
             money.setText("  " + Context.getSession().getCoins());
-
         } else {
             menu.setVisible(true);
             landing.setVisible(false);
@@ -292,13 +324,15 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JProgressBar HPbar;
+    private javax.swing.JProgressBar HPbarP;
     private javax.swing.JProgressBar XPbar;
     private javax.swing.JLabel advice;
+    private javax.swing.JLabel advice1;
     private javax.swing.JLabel characterName;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -307,7 +341,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel labelHP;
+    private javax.swing.JLabel labelHPP;
     private javax.swing.JLabel labelXp;
     private javax.swing.JPanel landing;
     private javax.swing.JPanel menu;

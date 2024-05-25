@@ -18,8 +18,8 @@ public class Context {
     private static Combat combat = null;
     
     private static int runningCount = 0;
-    
-    private static boolean closedCombat = false;
+        
+    private static boolean hasEverHealed = false;
     
     private static boolean hasEverShopped = false;
     
@@ -101,6 +101,13 @@ public class Context {
         if(Context.runningCount == 5) return;
         Context.runningCount++;
     }
-    
+
+    public static boolean isHasEverHealed() {
+        return hasEverHealed;
+    }
+
+    public static void setHasEverHealed(boolean hasEverHealed) {
+        Context.hasEverHealed = hasEverHealed;
+    }
 }
 

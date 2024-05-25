@@ -10,6 +10,7 @@ import com.ciscos.project.mage.Mage;
 import com.ciscos.project.mage.Spell;
 import com.ciscos.project.utils.Context;
 import com.ciscos.project.Character;
+import com.ciscos.project.items.Potion;
 import com.ciscos.project.utils.Damage;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -34,11 +35,13 @@ public class Combat extends javax.swing.JFrame {
     private boolean onTurn = true;
     private Entity enemy;
     private int option = 0;
-
+    
+    final int defaultDelay = 1500;
+    
     /**
      * Creates new form Combat
      */
-    private boolean hasHealPotion() {
+    private void hasHealPotion() {
         Item[] inv = Context.getSession().getInventory();
 
         for (int i = 0; i < inv.length; i++) {
@@ -46,14 +49,17 @@ public class Combat extends javax.swing.JFrame {
                 continue;
             }
             if (inv[i].data.getName().equals("poção de vida")) {
-                return true;
+                heal.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                heal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/heal.png")));
+                return;
             }
         }
 
-        return false;
+        heal.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        heal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noHeal.png")));
     }
 
-    private boolean hasManaPotion() {
+    private void hasManaPotion() {
         Item[] inv = Context.getSession().getInventory();
 
         for (int i = 0; i < inv.length; i++) {
@@ -61,11 +67,14 @@ public class Combat extends javax.swing.JFrame {
                 continue;
             }
             if (inv[i].data.getName().equals("poção de mana")) {
-                return true;
+                mana.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                mana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/mana.png")));
+                return;
             }
         }
 
-        return false;
+        mana.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        mana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noMana.png")));
     }
 
     public Combat() {
@@ -107,27 +116,19 @@ public class Combat extends javax.swing.JFrame {
         if (Context.getSession().getClass().getSimpleName().equals("Mage")) {
             Mage m = (Mage) Context.getSession();
             System.out.println(m.getMaxMana() + " " + m.getMaxMana());
-            m.setMana(m.getMaxMana());
             manaBar.setValue((int) m.getMana());
             manaBar.setMaximum((int) m.getMaxMana());
             manaBar.setForeground(Color.blue);
-            
+
             Spell[] spells = m.getSpells();
-            
-            jLabel5.setText(""+spells[0].getMana());
-            jLabel6.setText(""+spells[1].getMana());
-            jLabel4.setText(""+spells[2].getMana());
+
+            jLabel5.setText("" + spells[0].getMana());
+            jLabel6.setText("" + spells[1].getMana());
+            jLabel4.setText("" + spells[2].getMana());
         }
 
-        if (hasManaPotion()) {
-            mana.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            mana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/mana.png"))); // NOI18N
-        }
-
-        if (hasHealPotion()) {
-            heal.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            heal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/heal.png"))); // NOI18N
-        }
+        hasHealPotion();
+        hasManaPotion();
         checkTurn();
         JLabel[] buttons = {attack, spell2, spell3, run};
 
@@ -273,9 +274,19 @@ public class Combat extends javax.swing.JFrame {
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(517, 93, -1, -1));
 
         mana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noMana.png"))); // NOI18N
+        mana.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                manaMouseClicked(evt);
+            }
+        });
         getContentPane().add(mana, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 190, -1, -1));
 
         heal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noHeal.png"))); // NOI18N
+        heal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                healMouseClicked(evt);
+            }
+        });
         getContentPane().add(heal, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 140, -1, -1));
 
         spell2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/spell2.png"))); // NOI18N
@@ -338,6 +349,7 @@ public class Combat extends javax.swing.JFrame {
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
         Context.setCombat(null);
+        Context.getMainWindow().sync();
     }//GEN-LAST:event_formWindowClosed
 
     private void delayAction(Callable<Integer> func, int ms) {
@@ -370,9 +382,8 @@ public class Combat extends javax.swing.JFrame {
 
         JOptionPane.showMessageDialog(this, "tentano fugi");
 
-        
         onTurn = false;
-        
+        checkTurn();
         if (runTry < 7) {
             int xp = 5 - Context.getRunningCount();
             String message = Context.getSession().getName() + " fugiu com sucesso e ganhou " + xp + " de experiência!";
@@ -384,7 +395,6 @@ public class Combat extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this, text);
             Context.getSession().addXp(xp);
-            Context.getMainWindow().sync();
 
             Context.increaseRunningCount();
             this.dispose();
@@ -395,7 +405,7 @@ public class Combat extends javax.swing.JFrame {
 
         Entity a = (Entity) Context.getSession();
         Entity b = enemy;
-        
+
         onTurn = true;
         attack(b, a);
     }//GEN-LAST:event_runMouseClicked
@@ -420,30 +430,30 @@ public class Combat extends javax.swing.JFrame {
             block6.setVisible(true);
         }
     }
-    
-    private void checkMana(){
+
+    private void checkMana() {
         Mage m = (Mage) Context.getSession();
-        
+
         double currentMana = m.getMana();
-        
+
         manaBar.setValue((int) currentMana);
-        
+
         Spell[] spells = m.getSpells();
-        
-        if(currentMana >= spells[0].getMana()){
+
+        if (currentMana >= spells[0].getMana()) {
             attack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/spell1.png")));
         } else {
             attack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noSpell1.png")));
         }
-        
-        if(currentMana >= spells[1].getMana()){
-           spell2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/spell2.png")));
+
+        if (currentMana >= spells[1].getMana()) {
+            spell2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/spell2.png")));
         } else {
             spell2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noSpell2.png")));
         }
-        
-        if(currentMana >= spells[2].getMana()){
-           spell3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/spell3.png")));
+
+        if (currentMana >= spells[2].getMana()) {
+            spell3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/spell3.png")));
         } else {
             spell3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noSpell3.png")));
         }
@@ -490,12 +500,16 @@ public class Combat extends javax.swing.JFrame {
             jProgressBar2.setValue((int) b.getHp());
         } else {
             jProgressBar3.setValue((int) b.getHp());
+            Context.getSession().setHp(b.getHp());
+            Context.getMainWindow().sync();
         }
 
         checkTurn();
 
         if (b.getHp() == 0) {
             JOptionPane.showMessageDialog(this, b.getName() + " foi derrotado por " + a.getName() + "!");
+            Context.resetRunningCount();
+                        
             this.dispose();
         }
     }
@@ -512,7 +526,7 @@ public class Combat extends javax.swing.JFrame {
                 attack(b, a);
 
                 return 0;
-            }, 2000
+            }, defaultDelay
             );
         } else if (a.getSpeed() < b.getSpeed()) {
             attack(b, a);
@@ -521,7 +535,7 @@ public class Combat extends javax.swing.JFrame {
                 attack(a, b);
 
                 return 0;
-            }, 2000
+            }, defaultDelay
             );
         } else {
             Random random = new Random();
@@ -533,7 +547,7 @@ public class Combat extends javax.swing.JFrame {
                     attack(b, a);
 
                     return 0;
-                }, 2000
+                }, defaultDelay
                 );
             } else {
                 attack(b, a);
@@ -542,7 +556,7 @@ public class Combat extends javax.swing.JFrame {
                     attack(a, b);
 
                     return 0;
-                }, 2000
+                }, defaultDelay
                 );
             }
         }
@@ -562,6 +576,117 @@ public class Combat extends javax.swing.JFrame {
         option = 2;
         combat();        // TODO add your handling code here:
     }//GEN-LAST:event_spell3MouseClicked
+
+    private void healMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_healMouseClicked
+
+        Item[] inv = Context.getSession().getInventory();
+        int index = -1;
+        for (int i = 0; i < inv.length; i++) {
+            if (inv[i] == null) {
+                continue;
+            }
+            if (inv[i].data.getName().equals("poção de vida")) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index >= 0) {
+            onTurn = false;
+            checkTurn();
+
+            Potion p = (Potion) inv[index].data;
+
+            System.out.println(p.getMultiplier());
+
+            Character c = Context.getSession();
+
+            double newHp = c.getHp() + (p.getMultiplier() * c.getMaxHp());
+
+            if (newHp > c.getMaxHp()) {
+                newHp = c.getMaxHp();
+            }
+
+            c.setHp(newHp);
+            jProgressBar3.setValue((int) Context.getSession().getHp());
+
+            try {
+                inv[index].decreaseStack();
+            } catch (Exception e) {
+                Context.getSession().removeFromInventory(index);
+            }
+            hasHealPotion();
+
+            Entity a = (Entity) Context.getSession();
+            Entity b = enemy;
+
+            delayAction(() -> {
+                onTurn = true;
+                attack(b, a);
+
+                return 0;
+            }, defaultDelay
+            );
+        }
+    }//GEN-LAST:event_healMouseClicked
+
+    private void manaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_manaMouseClicked
+
+        Item[] inv = Context.getSession().getInventory();
+        int index = -1;
+        for (int i = 0; i < inv.length; i++) {
+            if (inv[i] == null) {
+                continue;
+            }
+            if (inv[i].data.getName().equals("poção de mana")) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index >= 0) {
+            onTurn = false;
+            checkTurn();
+
+            Potion p = (Potion) inv[index].data;
+
+            System.out.println(p.getMultiplier());
+
+            if (Context.getSession().getClass().getSimpleName().equals("Berserker") || Context.getSession().getClass().getSimpleName().equals("Archer")) {
+                JOptionPane.showMessageDialog(this, "Sabe que isso aqui não muda nada pra ti né? (Luigi agradece)");
+            } else {
+                Mage m = (Mage) Context.getSession();
+
+                int newMana = (int) Math.ceil(m.getMana() + (p.getMultiplier() * m.getMaxMana()));
+
+                if (newMana > m.getMaxMana()) {
+                    newMana = m.getMaxMana();
+                }
+
+                m.setMana(newMana);
+
+                checkMana();
+            }
+
+            try {
+                inv[index].decreaseStack();
+            } catch (Exception e) {
+                Context.getSession().removeFromInventory(index);
+            }
+            hasManaPotion();
+
+            Entity a = (Entity) Context.getSession();
+            Entity b = enemy;
+
+            delayAction(() -> {
+                onTurn = true;
+                attack(b, a);
+
+                return 0;
+            }, defaultDelay
+            );
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_manaMouseClicked
 
     /**
      * @param args the command line arguments

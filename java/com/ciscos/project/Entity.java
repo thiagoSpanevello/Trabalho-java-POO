@@ -16,7 +16,7 @@ public class Entity implements hasName {
     private int speed;
     private int coins; 
     private double xp;
-    private double maxXp;
+    private double maxXp = 100;
     
     public Entity(String name, double hp, int speed) {
         this.name = name;
@@ -26,7 +26,6 @@ public class Entity implements hasName {
         this.speed = speed;
         this.coins = 0;
         this.xp = 0;
-        this.maxXp = 100;
     }
     
     public Entity(String name, double hp, int speed, int coins) {
@@ -221,6 +220,7 @@ public class Entity implements hasName {
     
     public void addXp(double xp) {
         setXp(this.xp + xp);
+        System.out.println(this.xp);
         checkXp();
     }
 }
