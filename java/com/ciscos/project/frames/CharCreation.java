@@ -44,7 +44,6 @@ public class CharCreation extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         characterGif = new javax.swing.JLabel();
         characterName = new javax.swing.JLabel();
-        characterGif1 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -153,9 +152,6 @@ public class CharCreation extends javax.swing.JFrame {
         characterName.setMaximumSize(new java.awt.Dimension(0, 80));
         characterName.setName(""); // NOI18N
         jPanel1.add(characterName, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 80, -1));
-
-        characterGif1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/archer.gif"))); // NOI18N
-        jPanel1.add(characterGif1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 140, 140));
 
@@ -287,7 +283,6 @@ public class CharCreation extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbClass;
     private javax.swing.JLabel characterGif;
-    private javax.swing.JLabel characterGif1;
     private javax.swing.JLabel characterName;
     private javax.swing.JTextField hpInput;
     private javax.swing.JButton jButton1;
