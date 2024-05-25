@@ -140,8 +140,11 @@ hpInput.setBorder(BorderFactory.createCompoundBorder(
     jLabel2.setText("Nome do Personagem");
     getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
 
+    nameInput.setBackground(new java.awt.Color(40, 40, 40));
+    nameInput.setForeground(new java.awt.Color(221, 221, 221));
     nameInput.setActionCommand("<Not Set>");
     nameInput.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+    nameInput.setCaretColor(new java.awt.Color(221, 221, 221));
     nameInput.setBorder(BorderFactory.createCompoundBorder(
         nameInput.getBorder(),
         BorderFactory.createEmptyBorder(5, 5, 5, 5)));
@@ -153,6 +156,7 @@ nameInput.addCaretListener(new javax.swing.event.CaretListener() {
     getContentPane().add(nameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 270, 30));
 
     cbClass.setBackground(new java.awt.Color(40, 40, 40));
+    cbClass.setForeground(new java.awt.Color(221, 221, 221));
     cbClass.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Arqueiro", "Berserker", "Mago" }));
     cbClass.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     cbClass.setOpaque(true);

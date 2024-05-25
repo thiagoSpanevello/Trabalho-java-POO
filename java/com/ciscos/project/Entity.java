@@ -48,6 +48,10 @@ public class Entity implements hasName {
         return name;
     }
     
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public int getLevel() {
         return level;
     }

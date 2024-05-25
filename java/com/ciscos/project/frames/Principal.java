@@ -29,6 +29,18 @@ public class Principal extends javax.swing.JFrame {
         menu.setVisible(false);
     }
 
+    public void sync(){
+            HPbar.setValue((int) Context.getSession().getHp());
+            HPbar.setMaximum((int) Context.getSession().getMaxHp());
+            HPbar.setForeground(Color.red);
+            labelHP.setText("HP: " + Context.getSession().getHp() + "/" + Context.getSession().getMaxHp());
+            XPbar.setValue((int) Context.getSession().getXp());
+            XPbar.setMaximum(100);
+            XPbar.setForeground(Color.BLUE);
+            labelXp.setText("XP: " + Context.getSession().getXp() + "/100");
+            money.setText("  " + Context.getSession().getCoins());
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -43,7 +55,6 @@ public class Principal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         labelHP = new javax.swing.JLabel();
         HPbar = new javax.swing.JProgressBar();
-        HPbar1 = new javax.swing.JProgressBar();
         labelXp = new javax.swing.JLabel();
         XPbar = new javax.swing.JProgressBar();
         jLabel9 = new javax.swing.JLabel();
@@ -110,10 +121,6 @@ public class Principal extends javax.swing.JFrame {
         HPbar.setBackground(new java.awt.Color(102, 102, 102));
         HPbar.setPreferredSize(new java.awt.Dimension(146, 16));
         menu.add(HPbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 230, 20));
-
-        HPbar1.setBackground(new java.awt.Color(102, 102, 102));
-        HPbar1.setPreferredSize(new java.awt.Dimension(146, 16));
-        menu.add(HPbar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 230, 20));
 
         labelXp.setForeground(new java.awt.Color(255, 255, 255));
         labelXp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -288,7 +295,6 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JProgressBar HPbar;
-    private javax.swing.JProgressBar HPbar1;
     private javax.swing.JProgressBar XPbar;
     private javax.swing.JLabel advice;
     private javax.swing.JLabel characterName;

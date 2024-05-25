@@ -4,7 +4,12 @@
  */
 package com.ciscos.project.frames;
 
+import com.ciscos.project.Entity;
 import com.ciscos.project.utils.Context;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.Random;
 
 /**
@@ -13,6 +18,8 @@ import java.util.Random;
  */
 public class Combat extends javax.swing.JFrame {
 
+    Entity enemy;
+
     /**
      * Creates new form Combat
      */
@@ -20,35 +27,74 @@ public class Combat extends javax.swing.JFrame {
         initComponents();
         charIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/" + Context.getSession().getClass().getSimpleName().toLowerCase() + ".gif")));
         Random rand = new Random();
-        
-        
-        /*
-        int random = rand.nextInt(7);
+        Context.setCombat(this);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+        int w = this.getSize().width;
+        int h = this.getSize().height;
+        int x = (dim.width - w) / 2;
+        int y = (dim.height - h) / 2;
+
+        this.setLocation(x, y);
+
+        int random = rand.nextInt(5);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatBackgrounds/" + random + ".jpeg")));
+
+        String[] undeads = {" esqueleto", " morto-vivo", " ancestral", " milenar", " soberano"};
+        String[] mythicals = {" puro-sange", " ancestral", " divino", " primordial", " soberano"};
+
+        String[] variant = {" sanguinário", " amaldiçoado", " selado"};
+
+        int variantType = rand.nextInt(variant.length * 2);
+
+        random = rand.nextInt(7);
         switch (random) {
             case 0:
                 enemyIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/archerSkel.gif")));
+                enemy = new Entity("Arqueiro" + undeads[rand.nextInt(undeads.length)], 100, 10, 10);
                 break;
             case 1:
                 enemyIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/karasu.gif")));
+                enemy = new Entity("Harpia" + mythicals[rand.nextInt(mythicals.length)], 100, 10, 10);
                 break;
             case 2:
                 enemyIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/kitsune.gif")));
+                enemy = new Entity("Kitsune" + mythicals[rand.nextInt(mythicals.length)], 100, 10, 10);
                 break;
             case 3:
-                enemyIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/spearman.gif")));
+                enemyIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/spearmanSkel.gif")));
+                enemy = new Entity("Lanceiro" + undeads[rand.nextInt(undeads.length)], 100, 10, 10);
                 break;
             case 4:
                 enemyIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/warriorSkel.gif")));
+                enemy = new Entity("Guerreiro" + undeads[rand.nextInt(undeads.length)], 100, 10, 10);
                 break;
             case 5:
                 enemyIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/werewolf.gif")));
+                enemy = new Entity("Licantropo" + mythicals[rand.nextInt(mythicals.length)], 100, 10, 10);
                 break;
             case 6:
                 enemyIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/yamabushi.gif")));
+                enemy = new Entity("Yokai" + mythicals[rand.nextInt(mythicals.length)], 100, 10, 10);
                 break;
-          
+
         }
-        */
+
+        if (variantType < variant.length) {
+            enemy.setName(enemy.getName() + variant[variantType]);
+        }
+
+        enemyName.setText(enemy.getName());
+        charName.setText(Context.getSession().getName());
+        
+        jProgressBar1.setValue((int) Context.getSession().getHp());
+        jProgressBar1.setMaximum((int) Context.getSession().getMaxHp());
+        jProgressBar1.setForeground(Color.red);
+
+        jProgressBar2.setValue((int) enemy.getHp());
+        jProgressBar2.setMaximum((int) enemy.getMaxHp());
+        jProgressBar2.setForeground(Color.red);
     }
 
     /**
@@ -60,23 +106,57 @@ public class Combat extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        enemyName = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
         charIcon = new javax.swing.JLabel();
-        enemyIcon = new javax.swing.JLabel();
+        charName = new javax.swing.JLabel();
         jProgressBar2 = new javax.swing.JProgressBar();
+        enemyIcon = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(580, 490));
-        setMinimumSize(new java.awt.Dimension(580, 490));
-        setSize(new java.awt.Dimension(600, 500));
+        setMaximumSize(new java.awt.Dimension(600, 360));
+        setMinimumSize(new java.awt.Dimension(600, 360));
+        setPreferredSize(new java.awt.Dimension(600, 360));
+        setResizable(false);
+        setSize(new java.awt.Dimension(600, 360));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jProgressBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 230, 20));
-        getContentPane().add(charIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 140, 120));
-        getContentPane().add(enemyIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, 140, 120));
-        getContentPane().add(jProgressBar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 350, 230, 20));
+
+        enemyName.setForeground(new java.awt.Color(255, 255, 255));
+        enemyName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(enemyName, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 140, -1));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/blur.png"))); // NOI18N
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, -1, -1));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/blur.png"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, -1, -1));
+        getContentPane().add(jProgressBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 140, 10));
+        getContentPane().add(charIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 140, 120));
+
+        charName.setForeground(new java.awt.Color(255, 255, 255));
+        charName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(charName, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 140, -1));
+        getContentPane().add(jProgressBar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 300, 140, 10));
+        getContentPane().add(enemyIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, 140, 120));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatBackgrounds/4.jpeg"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 320));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        Context.setCombat(null);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -115,7 +195,12 @@ public class Combat extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel charIcon;
+    private javax.swing.JLabel charName;
     private javax.swing.JLabel enemyIcon;
+    private javax.swing.JLabel enemyName;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JProgressBar jProgressBar2;
     // End of variables declaration//GEN-END:variables

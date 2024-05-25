@@ -78,7 +78,7 @@ public class CombatMap extends javax.swing.JFrame {
                 flagMouseClicked(evt);
             }
         });
-        getContentPane().add(flag, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, -1, -1));
+        getContentPane().add(flag, new org.netbeans.lib.awtextra.AbsoluteConstraints(positions[i][0], positions[i][1], -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatMap.png"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -100,8 +100,11 @@ public class CombatMap extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void flagMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_flagMouseClicked
+        if(Context.getCombat() != null) return;
+        
         Combat combat = new Combat();
         combat.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_flagMouseClicked
 
     /**
