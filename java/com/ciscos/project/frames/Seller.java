@@ -15,6 +15,7 @@ import com.ciscos.project.utils.Context;
 import com.ciscos.project.items.Item;
 import com.ciscos.project.items.List;
 import com.ciscos.project.utils.Utils;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Random;
@@ -221,6 +222,11 @@ public class Seller extends javax.swing.JFrame {
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
+        jButton1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        jButton2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        jButton3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        equipButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
         int w = this.getSize().width;
         int h = this.getSize().height;
         int x = (dim.width - w) / 2;
@@ -267,6 +273,7 @@ public class Seller extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sell.png"))); // NOI18N
+        jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -287,6 +294,7 @@ public class Seller extends javax.swing.JFrame {
         getContentPane().add(userCoins, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 120, -1));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/buy.png"))); // NOI18N
+        jButton3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -295,6 +303,7 @@ public class Seller extends javax.swing.JFrame {
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 410, 196, 40));
 
         equipButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/equip.png"))); // NOI18N
+        equipButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
         equipButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 equipButtonMouseClicked(evt);
@@ -303,6 +312,7 @@ public class Seller extends javax.swing.JFrame {
         getContentPane().add(equipButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 410, 152, 40));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/return.png"))); // NOI18N
+        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -367,25 +377,25 @@ public class Seller extends javax.swing.JFrame {
 
         Item item = seller.getInventory()[jList2.getSelectedIndex()];
         int price = (int) Math.ceil(item.price * 1.1 * item.getCurrentStack());
-        
+
         boolean isFull = true;
-            
+
         Item[] inv = Context.getSession().getInventory();
-         
-        for(int i = 0; i < inv.length; i++){
-            if(inv[i] != null) {
+
+        for (int i = 0; i < inv.length; i++) {
+            if (inv[i] != null) {
                 isFull = true;
-            } else{
+            } else {
                 isFull = false;
                 break;
             }
         }
-        
-        if(isFull){
+
+        if (isFull) {
             JOptionPane.showMessageDialog(this, Context.getSession().getName() + " está com inventário cheio!");
             return;
         }
-        
+
         if (Context.getSession().getCoins() >= price) {
             Context.getSession().setCoins(Context.getSession().getCoins() - price);
             seller.setCoins(seller.getCoins() + price);

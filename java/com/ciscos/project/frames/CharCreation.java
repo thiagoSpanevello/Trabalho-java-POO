@@ -5,6 +5,7 @@ import com.ciscos.project.berserker.Berserker;
 import com.ciscos.project.mage.Mage;
 import com.ciscos.project.utils.Context;
 import com.ciscos.project.Character;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
@@ -15,7 +16,9 @@ public class CharCreation extends javax.swing.JFrame {
         initComponents();
         Context.setCreation(this);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-
+        cbClass.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));        
+        jButton1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        hpInput.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         int w = this.getSize().width;
         int h = this.getSize().height;
         int x = (dim.width-w)/2 + 50;
@@ -42,6 +45,7 @@ public class CharCreation extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         characterGif = new javax.swing.JLabel();
         characterName = new javax.swing.JLabel();
+        characterGif1 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -62,6 +66,7 @@ public class CharCreation extends javax.swing.JFrame {
         specialInput.setEditable(false);
         specialInput.setText("5");
         specialInput.setActionCommand("<Not Set>");
+        specialInput.setCaretColor(new java.awt.Color(238, 238, 238));
         specialInput.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 specialInputCaretUpdate(evt);
@@ -72,6 +77,7 @@ public class CharCreation extends javax.swing.JFrame {
         speedInput.setEditable(false);
         speedInput.setText("15");
         speedInput.setActionCommand("<Not Set>");
+        speedInput.setCaretColor(new java.awt.Color(238, 238, 238));
         speedInput.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 speedInputCaretUpdate(evt);
@@ -90,6 +96,7 @@ public class CharCreation extends javax.swing.JFrame {
         hpInput.setEditable(false);
         hpInput.setText("60");
         hpInput.setActionCommand("<Not Set>");
+        hpInput.setCaretColor(new java.awt.Color(238, 238, 238));
         hpInput.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 hpInputCaretUpdate(evt);
@@ -127,6 +134,7 @@ public class CharCreation extends javax.swing.JFrame {
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/concluir.png"))); // NOI18N
+        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -141,11 +149,15 @@ public class CharCreation extends javax.swing.JFrame {
         jPanel1.add(characterGif, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
         characterName.setBackground(new java.awt.Color(0, 0, 0));
+        characterName.setFont(new java.awt.Font("Minecraftia", 0, 13)); // NOI18N
         characterName.setForeground(new java.awt.Color(255, 255, 255));
         characterName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         characterName.setMaximumSize(new java.awt.Dimension(0, 80));
         characterName.setName(""); // NOI18N
         jPanel1.add(characterName, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 80, -1));
+
+        characterGif1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/archer.gif"))); // NOI18N
+        jPanel1.add(characterGif1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 140, 140));
 
@@ -277,6 +289,7 @@ public class CharCreation extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbClass;
     private javax.swing.JLabel characterGif;
+    private javax.swing.JLabel characterGif1;
     private javax.swing.JLabel characterName;
     private javax.swing.JTextField hpInput;
     private javax.swing.JButton jButton1;

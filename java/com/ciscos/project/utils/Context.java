@@ -2,6 +2,7 @@ package com.ciscos.project.utils;
 
 import com.ciscos.project.Character;
 import com.ciscos.project.frames.CharCreation;
+import com.ciscos.project.frames.CombatMap;
 import com.ciscos.project.frames.Creditos;
 import com.ciscos.project.frames.Principal;
 import com.ciscos.project.frames.Seller;
@@ -11,8 +12,10 @@ public class Context {
     private static Principal window = null;
     private static Creditos credits = null;
     private static CharCreation creation = null;
-    private static Seller seller = null;
+    private static Seller seller = null;    
+    private static CombatMap map = null;
     
+
     private static boolean hasEverShopped = false;
     
     public static void setMainWindow(Principal window) {
@@ -63,6 +66,14 @@ public class Context {
 
     public static void setSeller(Seller seller) {
         Context.seller = seller;
+    }
+
+    public static CombatMap getMap() {
+        return map;
+    }
+
+    public static void setMap(CombatMap map) {
+        Context.map = map;
     }
 }
 

@@ -1,6 +1,7 @@
 package com.ciscos.project.frames;
 
 import com.ciscos.project.utils.Context;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
@@ -10,6 +11,7 @@ public class Creditos extends javax.swing.JFrame {
         initComponents();
         Context.setCredits(this);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        jButton1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         int w = this.getSize().width;
         int h = this.getSize().height;
@@ -42,12 +44,13 @@ public class Creditos extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/voltar.png"))); // NOI18N
+        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 390, 210, 40));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 390, 320, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/creditos background.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 490));

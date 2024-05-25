@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 import com.ciscos.project.utils.Context;
 import com.ciscos.project.Character;
 import java.awt.Color;
+import java.awt.Cursor;
 
 public class Principal extends javax.swing.JFrame {
 
@@ -13,6 +14,11 @@ public class Principal extends javax.swing.JFrame {
         Context.setMainWindow(this);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
+        jButton2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        jButton3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        jLabel4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        jLabel8.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        jLabel7.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         int w = this.getSize().width;
         int h = this.getSize().height;
         int x = (dim.width - w) / 2;
@@ -137,6 +143,7 @@ public class Principal extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(0, 0, 0));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/jogar.png"))); // NOI18N
+        jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
         jButton2.setMaximumSize(new java.awt.Dimension(100, 50));
         jButton2.setMinimumSize(new java.awt.Dimension(100, 50));
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -149,17 +156,18 @@ public class Principal extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        landing.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 210, 40));
+        landing.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 220, 40));
 
         jButton3.setBackground(new java.awt.Color(0, 0, 0));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/creditos.png"))); // NOI18N
         jButton3.setAutoscrolls(true);
+        jButton3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
-        landing.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 390, 210, 40));
+        landing.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 390, 220, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cisco logo.png"))); // NOI18N
         jLabel1.setToolTipText("");
@@ -199,16 +207,22 @@ public class Principal extends javax.swing.JFrame {
         Context.setHasEverShopped(true);
 
 //        if (Context.getSeller() != null) {
-            Seller seller = new Seller();
-            seller.setVisible(true);
+        Seller seller = new Seller();
+        seller.setVisible(true);
 //        }
 
         advice.setVisible(false);
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        if (Context.getMap() != null) {
+            return;
+        }
+
         CombatMap combatMap = new CombatMap();
         combatMap.setVisible(true);
+
+
     }//GEN-LAST:event_jLabel8MouseClicked
 
     /**
@@ -221,19 +235,19 @@ public class Principal extends javax.swing.JFrame {
             characterName.setText(Context.getSession().getName());
             Context.getSession().setHp(30);
             Context.getSession().setXp(30);
-            HPbar.setValue((int)Context.getSession().getHp());
-            HPbar.setMaximum((int)Context.getSession().getMaxHp());
+            HPbar.setValue((int) Context.getSession().getHp());
+            HPbar.setMaximum((int) Context.getSession().getMaxHp());
             HPbar.setForeground(Color.red);
-            labelHP.setText("HP: " + Context.getSession().getHp()+"/"+Context.getSession().getMaxHp());
+            labelHP.setText("HP: " + Context.getSession().getHp() + "/" + Context.getSession().getMaxHp());
             XPbar.setValue((int) Context.getSession().getXp());
             XPbar.setMaximum(100);
             XPbar.setForeground(Color.BLUE);
-            labelXp.setText("XP: " + Context.getSession().getXp()+ "/100");
+            labelXp.setText("XP: " + Context.getSession().getXp() + "/100");
             menu.setVisible(true);
             landing.setVisible(false);
-            
+
             money.setText("  " + Context.getSession().getCoins());
-            
+
         } else {
             menu.setVisible(true);
             landing.setVisible(false);
