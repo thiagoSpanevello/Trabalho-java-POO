@@ -500,7 +500,6 @@ public class Combat extends javax.swing.JFrame {
             jProgressBar2.setValue((int) b.getHp());
         } else {
             jProgressBar3.setValue((int) b.getHp());
-            Context.getSession().setHp(b.getHp());
             Context.getMainWindow().sync();
         }
 
@@ -608,6 +607,8 @@ public class Combat extends javax.swing.JFrame {
             }
 
             c.setHp(newHp);
+            Context.getMainWindow().sync();
+            
             jProgressBar3.setValue((int) Context.getSession().getHp());
 
             try {
@@ -664,7 +665,6 @@ public class Combat extends javax.swing.JFrame {
                 }
 
                 m.setMana(newMana);
-
                 checkMana();
             }
 
