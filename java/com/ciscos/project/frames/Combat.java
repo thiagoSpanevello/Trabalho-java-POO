@@ -10,6 +10,7 @@ import com.ciscos.project.mage.Mage;
 import com.ciscos.project.mage.Spell;
 import com.ciscos.project.utils.Context;
 import com.ciscos.project.Character;
+import com.ciscos.project.items.List;
 import com.ciscos.project.items.Potion;
 import com.ciscos.project.utils.Damage;
 import java.awt.Color;
@@ -88,6 +89,9 @@ public class Combat extends javax.swing.JFrame {
         }
 
         Entity temp = new Entity(enemy.getName(), Context.getSession().getLevel(), enemy.getHp() * mult, (int) Math.ceil(enemy.getSpeed() * mult), enemy.getDamage() * mult, enemy.getDamageType(), enemy.getCoins());
+        
+        
+        
         enemy = temp;
     }
 
@@ -204,8 +208,49 @@ public class Combat extends javax.swing.JFrame {
         if (variantType < variant.length) {
             enemy.setName(enemy.getName() + variant[variantType]);
         }
-
+        
         getToLevel();
+        
+        if (rand.nextInt(10) <= 6 ) {
+            Item[] armors = List.armors;
+            int prob = 0;
+            for (int i = 0; i < armors.length; i++) {
+                prob += Math.pow(2, i);
+            }
+            int chance = rand.nextInt(prob) + 1;
+            for (int i = armors.length - 1; i >= 0; i--) {
+                if (chance <= Math.pow(2, armors.length - 1 - i)) {
+                    enemy.equip(armors[i]);
+                    break;
+                }
+                if (i == 0) {
+                    enemy.equip(armors[i]);
+                }
+            }
+        }
+
+
+        if (rand.nextInt(10) <= 6 ) {
+            Item[] pants = List.pants;
+
+            int prob = 0;
+            
+            for (int i = 1; i < pants.length; i++) {
+                prob += Math.pow(2, i);
+            }
+
+            int chance = rand.nextInt(prob) + 1;
+
+            for (int i = pants.length - 1; i >= 0; i--) {
+                if (chance <= Math.pow(2, pants.length - 1 - i)) {
+                    enemy.equip(pants[i]);
+                    break;
+                }
+                if (i == 0) {
+                    enemy.equip(pants[i]);
+                }
+            }
+        }
 
         enemyName.setText(enemy.getName());
         charName.setText(Context.getSession().getName());
@@ -546,8 +591,8 @@ public class Combat extends javax.swing.JFrame {
                 a.setCoins(a.getCoins() + b.getCoins());
                 a.addXp(20);
                 JOptionPane.showMessageDialog(this, a.getName() + " recebeu " + b.getCoins() + " moedas e 20 de xp!");
-                
-                Loot loot = new Loot();
+
+                Loot loot = new Loot(b);
                 loot.setVisible(true);
             }
             else{

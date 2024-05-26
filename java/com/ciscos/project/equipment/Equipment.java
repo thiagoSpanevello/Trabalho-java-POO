@@ -19,6 +19,14 @@ public class Equipment {
         }
         return (Armor) armor.data;
     }
+    
+    public Item getArmorItem() {
+        return armor;
+    }
+    
+    public Item getPantsItem() {
+        return pants;
+    }
 
     public Pants getPants() {
         if (pants == null) {

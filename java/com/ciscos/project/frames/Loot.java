@@ -170,57 +170,23 @@ public class Loot extends javax.swing.JFrame {
         });
     }
 
-    public Loot() {
+    public Loot(Entity temp) {
         initComponents();
-        
+
         equipButton.setVisible(false);
 
         Random random = new Random();
         enemy = new Entity(30, 0);
 
         int n = random.nextInt(10);
-        
-        System.err.println(n);
-        
-        if (random.nextInt(10) <= 6 ) {
-            Item[] armors = List.armors;
-            int prob = 0;
-            for (int i = 0; i < armors.length; i++) {
-                prob += Math.pow(2, i);
-            }
-            int chance = random.nextInt(prob) + 1;
-            for (int i = armors.length - 1; i >= 0; i--) {
-                if (chance <= Math.pow(2, armors.length - 1 - i)) {
-                    enemy.putOnInventory(armors[i]);
-                    break;
-                }
-                if (i == 0) {
-                    enemy.putOnInventory(armors[i]);
-                }
-            }
+
+        System.out.println(temp);
+
+        if (temp.equipment.getArmorItem() != null) {
+            enemy.putOnInventory(temp.equipment.getArmorItem());
         }
-
-
-        if (random.nextInt(10) <= 6 ) {
-            Item[] pants = List.pants;
-
-            int prob = 0;
-            
-            for (int i = 1; i < pants.length; i++) {
-                prob += Math.pow(2, i);
-            }
-
-            int chance = random.nextInt(prob) + 1;
-
-            for (int i = pants.length - 1; i >= 0; i--) {
-                if (chance <= Math.pow(2, pants.length - 1 - i)) {
-                    enemy.putOnInventory(pants[i]);
-                    break;
-                }
-                if (i == 0) {
-                    enemy.putOnInventory(pants[i]);
-                }
-            }
+        if (temp.equipment.getPantsItem() != null) {
+            enemy.putOnInventory(temp.equipment.getPantsItem());
         }
 
         if (random.nextInt(10) <= 6) {
@@ -428,7 +394,7 @@ public class Loot extends javax.swing.JFrame {
         if (jList2.getSelectedIndex() < 0) {
             return;
         }
-        
+
         jList1.clearSelection();
 
         Item item = enemyInventory[jList2.getSelectedIndex()];
@@ -494,9 +460,9 @@ public class Loot extends javax.swing.JFrame {
 
         Context.getSession().equip(i);
         JOptionPane.showMessageDialog(this, item.data.getName() + " foi equipado com sucesso!");
-
+        equipButton.setVisible(false);
         mountClientList(Context.getSession().getInventory());
-
+        
         jList1.clearSelection();
         equipButton.setVisible(false);
     }//GEN-LAST:event_equipButtonMouseClicked
@@ -506,7 +472,7 @@ public class Loot extends javax.swing.JFrame {
         if (jList1.getSelectedIndex() < 0) {
             return;
         }
-        
+
         jList2.clearSelection();
 
         Item item = userInventory[jList1.getSelectedIndex()];
@@ -519,10 +485,12 @@ public class Loot extends javax.swing.JFrame {
             }
             i++;
         }
-        
+
         Context.getSession().removeFromInventory(i);
         enemy.putOnInventory(item);
 
+        equipButton.setVisible(false);
+        
         mountEnemyList(enemy.getInventory());
         mountClientList(Context.getSession().getInventory());
 
@@ -560,7 +528,7 @@ public class Loot extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Loot().setVisible(true);
+                new Loot(new Entity(0, 0)).setVisible(true);
             }
         });
     }

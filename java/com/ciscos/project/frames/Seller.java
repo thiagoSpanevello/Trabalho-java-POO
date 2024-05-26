@@ -439,7 +439,7 @@ public class Seller extends javax.swing.JFrame {
 
         Context.getSession().equip(i);
         JOptionPane.showMessageDialog(this, item.data.getName() + " foi equipado com sucesso!");
-
+        equipButton.setVisible(false);
         mountClientList(Context.getSession().getInventory());
 
         jList1.clearSelection();
@@ -469,11 +469,14 @@ public class Seller extends javax.swing.JFrame {
             userCoins.setText("  " + Context.getSession().getCoins());
             sellerCoins.setText("  " + this.seller.getCoins());
             Context.getSession().removeFromInventory(i);
+            
+            equipButton.setVisible(false);
+            
             mountClientList(Context.getSession().getInventory());
         } else {
             JOptionPane.showMessageDialog(this, "O vendedor não tem dinheiro suficiente para comprar!");
         }
-
+        
         jList1.clearSelection();
     }//GEN-LAST:event_jButton2ActionPerformed
 
