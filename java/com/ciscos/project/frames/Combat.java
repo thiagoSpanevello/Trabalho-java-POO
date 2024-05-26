@@ -35,13 +35,13 @@ public class Combat extends javax.swing.JFrame {
     private boolean onTurn = true;
     private Entity enemy;
     private int option = 0;
-    
-    final int defaultDelay = 1500;
-    
+
+    final int defaultDelay = 700;
+
     /**
      * Creates new form Combat
      */
-    private void hasHealPotion() {
+    private boolean hasHealPotion() {
         Item[] inv = Context.getSession().getInventory();
 
         for (int i = 0; i < inv.length; i++) {
@@ -51,15 +51,16 @@ public class Combat extends javax.swing.JFrame {
             if (inv[i].data.getName().equals("poção de vida")) {
                 heal.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 heal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/heal.png")));
-                return;
+                return true;
             }
         }
 
         heal.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         heal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noHeal.png")));
+        return false;
     }
 
-    private void hasManaPotion() {
+    private boolean hasManaPotion() {
         Item[] inv = Context.getSession().getInventory();
 
         for (int i = 0; i < inv.length; i++) {
@@ -69,12 +70,25 @@ public class Combat extends javax.swing.JFrame {
             if (inv[i].data.getName().equals("poção de mana")) {
                 mana.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 mana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/mana.png")));
-                return;
+                return true;
             }
         }
 
         mana.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         mana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noMana.png")));
+        
+        return false;
+    }
+
+    private void getToLevel() {
+        double mult = 1;
+
+        for (int i = 0; i < Context.getSession().getLevel(); i++) {
+            mult *= 1.1;
+        }
+
+        Entity temp = new Entity(enemy.getName(), Context.getSession().getLevel(), enemy.getHp() * mult, (int) Math.ceil(enemy.getSpeed() * mult), enemy.getDamage() * mult, enemy.getDamageType(), enemy.getCoins());
+        enemy = temp;
     }
 
     public Combat() {
@@ -127,6 +141,8 @@ public class Combat extends javax.swing.JFrame {
             jLabel4.setText("" + spells[2].getMana());
         }
 
+        
+        checkMana();
         hasHealPotion();
         hasManaPotion();
         checkTurn();
@@ -144,34 +160,42 @@ public class Combat extends javax.swing.JFrame {
         int variantType = rand.nextInt(variant.length * 2);
 
         random = rand.nextInt(7);
+
         switch (random) {
             case 0:
+                //archer
                 enemyIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/archerSkel.gif")));
-                enemy = new Entity("Arqueiro" + undeads[rand.nextInt(undeads.length)], 100, 10, 10);
+                enemy = new Entity("Arqueiro" + undeads[rand.nextInt(undeads.length)], 0, 60, 15, 4, "physical", rand.nextInt(10) + 5);
                 break;
             case 1:
+                //berserker
                 enemyIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/karasu.gif")));
-                enemy = new Entity("Harpia" + mythicals[rand.nextInt(mythicals.length)], 100, 10, 10);
+                enemy = new Entity("Harpia" + mythicals[rand.nextInt(mythicals.length)], 0, 70, 10, 5, "physical", rand.nextInt(10) + 5);
                 break;
             case 2:
+                //magic
                 enemyIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/kitsune.gif")));
-                enemy = new Entity("Kitsune" + mythicals[rand.nextInt(mythicals.length)], 100, 10, 10);
+                enemy = new Entity("Kitsune" + mythicals[rand.nextInt(mythicals.length)], 0, 50, 10, 6, "magic", rand.nextInt(10) + 5);
                 break;
             case 3:
+                //archer
                 enemyIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/spearmanSkel.gif")));
-                enemy = new Entity("Lanceiro" + undeads[rand.nextInt(undeads.length)], 100, 10, 10);
+                enemy = new Entity("Lanceiro" + undeads[rand.nextInt(undeads.length)], 0, 60, 15, 4, "physical", rand.nextInt(10) + 5);
                 break;
             case 4:
+                //berserker
                 enemyIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/warriorSkel.gif")));
-                enemy = new Entity("Guerreiro" + undeads[rand.nextInt(undeads.length)], 100, 10, 10);
+                enemy = new Entity("Guerreiro" + undeads[rand.nextInt(undeads.length)], 0, 70, 10, 5, "physical", rand.nextInt(10) + 5);
                 break;
             case 5:
+                //berserker
                 enemyIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/werewolf.gif")));
-                enemy = new Entity("Licantropo" + mythicals[rand.nextInt(mythicals.length)], 100, 10, 10);
+                enemy = new Entity("Licantropo" + mythicals[rand.nextInt(mythicals.length)], 0, 70, 10, 5, "physical", rand.nextInt(10) + 5);
                 break;
             case 6:
+                //magic
                 enemyIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/yamabushi.gif")));
-                enemy = new Entity("Yokai" + mythicals[rand.nextInt(mythicals.length)], 100, 10, 10);
+                enemy = new Entity("Yokai" + mythicals[rand.nextInt(mythicals.length)], 0, 50, 10, 6, "magic", rand.nextInt(10) + 5);
                 break;
 
         }
@@ -179,6 +203,8 @@ public class Combat extends javax.swing.JFrame {
         if (variantType < variant.length) {
             enemy.setName(enemy.getName() + variant[variantType]);
         }
+
+        getToLevel();
 
         enemyName.setText(enemy.getName());
         charName.setText(Context.getSession().getName());
@@ -228,11 +254,11 @@ public class Combat extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(608, 360));
-        setMinimumSize(new java.awt.Dimension(608, 360));
-        setPreferredSize(new java.awt.Dimension(608, 360));
+        setMaximumSize(new java.awt.Dimension(608, 358));
+        setMinimumSize(new java.awt.Dimension(608, 358));
+        setPreferredSize(new java.awt.Dimension(608, 358));
         setResizable(false);
-        setSize(new java.awt.Dimension(608, 360));
+        setSize(new java.awt.Dimension(608, 358));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -376,6 +402,8 @@ public class Combat extends javax.swing.JFrame {
 
     private void runMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_runMouseClicked
         // TODO add your handling code here:
+        if(!onTurn) return;
+        
         Random random = new Random();
 
         int runTry = random.nextInt(10);
@@ -395,19 +423,18 @@ public class Combat extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this, text);
             Context.getSession().addXp(xp);
-
             Context.increaseRunningCount();
             this.dispose();
-            return;
+
+        } else {
+            JOptionPane.showMessageDialog(this, Context.getSession().getName() + " não conseguiu fugir!");
+
+            Entity a = (Entity) Context.getSession();
+            Entity b = enemy;
+
+            onTurn = true;
+            attack(b, a);
         }
-
-        JOptionPane.showMessageDialog(this, Context.getSession().getName() + " não conseguiu fugir!");
-
-        Entity a = (Entity) Context.getSession();
-        Entity b = enemy;
-
-        onTurn = true;
-        attack(b, a);
     }//GEN-LAST:event_runMouseClicked
 
     private void checkTurn() {
@@ -443,7 +470,7 @@ public class Combat extends javax.swing.JFrame {
         if (currentMana >= spells[0].getMana()) {
             attack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/spell1.png")));
         } else {
-            attack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noSpell1.png")));
+            attack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/mageAttack.png")));
         }
 
         if (currentMana >= spells[1].getMana()) {
@@ -461,18 +488,18 @@ public class Combat extends javax.swing.JFrame {
 
     private void attack(Entity a, Entity b) {
         Damage damage;
-
+        
         if (a.getClass().getSimpleName().equals("Entity")) {
             damage = a.attack();
         } else if (a.getClass().getSimpleName().equals("Berserker") || a.getClass().getSimpleName().equals("Archer")) {
             damage = a.attack();
+            
         } else {
             damage = a.attack(option);
             checkMana();
         }
 
         double resist = 0;
-
         if (b.equipment.getArmor() != null) {
             if (damage.type.equals("magic")) {
                 resist += b.equipment.getArmor().magicResist;
@@ -507,8 +534,14 @@ public class Combat extends javax.swing.JFrame {
 
         if (b.getHp() == 0) {
             JOptionPane.showMessageDialog(this, b.getName() + " foi derrotado por " + a.getName() + "!");
+
+            if (!b.getClass().getSimpleName().equals("Entity")) {
+                a.setCoins(a.getCoins() + b.getCoins());
+                JOptionPane.showMessageDialog(this, b.getName() + " recebeu  " + b.getCoins() + " moedas!");
+            }
+
             Context.resetRunningCount();
-                        
+
             this.dispose();
         }
     }
@@ -523,7 +556,7 @@ public class Combat extends javax.swing.JFrame {
             delayAction(() -> {
                 onTurn = true;
                 attack(b, a);
-
+                
                 return 0;
             }, defaultDelay
             );
@@ -532,7 +565,7 @@ public class Combat extends javax.swing.JFrame {
             delayAction(() -> {
                 onTurn = true;
                 attack(a, b);
-
+                
                 return 0;
             }, defaultDelay
             );
@@ -562,22 +595,28 @@ public class Combat extends javax.swing.JFrame {
     }
 
     private void attackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_attackMouseClicked
+        if(!onTurn) return;
+        
         option = 0;
         combat();
     }//GEN-LAST:event_attackMouseClicked
 
     private void spell2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_spell2MouseClicked
+        if(!onTurn) return;
+        
         option = 1;
         combat();        // TODO add your handling code here:
     }//GEN-LAST:event_spell2MouseClicked
 
     private void spell3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_spell3MouseClicked
+        if(!onTurn) return;
+        
         option = 2;
         combat();        // TODO add your handling code here:
     }//GEN-LAST:event_spell3MouseClicked
 
     private void healMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_healMouseClicked
-
+        if(!onTurn || !hasHealPotion()) return;
         Item[] inv = Context.getSession().getInventory();
         int index = -1;
         for (int i = 0; i < inv.length; i++) {
@@ -596,8 +635,6 @@ public class Combat extends javax.swing.JFrame {
 
             Potion p = (Potion) inv[index].data;
 
-            System.out.println(p.getMultiplier());
-
             Character c = Context.getSession();
 
             double newHp = c.getHp() + (p.getMultiplier() * c.getMaxHp());
@@ -608,7 +645,7 @@ public class Combat extends javax.swing.JFrame {
 
             c.setHp(newHp);
             Context.getMainWindow().sync();
-            
+
             jProgressBar3.setValue((int) Context.getSession().getHp());
 
             try {
@@ -617,14 +654,13 @@ public class Combat extends javax.swing.JFrame {
                 Context.getSession().removeFromInventory(index);
             }
             hasHealPotion();
-
             Entity a = (Entity) Context.getSession();
             Entity b = enemy;
 
             delayAction(() -> {
                 onTurn = true;
                 attack(b, a);
-
+                checkTurn();
                 return 0;
             }, defaultDelay
             );
@@ -632,7 +668,7 @@ public class Combat extends javax.swing.JFrame {
     }//GEN-LAST:event_healMouseClicked
 
     private void manaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_manaMouseClicked
-
+        if(!onTurn || !hasManaPotion()) return;
         Item[] inv = Context.getSession().getInventory();
         int index = -1;
         for (int i = 0; i < inv.length; i++) {
@@ -650,8 +686,6 @@ public class Combat extends javax.swing.JFrame {
             checkTurn();
 
             Potion p = (Potion) inv[index].data;
-
-            System.out.println(p.getMultiplier());
 
             if (Context.getSession().getClass().getSimpleName().equals("Berserker") || Context.getSession().getClass().getSimpleName().equals("Archer")) {
                 JOptionPane.showMessageDialog(this, "Sabe que isso aqui não muda nada pra ti né? (Luigi agradece)");
@@ -681,7 +715,7 @@ public class Combat extends javax.swing.JFrame {
             delayAction(() -> {
                 onTurn = true;
                 attack(b, a);
-
+                checkTurn();
                 return 0;
             }, defaultDelay
             );

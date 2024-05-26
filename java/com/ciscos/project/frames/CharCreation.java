@@ -4,10 +4,14 @@ import com.ciscos.project.archer.Archer;
 import com.ciscos.project.berserker.Berserker;
 import com.ciscos.project.mage.Mage;
 import com.ciscos.project.utils.Context;
+import com.ciscos.project.items.List;
+import com.ciscos.project.items.Item;
+import com.ciscos.project.equipment.Weapon;
 import com.ciscos.project.Character;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -24,7 +28,7 @@ public class CharCreation extends javax.swing.JFrame {
         jButton1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         int w = this.getSize().width;
         int h = this.getSize().height;
-        
+
         int x = (dim.width - w) / 2 + 50;
         int y = (dim.height - h) / 2 + 50;
 
@@ -153,6 +157,11 @@ nameInput.addCaretListener(new javax.swing.event.CaretListener() {
         nameInputCaretUpdate(evt);
     }
     });
+    nameInput.addKeyListener(new java.awt.event.KeyAdapter() {
+        public void keyPressed(java.awt.event.KeyEvent evt) {
+            nameInputKeyPressed(evt);
+        }
+    });
     getContentPane().add(nameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 270, 30));
 
     cbClass.setBackground(new java.awt.Color(40, 40, 40));
@@ -249,7 +258,7 @@ nameInput.addCaretListener(new javax.swing.event.CaretListener() {
         }
     }//GEN-LAST:event_cbClassActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void create() {
         if (nameInput.getText().length() >= 4) {
             Character p;
             if (cbClass.getSelectedItem().toString().equals("Berserker")) {
@@ -263,13 +272,63 @@ nameInput.addCaretListener(new javax.swing.event.CaretListener() {
                 Context.setSession(arqueiro);
             }
             p = Context.getSession();
+
+            Item armor = List.armors[0];
+            Item pants = List.pants[0];
+            Item life = List.potions[0];
+
+            Item weapon = List.getWeapons().get(Context.getSession().getClass().getSimpleName())[0];
+
+            Item mana = List.potions[1];
+
+            Item arrow = List.randoms[0];
+
+            p.equip(armor);
+            p.equip(pants);
+            p.equip(weapon);
+            p.setCoins(50);
+
             JOptionPane.showMessageDialog(this, "Personagem " + p.getName() + " da classe " + cbClass.getSelectedItem().toString() + " foi criado com sucesso!");
+
+            String message = "Você recebeu um kit iniciante para a sua jornada: \n";
+            message += "1x " + armor.data.getName() + " (Equipado); \n";
+            message += "1x " + pants.data.getName() + " (Equipado); \n";
+
+            Weapon w = (Weapon) weapon.data;
+
+            message += "1x " + weapon.data.getName() + " (" + w.getType() + ") (Equipado); \n";
+
+            for (int i = 0; i < 3; i++) {
+                p.putOnInventory(life);
+            }
+
+            message += "3x " + life.data.getName() + "; \n";
+
+            if (cbClass.getSelectedItem().toString().equals("Mago")) {
+                p.putOnInventory(mana);
+                message += "1x " + mana.data.getName() + "; \n";
+            }
+
+            if (cbClass.getSelectedItem().toString().equals("Arqueiro")) {
+                for (int i = 0; i < 20; i++) {
+                    p.putOnInventory(arrow);
+                }
+                message += "20x " + arrow.data.getName() + ";\n";
+            }
+            
+            message += "50x moedas;";
+
+            JOptionPane.showMessageDialog(this, message);
+
             dispose();
             Context.getMainWindow().isThereASession();
         } else {
             JOptionPane.showMessageDialog(this, "O nome do personagem precisa ter quatro letras ou mais!");
         }
+    }
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        create();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void nameInputCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_nameInputCaretUpdate
@@ -297,6 +356,13 @@ nameInput.addCaretListener(new javax.swing.event.CaretListener() {
         // TODO add your handling code here:
         Context.setCreation(null);
     }//GEN-LAST:event_formWindowClosed
+
+    private void nameInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameInputKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            create();
+        }
+    }//GEN-LAST:event_nameInputKeyPressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

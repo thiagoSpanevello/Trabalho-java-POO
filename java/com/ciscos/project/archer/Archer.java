@@ -46,21 +46,25 @@ public class Archer extends Character {
     @Override
     public Damage attack() {
         int amount = amountArrows();
+                
         String name = this.getName();
         if (amount > 0 && this.equipment.getWeapon() != null) {
             Item[] inv = this.getInventory();
 
             int i = 0;
             while (i < 30) {
+                i++;
+                if(inv[i] == null){
+                    continue;
+                }
+                
                 if (inv[i].data.getName().equals("flecha")) {
                     break;
                 }
-
-                i++;
             }
 
             Arrow arrow = (Arrow) inv[i].data;
-
+            
             try {
                 inv[i].decreaseStack();
             } catch (Exception e) {

@@ -110,5 +110,5 @@ public class List {
     }
 
     public static Item[] randoms = {
-        new Item(new Arrow(12, 0.02), 2, true, 64),};
+        new Item(new Arrow(5, 0.02), 2, true, 64),};
 }

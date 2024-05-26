@@ -38,11 +38,12 @@ public class Principal extends javax.swing.JFrame {
             
             XPbar.setValue((int) Context.getSession().getXp());
             XPbar.setMaximum(100);
-            
-            labelXp.setText("Nível: " + Context.getSession().getLevel() + "   XP: " + Context.getSession().getXp() + "/100");
+             labelHPP.setText("HP: " + String.format("%.2f",Context.getSession().getHp())   + "/" + String.format("%.2f", Context.getSession().getMaxHp()));
+             labelXp.setText("Nível: " + Context.getSession().getLevel() + "   XP: " + String.format("%.2f",Context.getSession().getXp())  + "/" + String.format("%.2f",Context.getSession().getMaxXp()));
+
             money.setText("  " + Context.getSession().getCoins());
             advice1.setVisible(!Context.isHasEverHealed() && Context.getSession().getHp() < Context.getSession().getMaxHp());
-            labelHPP.setText("HP: " + Context.getSession().getHp() + "/" + Context.getSession().getMaxHp());
+
     }
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -246,7 +247,6 @@ public class Principal extends javax.swing.JFrame {
         CombatMap combatMap = new CombatMap();
         combatMap.setVisible(true);
 
-
     }//GEN-LAST:event_jLabel8MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
@@ -273,14 +273,14 @@ public class Principal extends javax.swing.JFrame {
          if (Context.getSession() != null) {
             jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/" + Context.getSession().getClass().getSimpleName().toLowerCase() + ".gif")));
             characterName.setText(Context.getSession().getName());
-            labelHPP.setText("HP: " + Context.getSession().getHp() + "/" + Context.getSession().getMaxHp());
+            labelHPP.setText("HP: " + String.format("%.2f",Context.getSession().getHp())   + "/" + String.format("%.2f", Context.getSession().getMaxHp()));
             HPbarP.setValue((int) Context.getSession().getHp());
             HPbarP.setMaximum((int) Context.getSession().getMaxHp());
             HPbarP.setForeground(Color.red);           
             XPbar.setValue((int) Context.getSession().getXp());
             XPbar.setMaximum(100);
             XPbar.setForeground(Color.BLUE);
-            labelXp.setText("Nível: " + Context.getSession().getLevel() + "   XP: " + Context.getSession().getXp() + "/100");
+            labelXp.setText("Nível: " + Context.getSession().getLevel() + "   XP: " + String.format("%.2f",Context.getSession().getXp())  + "/" + String.format("%.2f",Context.getSession().getMaxXp()));
             menu.setVisible(true);
             landing.setVisible(false);
             advice1.setVisible(!Context.isHasEverHealed() && Context.getSession().getHp() < Context.getSession().getMaxHp());

@@ -18,6 +18,28 @@ public class Entity implements hasName {
     private double xp;
     private double maxXp = 100;
     
+    private double damage;
+    private String damageType;
+
+    public double getDamage() {
+        return damage;
+    }
+
+    public void setDamage(double damage) {
+        this.damage = damage;
+    }
+
+    public String getDamageType() {
+        return damageType;
+    }
+
+    public void setDamageType(String damageType) {
+        this.damageType = damageType;
+    }
+    
+    
+    
+    
     public Entity(String name, double hp, int speed) {
         this.name = name;
         this.hp = hp;
@@ -28,13 +50,19 @@ public class Entity implements hasName {
         this.xp = 0;
     }
     
-    public Entity(String name, double hp, int speed, int coins) {
+    public Entity(String name, int level, double hp, int speed, double damage, String damageType, int coins) {
         this.name = name;
         this.hp = hp;
         this.maxHp = hp;
         this.level = 1;
         this.speed = speed;
         this.coins = coins;
+        this.damage = damage;
+        this.level = level;
+        
+        if(damageType.equals("magic")){
+            this.damageType = "magic";
+        } else this.damageType = "physical";
     }
     
     public Entity(int invSize, int coins) {
@@ -168,11 +196,11 @@ public class Entity implements hasName {
     }
 
     public Damage attack() {
-        return new Damage(5.0, "physical");
+        return new Damage(this.damage, this.damageType);
     }
     
     public Damage attack(int i) {
-        return new Damage(5.0, "physical");
+        return new Damage(this.damage, this.damageType);
     }
 
     public int getSpeed() {
