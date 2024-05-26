@@ -244,12 +244,12 @@ public class Loot extends javax.swing.JFrame {
             }
         }
 
-        if (random.nextInt(10) <= 2) {
+        if (random.nextInt(10) < 2) {
             Item ring = List.getRings().get(Context.getSession().getClass().getSimpleName());
             enemy.putOnInventory(ring);
         }
 
-        if (random.nextInt(10) <= 2) {
+        if (random.nextInt(10) < 2) {
             Item necklaces = List.getNecklaces().get(Context.getSession().getClass().getSimpleName());
             enemy.putOnInventory(necklaces);
         }
