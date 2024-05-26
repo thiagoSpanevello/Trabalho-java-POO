@@ -147,7 +147,7 @@ public class Combat extends javax.swing.JFrame {
         hasHealPotion();
         hasManaPotion();
         checkTurn();
-        JLabel[] buttons = {attack, spell2, spell3, run};
+        JLabel[] buttons = {attack, run};
 
         for (int i = 0; i < buttons.length; i++) {
             buttons[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -476,14 +476,18 @@ public class Combat extends javax.swing.JFrame {
 
         if (currentMana >= spells[1].getMana()) {
             spell2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/spell2.png")));
+            spell2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         } else {
             spell2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noSpell2.png")));
+            spell2.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         }
 
         if (currentMana >= spells[2].getMana()) {
             spell3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/spell3.png")));
+            spell3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         } else {
             spell3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noSpell3.png")));
+            spell3.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         }
     }
 

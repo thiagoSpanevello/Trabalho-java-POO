@@ -16,9 +16,9 @@ public class Mage extends Character {
         this.mana = maxMana;
         this.maxMana = maxMana;
         this.intelligence = intelligence;
-        spells[0] = new Spell(10, 5, "Fogo", 0.02);
-        spells[1] = new Spell(10, 5, "Água", 0.02);
-        spells[2] = new Spell(10, 5, "Raio", 0.02);
+        spells[0] = new Spell(6, 4, "Fogo", 0.1);
+        spells[1] = new Spell(18, 7, "Água", 0.2);
+        spells[2] = new Spell(70, 16, "Raio", 0.02);
     }
 
     public int getMaxMana() {
