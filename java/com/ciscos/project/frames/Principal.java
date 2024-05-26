@@ -230,11 +230,11 @@ public class Principal extends javax.swing.JFrame {
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // TODO add your handling code here:
         Context.setHasEverShopped(true);
-
-//        if (Context.getSeller() != null) {
-        Seller seller = new Seller();
-        seller.setVisible(true);
-//        }
+        
+        if (Context.getSeller() == null) {
+            Seller seller = new Seller();
+            seller.setVisible(true);
+        }
 
         advice.setVisible(false);
     }//GEN-LAST:event_jLabel4MouseClicked

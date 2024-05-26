@@ -542,6 +542,9 @@ public class Combat extends javax.swing.JFrame {
                 a.setCoins(a.getCoins() + b.getCoins());
                 a.addXp(20);
                 JOptionPane.showMessageDialog(this, a.getName() + " recebeu  " + b.getCoins() + " moedas e 20 de xp!");
+                
+                Loot loot = new Loot();
+                loot.setVisible(true);
             }
             else{
                 b.addXp(5);
