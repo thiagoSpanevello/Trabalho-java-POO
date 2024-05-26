@@ -620,12 +620,21 @@ public class Combat extends javax.swing.JFrame {
     private void spell2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_spell2MouseClicked
         if(!onTurn) return;
         
+        Mage m = (Mage) Context.getSession();
+        
+        if(m.getMana() < m.getSpells()[1].getMana()) return;
+        
         option = 1;
         combat();        // TODO add your handling code here:
     }//GEN-LAST:event_spell2MouseClicked
 
     private void spell3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_spell3MouseClicked
         if(!onTurn) return;
+        
+        Mage m = (Mage) Context.getSession();
+        
+        if(m.getMana() < m.getSpells()[2].getMana()) return;
+        
         
         option = 2;
         combat();        // TODO add your handling code here:
