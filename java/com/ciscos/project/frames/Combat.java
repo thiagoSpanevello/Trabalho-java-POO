@@ -490,6 +490,8 @@ public class Combat extends javax.swing.JFrame {
     private void attack(Entity a, Entity b) {
         Damage damage;
         
+        if(a.getHp() == 0) return;
+        
         if (a.getClass().getSimpleName().equals("Entity")) {
             damage = a.attack();
         } else if (a.getClass().getSimpleName().equals("Berserker") || a.getClass().getSimpleName().equals("Archer")) {
@@ -538,8 +540,14 @@ public class Combat extends javax.swing.JFrame {
 
             if (b.getClass().getSimpleName().equals("Entity")) {
                 a.setCoins(a.getCoins() + b.getCoins());
-                JOptionPane.showMessageDialog(this, a.getName() + " recebeu  " + b.getCoins() + " moedas!");
+                a.addXp(20);
+                JOptionPane.showMessageDialog(this, a.getName() + " recebeu  " + b.getCoins() + " moedas e 20 de xp!");
             }
+            else{
+                b.addXp(5);
+                JOptionPane.showMessageDialog(this, b.getName() + " recebeu 5 de xp!");
+            }
+            
 
             Context.resetRunningCount();
 
