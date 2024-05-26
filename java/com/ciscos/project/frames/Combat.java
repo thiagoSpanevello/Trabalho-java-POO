@@ -139,10 +139,11 @@ public class Combat extends javax.swing.JFrame {
             jLabel5.setText("" + spells[0].getMana());
             jLabel6.setText("" + spells[1].getMana());
             jLabel4.setText("" + spells[2].getMana());
+            
+            checkMana();
         }
 
         
-        checkMana();
         hasHealPotion();
         hasManaPotion();
         checkTurn();

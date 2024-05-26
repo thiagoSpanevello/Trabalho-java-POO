@@ -53,14 +53,16 @@ public class Archer extends Character {
 
             int i = 0;
             while (i < 30) {
-                i++;
                 if(inv[i] == null){
+                    i++;
                     continue;
                 }
                 
                 if (inv[i].data.getName().equals("flecha")) {
                     break;
                 }
+                
+                i++;
             }
 
             Arrow arrow = (Arrow) inv[i].data;
