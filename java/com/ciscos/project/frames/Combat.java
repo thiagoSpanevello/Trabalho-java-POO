@@ -536,9 +536,9 @@ public class Combat extends javax.swing.JFrame {
         if (b.getHp() == 0) {
             JOptionPane.showMessageDialog(this, b.getName() + " foi derrotado por " + a.getName() + "!");
 
-            if (!b.getClass().getSimpleName().equals("Entity")) {
+            if (b.getClass().getSimpleName().equals("Entity")) {
                 a.setCoins(a.getCoins() + b.getCoins());
-                JOptionPane.showMessageDialog(this, b.getName() + " recebeu  " + b.getCoins() + " moedas!");
+                JOptionPane.showMessageDialog(this, a.getName() + " recebeu  " + b.getCoins() + " moedas!");
             }
 
             Context.resetRunningCount();
