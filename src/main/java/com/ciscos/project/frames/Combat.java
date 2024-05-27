@@ -281,7 +281,7 @@ public class Combat extends javax.swing.JFrame {
         jProgressBar3.setValue((int) Context.getSession().getHp());
         jProgressBar3.setMaximum((int) Context.getSession().getMaxHp());
         jProgressBar3.setForeground(Color.red);
-
+        
         jProgressBar2.setValue((int) enemy.getHp());
         jProgressBar2.setMaximum((int) enemy.getMaxHp());
         jProgressBar2.setForeground(Color.red);
