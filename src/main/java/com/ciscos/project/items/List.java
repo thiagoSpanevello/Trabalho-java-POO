@@ -71,7 +71,7 @@ public class List {
         final Item[] berserkerWeapons = {
             new Item(new Weapon("Machado de pedra", "Machado", 5, 0.01), 5, true, 1),   // 5 lutas de 30
             new Item(new Weapon("Machado de aço", "Machado", 8, 0.015), 300, true, 1),    // 10 lutas de 30
-            new Item(new Weapon("Machado élfico", "Machado", 10, 0.017), 450, true, 1),   // 15 lutas de 30
+            new Item(new Weapon("Machado élfico", "Machado", 10, 0.0175), 450, true, 1),   // 15 lutas de 30
             new Item(new Weapon("Espada de ferro negro", "Espada", 10, 0.020), 600, true, 1), // 20 lutas de 30
             new Item(new Weapon("Espada do eixo celestial", "Espada", 15, 0.025), 3000, true, 1),  // 100 lutas de 30
             new Item(new Weapon("Espada Cerberus", "Espada", 18, 0.025), 3332, true, 1),   // 120 lutas de 30

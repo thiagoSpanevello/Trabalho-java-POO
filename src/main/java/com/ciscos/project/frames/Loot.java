@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.ciscos.project.frames;
 
 import com.ciscos.project.Entity;
-import com.ciscos.project.archer.Arrow;
 import com.ciscos.project.equipment.Armor;
 import com.ciscos.project.equipment.Necklace;
 import com.ciscos.project.equipment.Pants;
@@ -14,17 +9,12 @@ import com.ciscos.project.equipment.Weapon;
 import com.ciscos.project.utils.Context;
 import com.ciscos.project.items.Item;
 import com.ciscos.project.items.List;
-import com.ciscos.project.utils.Utils;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Random;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author lilia
- */
 public class Loot extends javax.swing.JFrame {
 
     private final Entity enemy;
@@ -448,6 +438,9 @@ public class Loot extends javax.swing.JFrame {
 
     private void equipButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_equipButtonMouseClicked
         // TODO add your handling code here:
+        
+        if(jList1.getSelectedIndex() < 0) return;
+        
         Item item = userInventory[jList1.getSelectedIndex()];
 
         int i = 0;

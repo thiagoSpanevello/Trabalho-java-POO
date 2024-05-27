@@ -17,15 +17,12 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.ActionListener;
-import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
 
 /**
  *
@@ -88,7 +85,7 @@ public class Combat extends javax.swing.JFrame {
         
         Random random = new Random();
         
-        double damageMult = 0.8 - (random.nextInt(5) / 100); 
+        double damageMult = 1 - (random.nextInt(21) / 100); 
         
         if(Context.getSession().getClass().getSimpleName().equals("Archer")) {
             damage = Context.getSession().equipment.getWeapon().getMultiplier() * damageMult;
