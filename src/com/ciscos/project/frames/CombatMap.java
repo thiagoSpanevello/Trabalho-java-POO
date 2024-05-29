@@ -67,7 +67,7 @@ public class CombatMap extends javax.swing.JFrame {
                 flagMouseClicked(evt);
             }
         });
-        getContentPane().add(flag, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, -1, -1));
+        getContentPane().add(flag, new org.netbeans.lib.awtextra.AbsoluteConstraints(positions[i][0], positions[i][1], -1, -1));
 
         mapBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatMap.png"))); // NOI18N
         mapBackground.setText("jLabel1");
