@@ -476,7 +476,7 @@ public class Combat extends javax.swing.JFrame {
 
         onTurn = false;
         checkTurn();
-        if (runTry < 7) {
+        if (runTry < 5) {
             int xp = 5 - Context.getRunningCount();
             String message = Context.getSession().getName() + " fugiu com sucesso e ganhou " + xp + " de experiência!";
             if (Context.getRunningCount() > 0) {
@@ -602,6 +602,8 @@ public class Combat extends javax.swing.JFrame {
             Context.getMainWindow().sync();
         }
 
+        System.out.println(a.getName() + " ( " + a.getHp() + "hp )" + " causou " + damageDealt + " de dano a " + b.getName() + "( " + b.getHp() + "hp )" );
+        
         checkTurn();
 
         if (b.getHp() == 0) {
