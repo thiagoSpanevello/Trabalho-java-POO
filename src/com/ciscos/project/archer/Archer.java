@@ -21,10 +21,11 @@ public class Archer extends Character {
         this.dexterity = dexterity;
     }
 
+    
     @Override
-    public void restore() {
-        super.restore();
-
+    public void increaseLevel() {
+        super.increaseLevel();
+        
         double newDexterity = this.dexterity * 1.1;
         this.dexterity = (int) Math.ceil(newDexterity);
     }
@@ -74,7 +75,6 @@ public class Archer extends Character {
             }
 
             double multiplier = 0;
-            multiplier += this.equipment.getWeapon().getMultiplier();
             String weapon = " com seu " + this.equipment.getWeapon().getType() + " '" + this.equipment.getWeapon().getName() + "'";
 
             
@@ -87,11 +87,10 @@ public class Archer extends Character {
                 multiplier += this.equipment.getRing().getMultiplier();
                 System.out.println("O Item: " + this.equipment.getRing().getName() + " está buffando o atributo " + this.equipment.getRing().getAtributeMultiplier());
             }
-                      
-
-            multiplier += arrow.getMultiplier() * dexterity;
-            double damage = arrow.getDamage() * (1 + multiplier);
-            
+                                  
+            multiplier += (arrow.getMultiplier() + this.equipment.getWeapon().getDamage() / 100) * dexterity;
+            double damage = this.equipment.getWeapon().getMultiplier() * (1 + multiplier);
+            System.out.println(multiplier);
             System.out.println(name + " atirou uma flecha" + weapon + " causando " + damage + " de dano.");
             
             return new Damage(damage, "physical");

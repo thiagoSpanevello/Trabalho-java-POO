@@ -67,7 +67,7 @@ public class Loot extends javax.swing.JFrame {
 
             if (inv[i].data.getClass().getSimpleName().equals("Weapon")) {
                 Weapon w = (Weapon) inv[i].data;
-                text += " (dam: " + w.getDamage() + ", mult: " + w.getMultiplier() * 100 + "%)";
+                text += " (dam: " + w.getDamage() + ", mult: " + String.format("%.2f", w.getMultiplier() * 100 ) + "%)";
             }
 
             enemyInventory[index] = inv[i];
@@ -136,7 +136,7 @@ public class Loot extends javax.swing.JFrame {
 
             if (inv[i].data.getClass().getSimpleName().equals("Weapon")) {
                 Weapon w = (Weapon) inv[i].data;
-                text += " (dam: " + w.getDamage() + ", mult: " + w.getMultiplier() * 100 + "%)";
+                text += " (dam: " + w.getDamage() + ", mult: " + String.format("%.2f", w.getMultiplier() * 100 ) + "%)";
             }
             int price = (int) Math.floor(inv[i].price * 0.9 * inv[i].getCurrentStack());
 
@@ -200,12 +200,12 @@ public class Loot extends javax.swing.JFrame {
             }
         }
 
-        if (random.nextInt(100) < 5) {
+        if (random.nextInt(100) < 3) {
             Item ring = List.getRings().get(Context.getSession().getClass().getSimpleName());
             enemy.putOnInventory(ring);
         }
 
-        if (random.nextInt(100) < 5) {
+        if (random.nextInt(100) < 3) {
             Item necklaces = List.getNecklaces().get(Context.getSession().getClass().getSimpleName());
             enemy.putOnInventory(necklaces);
         }

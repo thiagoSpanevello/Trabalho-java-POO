@@ -35,7 +35,16 @@ public class Berserker extends Character {
     @Override
     public void restore() {
         super.restore();
-
+        inRage = 0;
+        this.currentStrength = this.strength;
+        this.rageCritRate = this.critRate;
+        
+    }
+    
+       @Override
+    public void increaseLevel() {
+        super.increaseLevel();
+        
         double newStrength = this.strength * 1.1;
         this.strength = (int) Math.ceil(newStrength);
 
@@ -43,6 +52,7 @@ public class Berserker extends Character {
         this.currentStrength = this.strength;
         this.rageCritRate = this.critRate;
     }
+
 
     @Override
     public Damage attack() {
@@ -78,7 +88,6 @@ public class Berserker extends Character {
                 throw new AssertionError();
         }
         if (this.equipment.getWeapon() != null) {
-            multiplier += this.equipment.getWeapon().getMultiplier();
             String weapon = " com seu " + this.equipment.getWeapon().getType() + " '" + this.equipment.getWeapon().getName() + "'";
             multiplier += this.equipment.getWeapon().getMultiplier() * this.currentStrength;
 

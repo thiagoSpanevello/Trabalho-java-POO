@@ -62,7 +62,7 @@ public class Seller extends javax.swing.JFrame {
 
             if (inv[i].data.getClass().getSimpleName().equals("Weapon")) {
                 Weapon w = (Weapon) inv[i].data;
-                text += " (dam: " + w.getDamage() + ", mult: " + w.getMultiplier()  * 100 + "%)";
+                text += " (dam: " + w.getDamage() + ", mult: " + String.format("%.2f", w.getMultiplier() * 100 ) + "%)";
             }
 
             int price = (int) Math.ceil(inv[i].price * 1.1 * inv[i].getCurrentStack());
@@ -133,7 +133,7 @@ public class Seller extends javax.swing.JFrame {
 
             if (inv[i].data.getClass().getSimpleName().equals("Weapon")) {
                 Weapon w = (Weapon) inv[i].data;
-                text += " (dam: " + w.getDamage() + ", mult: " + w.getMultiplier() * 100 + "%)";
+                text += " (dam: " + w.getDamage() + ", mult: " + String.format("%.2f", w.getMultiplier() * 100 ) + "%)";
             }
             int price = (int) Math.floor(inv[i].price * 0.9 * inv[i].getCurrentStack());
 

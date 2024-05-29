@@ -85,7 +85,7 @@ public class Combat extends javax.swing.JFrame {
         
         Random random = new Random();
         
-        double damageMult = 1 - (random.nextInt(21) / 100); 
+        double damageMult = 1.10 - (random.nextInt(21) / 100); 
         
         if(Context.getSession().getClass().getSimpleName().equals("Archer")) {
             damage = Context.getSession().equipment.getWeapon().getMultiplier() * damageMult;
@@ -533,7 +533,7 @@ public class Combat extends javax.swing.JFrame {
 
         if (currentMana >= spells[0].getMana()) {
             attack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/spell1.png")));
-            jLabel5.setVisible(false);
+            jLabel5.setVisible(true);
         } else {
             attack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/mageAttack.png")));
             jLabel5.setVisible(false);
