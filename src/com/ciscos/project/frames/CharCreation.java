@@ -24,8 +24,8 @@ public class CharCreation extends javax.swing.JFrame {
         initComponents();
         Context.setCreation(this);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        cbClass.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        jButton1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        classSelect.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        submit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         int w = this.getSize().width;
         int h = this.getSize().height;
 
@@ -42,18 +42,18 @@ public class CharCreation extends javax.swing.JFrame {
         specialField = new javax.swing.JLabel();
         specialInput = new javax.swing.JTextField();
         speedInput = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        speedLabel = new javax.swing.JLabel();
+        hpLabel = new javax.swing.JLabel();
         hpInput = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        nameLabel = new javax.swing.JLabel();
         nameInput = new javax.swing.JTextField();
-        cbClass = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        classSelect = new javax.swing.JComboBox<>();
+        classLabel = new javax.swing.JLabel();
+        submit = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         characterName = new javax.swing.JLabel();
         characterGif = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cisco's Medieval RPG: Criação");
@@ -113,13 +113,13 @@ public class CharCreation extends javax.swing.JFrame {
         speedInput.getBorder(),
         BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
-jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-jLabel5.setText("Velocidade");
-getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 260, -1, -1));
+speedLabel.setForeground(new java.awt.Color(255, 255, 255));
+speedLabel.setText("Velocidade");
+getContentPane().add(speedLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 260, -1, -1));
 
-jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-jLabel4.setText("Pontos de vida (HP)");
-getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, -1, -1));
+hpLabel.setForeground(new java.awt.Color(255, 255, 255));
+hpLabel.setText("Pontos de vida (HP)");
+getContentPane().add(hpLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, -1, -1));
 
 hpInput.setEditable(false);
 hpInput.setBackground(new java.awt.Color(40, 40, 40));
@@ -145,9 +145,9 @@ hpInput.setBorder(BorderFactory.createCompoundBorder(
     });
     getContentPane().add(hpInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 160, 30));
 
-    jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-    jLabel2.setText("Nome do Personagem");
-    getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
+    nameLabel.setForeground(new java.awt.Color(255, 255, 255));
+    nameLabel.setText("Nome do Personagem");
+    getContentPane().add(nameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
 
     nameInput.setBackground(new java.awt.Color(40, 40, 40));
     nameInput.setForeground(new java.awt.Color(221, 221, 221));
@@ -169,40 +169,40 @@ nameInput.addCaretListener(new javax.swing.event.CaretListener() {
     });
     getContentPane().add(nameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 270, 30));
 
-    cbClass.setBackground(new java.awt.Color(40, 40, 40));
-    cbClass.setForeground(new java.awt.Color(221, 221, 221));
-    cbClass.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Arqueiro", "Berserker", "Mago" }));
-    cbClass.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-    cbClass.setOpaque(true);
-    cbClass.addActionListener(new java.awt.event.ActionListener() {
+    classSelect.setBackground(new java.awt.Color(40, 40, 40));
+    classSelect.setForeground(new java.awt.Color(221, 221, 221));
+    classSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Arqueiro", "Berserker", "Mago" }));
+    classSelect.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+    classSelect.setOpaque(true);
+    classSelect.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            cbClassActionPerformed(evt);
+            classSelectActionPerformed(evt);
         }
     });
-    getContentPane().add(cbClass, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 270, 30));
-    for (int i = 0; i < cbClass.getComponentCount(); i++)
+    getContentPane().add(classSelect, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 270, 30));
+    for (int i = 0; i < classSelect.getComponentCount(); i++)
     {
-        if (cbClass.getComponent(i) instanceof JComponent) {
-            ((JComponent) cbClass.getComponent(i)).setBorder(new EmptyBorder(0, 0,0,0));
+        if (classSelect.getComponent(i) instanceof JComponent) {
+            ((JComponent) classSelect.getComponent(i)).setBorder(new EmptyBorder(0, 0,0,0));
         }
 
-        if (cbClass.getComponent(i) instanceof AbstractButton) {
-            ((AbstractButton) cbClass.getComponent(i)).setBorderPainted(false);
+        if (classSelect.getComponent(i) instanceof AbstractButton) {
+            ((AbstractButton) classSelect.getComponent(i)).setBorderPainted(false);
         }
     }
 
-    jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-    jLabel3.setText("Classe do Personagem");
-    getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
+    classLabel.setForeground(new java.awt.Color(255, 255, 255));
+    classLabel.setText("Classe do Personagem");
+    getContentPane().add(classLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
 
-    jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/concluir.png"))); // NOI18N
-    jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
-    jButton1.addActionListener(new java.awt.event.ActionListener() {
+    submit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/concluir.png"))); // NOI18N
+    submit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
+    submit.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton1ActionPerformed(evt);
+            submitActionPerformed(evt);
         }
     });
-    getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 390, 320, 40));
+    getContentPane().add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 390, 320, 40));
 
     jPanel1.setBackground(new java.awt.Color(111, 111, 95));
     jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -219,16 +219,16 @@ nameInput.addCaretListener(new javax.swing.event.CaretListener() {
 
     getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 140, 140));
 
-    jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/backblur.png"))); // NOI18N
-    jLabel1.setText("jLabel1");
-    getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 490));
+    background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/backblur.png"))); // NOI18N
+    background.setText("jLabel1");
+    getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 490));
 
     pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbClassActionPerformed
+    private void classSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classSelectActionPerformed
         // TODO add your handling code here:
-        int i = cbClass.getSelectedIndex();
+        int i = classSelect.getSelectedIndex();
 
         switch (i) {
             case 0:
@@ -261,15 +261,15 @@ nameInput.addCaretListener(new javax.swing.event.CaretListener() {
             default:
                 throw new AssertionError();
         }
-    }//GEN-LAST:event_cbClassActionPerformed
+    }//GEN-LAST:event_classSelectActionPerformed
 
     private void create() {
         if (nameInput.getText().length() >= 4) {
             Character p;
-            if (cbClass.getSelectedItem().toString().equals("Berserker")) {
+            if (classSelect.getSelectedItem().toString().equals("Berserker")) {
                 Berserker berserker = new Berserker(nameInput.getText(), 70, 10, 5, 10);
                 Context.setSession(berserker);
-            } else if (cbClass.getSelectedItem().toString().equals("Mago")) {
+            } else if (classSelect.getSelectedItem().toString().equals("Mago")) {
                 Mage mago = new Mage(nameInput.getText(), 60, 10, 100, 5);
                 Context.setSession(mago);
             } else {
@@ -293,7 +293,7 @@ nameInput.addCaretListener(new javax.swing.event.CaretListener() {
             p.equip(weapon);
             p.setCoins(50);
 
-            JOptionPane.showMessageDialog(this, "Personagem " + p.getName() + " da classe " + cbClass.getSelectedItem().toString() + " foi criado com sucesso!");
+            JOptionPane.showMessageDialog(this, "Personagem " + p.getName() + " da classe " + classSelect.getSelectedItem().toString() + " foi criado com sucesso!");
 
             String message = "Você recebeu um kit iniciante para a sua jornada: \n";
             message += "1x " + armor.data.getName() + " (Equipado); \n";
@@ -309,12 +309,12 @@ nameInput.addCaretListener(new javax.swing.event.CaretListener() {
 
             message += "3x " + life.data.getName() + "; \n";
 
-            if (cbClass.getSelectedItem().toString().equals("Mago")) {
+            if (classSelect.getSelectedItem().toString().equals("Mago")) {
                 p.putOnInventory(mana);
                 message += "1x " + mana.data.getName() + "; \n";
             }
 
-            if (cbClass.getSelectedItem().toString().equals("Arqueiro")) {
+            if (classSelect.getSelectedItem().toString().equals("Arqueiro")) {
                 for (int i = 0; i < 20; i++) {
                     p.putOnInventory(arrow);
                 }
@@ -332,9 +332,9 @@ nameInput.addCaretListener(new javax.swing.event.CaretListener() {
         }
     }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         create();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_submitActionPerformed
 
     private void nameInputCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_nameInputCaretUpdate
         // TODO add your handling code here:
@@ -364,14 +364,14 @@ nameInput.addCaretListener(new javax.swing.event.CaretListener() {
 
     private void nameInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameInputKeyPressed
         // TODO add your handling code here:
-        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            create();
+        }
     }//GEN-LAST:event_nameInputKeyPressed
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         // TODO add your handling code here:
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            create();
-        }
+        
     }//GEN-LAST:event_formKeyPressed
 
     public static void main(String args[]) {
@@ -407,20 +407,20 @@ nameInput.addCaretListener(new javax.swing.event.CaretListener() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cbClass;
+    private javax.swing.JLabel background;
     private javax.swing.JLabel characterGif;
     private javax.swing.JLabel characterName;
+    private javax.swing.JLabel classLabel;
+    private javax.swing.JComboBox<String> classSelect;
     private javax.swing.JTextField hpInput;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel hpLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nameInput;
+    private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel specialField;
     private javax.swing.JTextField specialInput;
     private javax.swing.JTextField speedInput;
+    private javax.swing.JLabel speedLabel;
+    private javax.swing.JButton submit;
     // End of variables declaration//GEN-END:variables
 }

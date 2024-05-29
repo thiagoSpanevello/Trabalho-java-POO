@@ -131,16 +131,16 @@ public class Combat extends javax.swing.JFrame {
 
         int random = rand.nextInt(5);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatBackgrounds/" + random + ".jpeg")));
+        randomBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatBackgrounds/" + random + ".jpeg")));
 
         if (Context.getSession().getClass().getSimpleName().equals("Berserker") || Context.getSession().getClass().getSimpleName().equals("Archer")) {
             spell2.setVisible(false);
             spell3.setVisible(false);
             manaBar.setVisible(false);
 
-            jLabel4.setVisible(false);
-            jLabel5.setVisible(false);
-            jLabel6.setVisible(false);
+            spell3Mana.setVisible(false);
+            spell1Mana.setVisible(false);
+            spell2Mana.setVisible(false);
         }
 
         if (Context.getSession().getClass().getSimpleName().equals("Berserker")) {
@@ -160,9 +160,9 @@ public class Combat extends javax.swing.JFrame {
 
             Spell[] spells = m.getSpells();
 
-            jLabel5.setText("0" + spells[0].getMana());
-            jLabel6.setText("" + spells[1].getMana());
-            jLabel4.setText("" + spells[2].getMana());
+            spell1Mana.setText("0" + spells[0].getMana());
+            spell2Mana.setText("" + spells[1].getMana());
+            spell3Mana.setText("" + spells[2].getMana());
             
             checkMana();
         }
@@ -231,7 +231,7 @@ public class Combat extends javax.swing.JFrame {
         
         getToLevel();
         
-        if (rand.nextInt(10) <= 6 ) {
+        if (rand.nextInt(10) < 6 ) {
             Item[] armors = List.armors;
             int prob = 0;
             for (int i = 0; i < armors.length; i++) {
@@ -250,7 +250,7 @@ public class Combat extends javax.swing.JFrame {
         }
 
 
-        if (rand.nextInt(10) <= 6 ) {
+        if (rand.nextInt(10) < 6 ) {
             Item[] pants = List.pants;
 
             int prob = 0;
@@ -275,13 +275,13 @@ public class Combat extends javax.swing.JFrame {
         enemyName.setText(enemy.getName());
         charName.setText(Context.getSession().getName());
 
-        jProgressBar3.setValue((int) Context.getSession().getHp());
-        jProgressBar3.setMaximum((int) Context.getSession().getMaxHp());
-        jProgressBar3.setForeground(Color.red);
+        charHP.setValue((int) Context.getSession().getHp());
+        charHP.setMaximum((int) Context.getSession().getMaxHp());
+        charHP.setForeground(Color.red);
         
-        jProgressBar2.setValue((int) enemy.getHp());
-        jProgressBar2.setMaximum((int) enemy.getMaxHp());
-        jProgressBar2.setForeground(Color.red);
+        enemyHP.setValue((int) enemy.getHp());
+        enemyHP.setMaximum((int) enemy.getMaxHp());
+        enemyHP.setForeground(Color.red);
     }
 
     /**
@@ -299,9 +299,9 @@ public class Combat extends javax.swing.JFrame {
         block3 = new javax.swing.JLabel();
         block2 = new javax.swing.JLabel();
         block1 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        spell2Mana = new javax.swing.JLabel();
+        spell1Mana = new javax.swing.JLabel();
+        spell3Mana = new javax.swing.JLabel();
         mana = new javax.swing.JLabel();
         heal = new javax.swing.JLabel();
         spell2 = new javax.swing.JLabel();
@@ -309,15 +309,15 @@ public class Combat extends javax.swing.JFrame {
         attack = new javax.swing.JLabel();
         run = new javax.swing.JLabel();
         manaBar = new javax.swing.JProgressBar();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        menuBlur2 = new javax.swing.JLabel();
+        menuBlur1 = new javax.swing.JLabel();
         charIcon = new javax.swing.JLabel();
         charName = new javax.swing.JLabel();
-        jProgressBar3 = new javax.swing.JProgressBar();
-        jProgressBar2 = new javax.swing.JProgressBar();
+        charHP = new javax.swing.JProgressBar();
+        enemyHP = new javax.swing.JProgressBar();
         enemyName = new javax.swing.JLabel();
         enemyIcon = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        randomBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(608, 358));
@@ -348,20 +348,20 @@ public class Combat extends javax.swing.JFrame {
         block1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/blocked.png"))); // NOI18N
         getContentPane().add(block1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("SF Pro Display", 0, 8)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("10");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(577, 93, -1, -1));
+        spell2Mana.setFont(new java.awt.Font("SF Pro Display", 0, 8)); // NOI18N
+        spell2Mana.setForeground(new java.awt.Color(255, 255, 255));
+        spell2Mana.setText("10");
+        getContentPane().add(spell2Mana, new org.netbeans.lib.awtextra.AbsoluteConstraints(577, 93, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("SF Pro Display", 0, 8)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("10");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(546, 44, -1, -1));
+        spell1Mana.setFont(new java.awt.Font("SF Pro Display", 0, 8)); // NOI18N
+        spell1Mana.setForeground(new java.awt.Color(255, 255, 255));
+        spell1Mana.setText("10");
+        getContentPane().add(spell1Mana, new org.netbeans.lib.awtextra.AbsoluteConstraints(546, 44, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("SF Pro Display", 0, 8)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("10");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(517, 93, -1, -1));
+        spell3Mana.setFont(new java.awt.Font("SF Pro Display", 0, 8)); // NOI18N
+        spell3Mana.setForeground(new java.awt.Color(255, 255, 255));
+        spell3Mana.setText("10");
+        getContentPane().add(spell3Mana, new org.netbeans.lib.awtextra.AbsoluteConstraints(517, 93, -1, -1));
 
         mana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noMana.png"))); // NOI18N
         mana.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -412,26 +412,26 @@ public class Combat extends javax.swing.JFrame {
         getContentPane().add(run, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 260, -1, -1));
         getContentPane().add(manaBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 120, 110, 10));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/blur.png"))); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, -1, -1));
+        menuBlur2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/blur.png"))); // NOI18N
+        getContentPane().add(menuBlur2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, -1, -1));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/blur.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, -1, -1));
+        menuBlur1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/blur.png"))); // NOI18N
+        getContentPane().add(menuBlur1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, -1, -1));
         getContentPane().add(charIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 172, 140, 120));
 
         charName.setForeground(new java.awt.Color(255, 255, 255));
         charName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         getContentPane().add(charName, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 140, -1));
-        getContentPane().add(jProgressBar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 140, 10));
-        getContentPane().add(jProgressBar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 290, 140, 10));
+        getContentPane().add(charHP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 140, 10));
+        getContentPane().add(enemyHP, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 290, 140, 10));
 
         enemyName.setForeground(new java.awt.Color(255, 255, 255));
         enemyName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         getContentPane().add(enemyName, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, 180, -1));
         getContentPane().add(enemyIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 169, 140, 120));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatBackgrounds/4.jpeg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 320));
+        randomBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatBackgrounds/4.jpeg"))); // NOI18N
+        getContentPane().add(randomBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 320));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -533,10 +533,10 @@ public class Combat extends javax.swing.JFrame {
 
         if (currentMana >= spells[0].getMana()) {
             attack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/spell1.png")));
-            jLabel5.setVisible(true);
+            spell1Mana.setVisible(true);
         } else {
             attack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/mageAttack.png")));
-            jLabel5.setVisible(false);
+            spell1Mana.setVisible(false);
         }
 
         if (currentMana >= spells[1].getMana()) {
@@ -596,9 +596,9 @@ public class Combat extends javax.swing.JFrame {
         }
 
         if (b.getClass().getSimpleName().equals("Entity")) {
-            jProgressBar2.setValue((int) b.getHp());
+            enemyHP.setValue((int) b.getHp());
         } else {
-            jProgressBar3.setValue((int) b.getHp());
+            charHP.setValue((int) b.getHp());
             Context.getMainWindow().sync();
         }
 
@@ -731,7 +731,7 @@ public class Combat extends javax.swing.JFrame {
             c.setHp(newHp);
             Context.getMainWindow().sync();
 
-            jProgressBar3.setValue((int) Context.getSession().getHp());
+            charHP.setValue((int) Context.getSession().getHp());
 
             try {
                 inv[index].decreaseStack();
@@ -850,23 +850,23 @@ public class Combat extends javax.swing.JFrame {
     private javax.swing.JLabel block4;
     private javax.swing.JLabel block5;
     private javax.swing.JLabel block6;
+    private javax.swing.JProgressBar charHP;
     private javax.swing.JLabel charIcon;
     private javax.swing.JLabel charName;
+    private javax.swing.JProgressBar enemyHP;
     private javax.swing.JLabel enemyIcon;
     private javax.swing.JLabel enemyName;
     private javax.swing.JLabel heal;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JProgressBar jProgressBar2;
-    private javax.swing.JProgressBar jProgressBar3;
     private javax.swing.JLabel mana;
     private javax.swing.JProgressBar manaBar;
+    private javax.swing.JLabel menuBlur1;
+    private javax.swing.JLabel menuBlur2;
+    private javax.swing.JLabel randomBackground;
     private javax.swing.JLabel run;
+    private javax.swing.JLabel spell1Mana;
     private javax.swing.JLabel spell2;
+    private javax.swing.JLabel spell2Mana;
     private javax.swing.JLabel spell3;
+    private javax.swing.JLabel spell3Mana;
     // End of variables declaration//GEN-END:variables
 }

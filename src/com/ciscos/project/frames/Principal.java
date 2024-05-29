@@ -15,12 +15,12 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         Context.setMainWindow(this);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        jButton2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        jButton3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        jLabel4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        jLabel8.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        jLabel7.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        jLabel10.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        play.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        credits.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        sellerImg.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        adventureMap.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        luigi.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        restoreCampfire.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         int w = this.getSize().width;
         int h = this.getSize().height;
         int x = (dim.width - w) / 2;
@@ -33,15 +33,15 @@ public class Principal extends javax.swing.JFrame {
     }
 
     public void sync() {
-        HPbarP.setValue((int) Context.getSession().getHp());
-        HPbarP.setMaximum((int) Context.getSession().getMaxHp());
+        HPbar.setValue((int) Context.getSession().getHp());
+        HPbar.setMaximum((int) Context.getSession().getMaxHp());
 
         XPbar.setValue((int) Context.getSession().getXp());
         XPbar.setMaximum(100);
-        labelHPP.setText("HP: " + String.format("%.2f", Context.getSession().getHp()) + "/" + String.format("%.2f", Context.getSession().getMaxHp()));
+        labelHP.setText("HP: " + String.format("%.2f", Context.getSession().getHp()) + "/" + String.format("%.2f", Context.getSession().getMaxHp()));
         labelXp.setText("Nível: " + Context.getSession().getLevel() + "   XP: " + String.format("%.2f", Context.getSession().getXp()) + "/" + String.format("%.2f", Context.getSession().getMaxXp()));
 
-        money.setText("  " + Context.getSession().getCoins());
+        coins.setText("  " + Context.getSession().getCoins());
         advice1.setVisible(!Context.isHasEverHealed() && Context.getSession().getHp() < Context.getSession().getMaxHp());
 
     }
@@ -51,30 +51,29 @@ public class Principal extends javax.swing.JFrame {
 
         menu = new javax.swing.JPanel();
         advice1 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        money = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        restoreCampfire = new javax.swing.JLabel();
+        coins = new javax.swing.JLabel();
+        luigi = new javax.swing.JLabel();
         advice = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        sellerName2 = new javax.swing.JLabel();
+        sellerName1 = new javax.swing.JLabel();
+        sellerImg = new javax.swing.JLabel();
         characterName = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        labelHPP = new javax.swing.JLabel();
-        HPbarP = new javax.swing.JProgressBar();
+        charGif = new javax.swing.JLabel();
+        labelHP = new javax.swing.JLabel();
+        HPbar = new javax.swing.JProgressBar();
         labelXp = new javax.swing.JLabel();
         XPbar = new javax.swing.JProgressBar();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        statusGUI = new javax.swing.JLabel();
+        adventureMap = new javax.swing.JLabel();
+        background = new javax.swing.JLabel();
         landing = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        play = new javax.swing.JButton();
+        credits = new javax.swing.JButton();
+        background1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cisco's Medieval RPG: ULTIMATE EDITION ");
-        setMaximumSize(new java.awt.Dimension(580, 490));
         setMinimumSize(new java.awt.Dimension(580, 490));
         setResizable(false);
         setSize(new java.awt.Dimension(580, 490));
@@ -86,40 +85,40 @@ public class Principal extends javax.swing.JFrame {
         advice1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/advice.png"))); // NOI18N
         menu.add(advice1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 330, 10, -1));
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/camp.gif"))); // NOI18N
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+        restoreCampfire.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/camp.gif"))); // NOI18N
+        restoreCampfire.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel10MouseClicked(evt);
+                restoreCampfireMouseClicked(evt);
             }
         });
-        menu.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(268, 340, -1, -1));
+        menu.add(restoreCampfire, new org.netbeans.lib.awtextra.AbsoluteConstraints(268, 340, -1, -1));
 
-        money.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        money.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/coin.png"))); // NOI18N
-        money.setText("  0");
-        menu.add(money, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 120, -1));
+        coins.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        coins.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/coin.png"))); // NOI18N
+        coins.setText("  0");
+        menu.add(coins, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 120, -1));
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/luigi.png"))); // NOI18N
-        menu.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 320, -1, -1));
+        luigi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/luigi.png"))); // NOI18N
+        menu.add(luigi, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 320, -1, -1));
 
         advice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/advice.png"))); // NOI18N
         menu.add(advice, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 290, -1, -1));
 
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("mercado negro");
-        menu.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(424, 422, -1, -1));
+        sellerName2.setForeground(new java.awt.Color(255, 255, 255));
+        sellerName2.setText("mercado negro");
+        menu.add(sellerName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(424, 422, -1, -1));
 
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Vendedor do");
-        menu.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 410, -1, -1));
+        sellerName1.setForeground(new java.awt.Color(255, 255, 255));
+        sellerName1.setText("Vendedor do");
+        menu.add(sellerName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 410, -1, -1));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/seller.gif"))); // NOI18N
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        sellerImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/seller.gif"))); // NOI18N
+        sellerImg.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel4MouseClicked(evt);
+                sellerImgMouseClicked(evt);
             }
         });
-        menu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 320, -1, -1));
+        menu.add(sellerImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 320, -1, -1));
 
         characterName.setBackground(new java.awt.Color(0, 0, 0));
         characterName.setForeground(new java.awt.Color(255, 255, 255));
@@ -128,17 +127,17 @@ public class Principal extends javax.swing.JFrame {
         characterName.setName(""); // NOI18N
         menu.add(characterName, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 410, 140, -1));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/archer.gif"))); // NOI18N
-        menu.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 120, 120));
+        charGif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/archer.gif"))); // NOI18N
+        menu.add(charGif, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 120, 120));
 
-        labelHPP.setForeground(new java.awt.Color(255, 255, 255));
-        labelHPP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelHPP.setPreferredSize(new java.awt.Dimension(146, 16));
-        menu.add(labelHPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 230, 20));
+        labelHP.setForeground(new java.awt.Color(255, 255, 255));
+        labelHP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelHP.setPreferredSize(new java.awt.Dimension(146, 16));
+        menu.add(labelHP, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 230, 20));
 
-        HPbarP.setBackground(new java.awt.Color(102, 102, 102));
-        HPbarP.setPreferredSize(new java.awt.Dimension(146, 16));
-        menu.add(HPbarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 230, 20));
+        HPbar.setBackground(new java.awt.Color(102, 102, 102));
+        HPbar.setPreferredSize(new java.awt.Dimension(146, 16));
+        menu.add(HPbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 230, 20));
 
         labelXp.setForeground(new java.awt.Color(255, 255, 255));
         labelXp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -147,87 +146,87 @@ public class Principal extends javax.swing.JFrame {
         XPbar.setBackground(new java.awt.Color(102, 102, 102));
         menu.add(XPbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 230, 20));
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/gui.png"))); // NOI18N
-        menu.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        statusGUI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/gui.png"))); // NOI18N
+        menu.add(statusGUI, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/mapIcon.png"))); // NOI18N
-        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+        adventureMap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/mapIcon.png"))); // NOI18N
+        adventureMap.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel8MouseClicked(evt);
+                adventureMapMouseClicked(evt);
             }
         });
-        menu.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 60, -1, -1));
+        menu.add(adventureMap, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 60, -1, -1));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/background menu.png"))); // NOI18N
-        jLabel3.setText("jLabel3");
-        menu.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 490));
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/background menu.png"))); // NOI18N
+        background.setText("jLabel3");
+        menu.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 490));
 
         getContentPane().add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 490));
 
         landing.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton2.setBackground(new java.awt.Color(0, 0, 0));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/jogar.png"))); // NOI18N
-        jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
-        jButton2.setMaximumSize(new java.awt.Dimension(100, 50));
-        jButton2.setMinimumSize(new java.awt.Dimension(100, 50));
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        play.setBackground(new java.awt.Color(0, 0, 0));
+        play.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/jogar.png"))); // NOI18N
+        play.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
+        play.setMaximumSize(new java.awt.Dimension(100, 50));
+        play.setMinimumSize(new java.awt.Dimension(100, 50));
+        play.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton2MouseEntered(evt);
+                playMouseEntered(evt);
             }
         });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        play.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                playActionPerformed(evt);
             }
         });
-        landing.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 220, 40));
+        landing.add(play, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 220, 40));
 
-        jButton3.setBackground(new java.awt.Color(0, 0, 0));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/creditos.png"))); // NOI18N
-        jButton3.setAutoscrolls(true);
-        jButton3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        credits.setBackground(new java.awt.Color(0, 0, 0));
+        credits.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/creditos.png"))); // NOI18N
+        credits.setAutoscrolls(true);
+        credits.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
+        credits.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                creditsActionPerformed(evt);
             }
         });
-        landing.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 390, 220, 40));
+        landing.add(credits, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 390, 220, 40));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cisco logo.png"))); // NOI18N
-        jLabel1.setToolTipText("");
-        jLabel1.setMaximumSize(new java.awt.Dimension(680, 620));
-        jLabel1.setMinimumSize(new java.awt.Dimension(680, 620));
-        jLabel1.setPreferredSize(new java.awt.Dimension(680, 620));
-        landing.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 490));
+        background1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cisco logo.png"))); // NOI18N
+        background1.setToolTipText("");
+        background1.setMaximumSize(new java.awt.Dimension(680, 620));
+        background1.setMinimumSize(new java.awt.Dimension(680, 620));
+        background1.setPreferredSize(new java.awt.Dimension(680, 620));
+        landing.add(background1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 490));
 
         getContentPane().add(landing, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 490));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void creditsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditsActionPerformed
         if (Context.getCredits() != null) {
             return;
         }
         Creditos credits = new Creditos();
         credits.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_creditsActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playActionPerformed
 
         if (Context.getCreation() != null) {
             return;
         }
         CharCreation createChar = new CharCreation();
         createChar.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_playActionPerformed
 
-    private void jButton2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseEntered
+    private void playMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playMouseEntered
 
-    }//GEN-LAST:event_jButton2MouseEntered
+    }//GEN-LAST:event_playMouseEntered
 
-    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+    private void sellerImgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sellerImgMouseClicked
         // TODO add your handling code here:
         Context.setHasEverShopped(true);
 
@@ -237,9 +236,9 @@ public class Principal extends javax.swing.JFrame {
         }
 
         advice.setVisible(false);
-    }//GEN-LAST:event_jLabel4MouseClicked
+    }//GEN-LAST:event_sellerImgMouseClicked
 
-    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+    private void adventureMapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adventureMapMouseClicked
         if (Context.getMap() != null) {
             return;
         }
@@ -272,9 +271,9 @@ public class Principal extends javax.swing.JFrame {
         CombatMap combatMap = new CombatMap();
         combatMap.setVisible(true);
 
-    }//GEN-LAST:event_jLabel8MouseClicked
+    }//GEN-LAST:event_adventureMapMouseClicked
 
-    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+    private void restoreCampfireMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_restoreCampfireMouseClicked
         // TODO add your handling code here:
         if (!Context.isHasEverHealed() && Context.getSession().getHp() < Context.getSession().getMaxXp()) {
             Context.setHasEverHealed(true);
@@ -284,19 +283,19 @@ public class Principal extends javax.swing.JFrame {
         this.sync();
         advice1.setVisible(false);
         JOptionPane.showMessageDialog(this, Context.getSession().getName() + " descansou e está em seu perfeito estado!");
-    }//GEN-LAST:event_jLabel10MouseClicked
+    }//GEN-LAST:event_restoreCampfireMouseClicked
 
     /**
      * @param args the command line arguments
      */
     public void isThereASession() {
         if (Context.getSession() != null) {
-            jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/" + Context.getSession().getClass().getSimpleName().toLowerCase() + ".gif")));
+            charGif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/" + Context.getSession().getClass().getSimpleName().toLowerCase() + ".gif")));
             characterName.setText(Context.getSession().getName());
-            labelHPP.setText("HP: " + String.format("%.2f", Context.getSession().getHp()) + "/" + String.format("%.2f", Context.getSession().getMaxHp()));
-            HPbarP.setValue((int) Context.getSession().getHp());
-            HPbarP.setMaximum((int) Context.getSession().getMaxHp());
-            HPbarP.setForeground(Color.red);
+            labelHP.setText("HP: " + String.format("%.2f", Context.getSession().getHp()) + "/" + String.format("%.2f", Context.getSession().getMaxHp()));
+            HPbar.setValue((int) Context.getSession().getHp());
+            HPbar.setMaximum((int) Context.getSession().getMaxHp());
+            HPbar.setForeground(Color.red);
             XPbar.setValue((int) Context.getSession().getXp());
             XPbar.setMaximum(100);
             XPbar.setForeground(Color.BLUE);
@@ -304,7 +303,7 @@ public class Principal extends javax.swing.JFrame {
             menu.setVisible(true);
             landing.setVisible(false);
             advice1.setVisible(!Context.isHasEverHealed() && Context.getSession().getHp() < Context.getSession().getMaxHp());
-            money.setText("  " + Context.getSession().getCoins());
+            coins.setText("  " + Context.getSession().getCoins());
         } else {
             menu.setVisible(true);
             landing.setVisible(false);
@@ -344,27 +343,27 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JProgressBar HPbarP;
+    private javax.swing.JProgressBar HPbar;
     private javax.swing.JProgressBar XPbar;
+    private javax.swing.JLabel adventureMap;
     private javax.swing.JLabel advice;
     private javax.swing.JLabel advice1;
+    private javax.swing.JLabel background;
+    private javax.swing.JLabel background1;
+    private javax.swing.JLabel charGif;
     private javax.swing.JLabel characterName;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel labelHPP;
+    private javax.swing.JLabel coins;
+    private javax.swing.JButton credits;
+    private javax.swing.JLabel labelHP;
     private javax.swing.JLabel labelXp;
     private javax.swing.JPanel landing;
+    private javax.swing.JLabel luigi;
     private javax.swing.JPanel menu;
-    private javax.swing.JLabel money;
+    private javax.swing.JButton play;
+    private javax.swing.JLabel restoreCampfire;
+    private javax.swing.JLabel sellerImg;
+    private javax.swing.JLabel sellerName1;
+    private javax.swing.JLabel sellerName2;
+    private javax.swing.JLabel statusGUI;
     // End of variables declaration//GEN-END:variables
 }

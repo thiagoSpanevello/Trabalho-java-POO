@@ -208,9 +208,9 @@ public class Seller extends javax.swing.JFrame {
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
-        jButton1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        jButton2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        jButton3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        exit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        sell.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        buy.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         equipButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         
         int w = this.getSize().width;
@@ -231,24 +231,23 @@ public class Seller extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        sell = new javax.swing.JButton();
         sellerCoins = new javax.swing.JLabel();
         userCoins = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        buy = new javax.swing.JButton();
         equipButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        exit = new javax.swing.JButton();
+        sellerInv = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        playerInv = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        background2 = new javax.swing.JLabel();
+        background1 = new javax.swing.JLabel();
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/backblur.png"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cisco's Medieval RPG: store");
-        setMaximumSize(new java.awt.Dimension(580, 490));
         setMinimumSize(new java.awt.Dimension(580, 490));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -258,14 +257,14 @@ public class Seller extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sell.png"))); // NOI18N
-        jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        sell.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sell.png"))); // NOI18N
+        sell.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
+        sell.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                sellActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 410, 40, 40));
+        getContentPane().add(sell, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 410, 40, 40));
 
         sellerCoins.setForeground(new java.awt.Color(255, 255, 255));
         sellerCoins.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -279,14 +278,14 @@ public class Seller extends javax.swing.JFrame {
         userCoins.setText("  0");
         getContentPane().add(userCoins, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 120, -1));
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/buy.png"))); // NOI18N
-        jButton3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        buy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/buy.png"))); // NOI18N
+        buy.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
+        buy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                buyActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 410, 196, 40));
+        getContentPane().add(buy, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 410, 196, 40));
 
         equipButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/equip.png"))); // NOI18N
         equipButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
@@ -297,28 +296,28 @@ public class Seller extends javax.swing.JFrame {
         });
         getContentPane().add(equipButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 410, 152, 40));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/return.png"))); // NOI18N
-        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/return.png"))); // NOI18N
+        exit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
+        exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                exitActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
+        getContentPane().add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
 
-        jScrollPane3.setBackground(new java.awt.Color(0, 0, 0));
-        jScrollPane3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
+        sellerInv.setBackground(new java.awt.Color(0, 0, 0));
+        sellerInv.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
 
         jList2.setBackground(new java.awt.Color(0, 0, 0));
         jList2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
         jList2.setForeground(new java.awt.Color(255, 255, 255));
         jList2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane3.setViewportView(jList2);
+        sellerInv.setViewportView(jList2);
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 60, 430, 340));
+        getContentPane().add(sellerInv, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 60, 430, 340));
 
-        jScrollPane2.setBackground(new java.awt.Color(0, 0, 0));
-        jScrollPane2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
+        playerInv.setBackground(new java.awt.Color(0, 0, 0));
+        playerInv.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
 
         jList1.setBackground(new java.awt.Color(0, 0, 0));
         jList1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
@@ -329,25 +328,25 @@ public class Seller extends javax.swing.JFrame {
                 jList1ValueChanged(evt);
             }
         });
-        jScrollPane2.setViewportView(jList1);
+        playerInv.setViewportView(jList1);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 430, 340));
+        getContentPane().add(playerInv, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 430, 340));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/backblur.png"))); // NOI18N
-        jLabel2.setText("jLabel1");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 600, 490));
+        background2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/backblur.png"))); // NOI18N
+        background2.setText("jLabel1");
+        getContentPane().add(background2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 600, 490));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/backblur.png"))); // NOI18N
-        jLabel3.setText("jLabel1");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 490));
+        background1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/backblur.png"))); // NOI18N
+        background1.setText("jLabel1");
+        getContentPane().add(background1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 490));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         this.dispose();
         Context.setSeller(null);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_exitActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
@@ -356,7 +355,7 @@ public class Seller extends javax.swing.JFrame {
         Context.setSeller(null);
     }//GEN-LAST:event_formWindowClosed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void buyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyActionPerformed
         // TODO add your handling code here:
         if (jList2.getSelectedIndex() < 0) {
             return;
@@ -395,7 +394,7 @@ public class Seller extends javax.swing.JFrame {
         }
 
         jList2.clearSelection();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_buyActionPerformed
 
     private boolean isEquipable(Object obj) {
         if (obj.getClass().getSimpleName().equals("Armor")) {
@@ -447,7 +446,7 @@ public class Seller extends javax.swing.JFrame {
         equipButton.setVisible(false);
     }//GEN-LAST:event_equipButtonMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void sellActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellActionPerformed
         // TODO add your handling code here:
         if (jList1.getSelectedIndex() < 0) {
             return;
@@ -479,7 +478,7 @@ public class Seller extends javax.swing.JFrame {
         }
         
         jList1.clearSelection();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_sellActionPerformed
 
     /**
      * @param args the command line arguments
@@ -517,18 +516,18 @@ public class Seller extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel background1;
+    private javax.swing.JLabel background2;
+    private javax.swing.JButton buy;
     private javax.swing.JButton equipButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton exit;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList2;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane playerInv;
+    private javax.swing.JButton sell;
     private javax.swing.JLabel sellerCoins;
+    private javax.swing.JScrollPane sellerInv;
     private javax.swing.JLabel userCoins;
     // End of variables declaration//GEN-END:variables
 }

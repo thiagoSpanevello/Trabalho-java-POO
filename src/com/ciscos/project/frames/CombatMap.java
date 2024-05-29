@@ -14,7 +14,7 @@ public class CombatMap extends javax.swing.JFrame {
         Context.setMap(this);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         
-        jButton1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        exit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         int w = this.getSize().width;
         int h = this.getSize().height;
@@ -33,9 +33,9 @@ public class CombatMap extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        exit = new javax.swing.JButton();
         javax.swing.JLabel flag = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        mapBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cisco's Medieval RPG: Map");
@@ -47,14 +47,14 @@ public class CombatMap extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/return.png"))); // NOI18N
-        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/return.png"))); // NOI18N
+        exit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
+        exit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                exitMouseClicked(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
+        getContentPane().add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
 
         flag.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/flag.png"))); // NOI18N
         int[][] positions = {{30, 230}, {60, 260}, {90, 290}, {100, 170}, {50, 110}, {50, 50}, {180, 90}, {224, 126}, {230, 70}, {300, 170}, {280, 200}, {250, 280}, {350, 250}, {520, 190}, {460, 180}, {430, 280}, {390, 180}, {500, 10}, {310, 30}};
@@ -67,14 +67,14 @@ public class CombatMap extends javax.swing.JFrame {
                 flagMouseClicked(evt);
             }
         });
-        getContentPane().add(flag, new org.netbeans.lib.awtextra.AbsoluteConstraints(positions[i][0], positions[i][1], -1, -1));
+        getContentPane().add(flag, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatMap.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        jLabel1.setMaximumSize(new java.awt.Dimension(620, 346));
-        jLabel1.setMinimumSize(new java.awt.Dimension(620, 346));
-        jLabel1.setPreferredSize(new java.awt.Dimension(620, 346));
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 346));
+        mapBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatMap.png"))); // NOI18N
+        mapBackground.setText("jLabel1");
+        mapBackground.setMaximumSize(new java.awt.Dimension(620, 346));
+        mapBackground.setMinimumSize(new java.awt.Dimension(620, 346));
+        mapBackground.setPreferredSize(new java.awt.Dimension(620, 346));
+        getContentPane().add(mapBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 346));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -83,10 +83,10 @@ public class CombatMap extends javax.swing.JFrame {
         Context.setMap(null);        // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosed
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitMouseClicked
         Context.setMap(null); 
         this.dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_exitMouseClicked
 
     private void flagMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_flagMouseClicked
         if(Context.getCombat() != null) return;
@@ -132,7 +132,7 @@ public class CombatMap extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton exit;
+    private javax.swing.JLabel mapBackground;
     // End of variables declaration//GEN-END:variables
 }
