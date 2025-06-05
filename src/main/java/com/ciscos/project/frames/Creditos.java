@@ -1,5 +1,6 @@
 package com.ciscos.project.frames;
 
+import com.ciscos.project.utils.ColorBlind;
 import com.ciscos.project.utils.Context;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -18,6 +19,8 @@ public class Creditos extends javax.swing.JFrame {
         int x = (dim.width-w)/2 + 50;
         int y = (dim.height-h)/2 + 50;
 
+        jLabel1.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/creditos background.png")));
+        
         this.setLocation(x, y);
     }
 

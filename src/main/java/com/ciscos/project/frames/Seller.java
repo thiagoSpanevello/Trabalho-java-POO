@@ -17,6 +17,7 @@ import com.ciscos.project.items.List;
 import com.ciscos.project.utils.Utils;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import com.ciscos.project.utils.ColorBlind;
 import java.awt.Toolkit;
 import java.util.Random;
 import javax.swing.JOptionPane;
@@ -198,6 +199,12 @@ public class Seller extends javax.swing.JFrame {
             seller.putOnInventory(randoms[i]);
         }
 
+        
+        jLabel3.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/backblur.png")));
+        jLabel2.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/backblur.png")));
+        sellerCoins.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/coin.png")));
+        userCoins.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/coin.png")));
+        
         sellerCoins.setText("  " + this.seller.getCoins());
 
         userCoins.setText("  " + Context.getSession().getCoins());

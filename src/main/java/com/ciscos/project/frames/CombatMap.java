@@ -4,6 +4,7 @@ import com.ciscos.project.utils.Context;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Rectangle;
+import com.ciscos.project.utils.ColorBlind;
 import java.awt.Toolkit;
 import java.util.Random;
 
@@ -21,6 +22,9 @@ public class CombatMap extends javax.swing.JFrame {
         int x = (dim.width - w) / 2;
         int y = (dim.height - h) / 2;
         
+        jLabel1.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatMap.png"))); 
+        flag.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/flag.png"))); 
+        
         this.setLocation(x, y);
     }
 
@@ -34,7 +38,7 @@ public class CombatMap extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        javax.swing.JLabel flag = new javax.swing.JLabel();
+        flag = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -130,8 +134,11 @@ public class CombatMap extends javax.swing.JFrame {
             }
         });
     }
+    
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel flag;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables

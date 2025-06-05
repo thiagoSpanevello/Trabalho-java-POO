@@ -17,6 +17,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
+import com.ciscos.project.utils.ColorBlind;
 
 public class CharCreation extends javax.swing.JFrame {
 
@@ -32,6 +33,8 @@ public class CharCreation extends javax.swing.JFrame {
         int x = (dim.width - w) / 2 + 50;
         int y = (dim.height - h) / 2 + 50;
 
+        jLabel1.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/backblur.png")));
+        
         this.setLocation(x, y);
     }
 

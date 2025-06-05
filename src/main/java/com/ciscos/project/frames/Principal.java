@@ -3,11 +3,16 @@ package com.ciscos.project.frames;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import com.ciscos.project.utils.Context;
+import com.ciscos.project.utils.ColorBlind;
 import com.ciscos.project.Character;
 import com.ciscos.project.mage.Mage;
 import java.awt.Color;
 import java.awt.Cursor;
 import javax.swing.JOptionPane;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.IOException;
+import javax.swing.ImageIcon;
 
 public class Principal extends javax.swing.JFrame {
 
@@ -21,6 +26,22 @@ public class Principal extends javax.swing.JFrame {
         jLabel8.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         jLabel7.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         jLabel10.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
+
+        
+        jLabel1.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/cisco logo.png")));        
+        jButton2.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/jogar.png")));        
+        jButton3.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/creditos.png")));
+
+        jLabel9.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/gui.png")));     
+        jLabel3.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/background menu.png")));  
+        money.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/coin.png")));
+        jLabel8.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/mapIcon.png")));
+        jLabel7.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/luigi.png")));
+        
+        advice1.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/advice.png")));
+        advice.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/advice.png")));
+        
         int w = this.getSize().width;
         int h = this.getSize().height;
         int x = (dim.width - w) / 2;
@@ -35,7 +56,7 @@ public class Principal extends javax.swing.JFrame {
     public void sync() {
         HPbarP.setValue((int) Context.getSession().getHp());
         HPbarP.setMaximum((int) Context.getSession().getMaxHp());
-
+        
         XPbar.setValue((int) Context.getSession().getXp());
         XPbar.setMaximum(100);
         labelHPP.setText("HP: " + String.format("%.2f", Context.getSession().getHp()) + "/" + String.format("%.2f", Context.getSession().getMaxHp()));
@@ -74,7 +95,6 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cisco's Medieval RPG: ULTIMATE EDITION ");
-        setMaximumSize(new java.awt.Dimension(580, 490));
         setMinimumSize(new java.awt.Dimension(580, 490));
         setResizable(false);
         setSize(new java.awt.Dimension(580, 490));
@@ -296,10 +316,13 @@ public class Principal extends javax.swing.JFrame {
             labelHPP.setText("HP: " + String.format("%.2f", Context.getSession().getHp()) + "/" + String.format("%.2f", Context.getSession().getMaxHp()));
             HPbarP.setValue((int) Context.getSession().getHp());
             HPbarP.setMaximum((int) Context.getSession().getMaxHp());
-            HPbarP.setForeground(Color.red);
+            
+            
+            HPbarP.setForeground(ColorBlind.filter(Color.red, Context.getColorblind()));
+            XPbar.setForeground(ColorBlind.filter(Color.BLUE, Context.getColorblind()));
+            
             XPbar.setValue((int) Context.getSession().getXp());
             XPbar.setMaximum(100);
-            XPbar.setForeground(Color.BLUE);
             labelXp.setText("Nível: " + Context.getSession().getLevel() + "   XP: " + String.format("%.2f", Context.getSession().getXp()) + "/" + String.format("%.2f", Context.getSession().getMaxXp()));
             menu.setVisible(true);
             landing.setVisible(false);

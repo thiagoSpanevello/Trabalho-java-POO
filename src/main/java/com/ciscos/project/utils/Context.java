@@ -16,6 +16,7 @@ public class Context {
     private static Seller seller = null;    
     private static CombatMap map = null;
     private static Combat combat = null;
+    private static int colorblind = 3;
     
     private static int runningCount = 0;
         
@@ -36,6 +37,14 @@ public class Context {
         return session;
     }
 
+    public static int getColorblind() {
+        return colorblind;
+    }
+
+    public static void setColorblind(int colorblind) {
+        Context.colorblind = colorblind;
+    }
+    
     public static void setSession(Character character) {
         if(Context.session != null) return;
         Context.session = character;

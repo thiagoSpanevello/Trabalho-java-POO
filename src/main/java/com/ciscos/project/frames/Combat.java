@@ -15,6 +15,7 @@ import com.ciscos.project.items.Potion;
 import com.ciscos.project.utils.Damage;
 import java.awt.Color;
 import java.awt.Cursor;
+import com.ciscos.project.utils.ColorBlind;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Random;
@@ -48,13 +49,13 @@ public class Combat extends javax.swing.JFrame {
             }
             if (inv[i].data.getName().equals("poção de vida")) {
                 heal.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                heal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/heal.png")));
+                heal.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/heal.png")));
                 return true;
             }
         }
 
         heal.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-        heal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noHeal.png")));
+        heal.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/noHeal.png")));
         return false;
     }
 
@@ -67,13 +68,13 @@ public class Combat extends javax.swing.JFrame {
             }
             if (inv[i].data.getName().equals("poção de mana")) {
                 mana.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                mana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/mana.png")));
+                mana.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/mana.png")));
                 return true;
             }
         }
 
         mana.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-        mana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noMana.png")));
+        mana.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/noMana.png")));
         
         return false;
     }
@@ -117,6 +118,29 @@ public class Combat extends javax.swing.JFrame {
 
     public Combat() {
         initComponents();
+
+        jProgressBar3.setForeground(ColorBlind.filter(Color.red, Context.getColorblind()));      
+        jProgressBar2.setForeground(ColorBlind.filter(Color.red, Context.getColorblind()));      
+        manaBar.setForeground(ColorBlind.filter(Color.BLUE, Context.getColorblind()));    
+            
+        block6.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/blocked.png"))); // NOI18N
+        block5.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/blocked.png"))); // NOI18N
+        block4.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/blocked.png"))); // NOI18N
+        block3.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/blocked.png"))); // NOI18N
+        block2.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/blocked.png"))); // NOI18N
+        block1.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/blocked.png"))); // NOI18N
+        mana.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/noMana.png"))); // NOI18N
+        heal.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/noHeal.png"))); // NOI18N
+        spell2.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/spell2.png"))); // NOI18N
+        spell3.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/spell3.png"))); // NOI18N
+        attack.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/spell1.png"))); // NOI18N
+        run.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/run.png"))); // NOI18N
+         jLabel3.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/blur.png"))); // NOI18N
+         jLabel2.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/blur.png"))); // NOI18N
+         
+        
+        
+        
         charIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/" + Context.getSession().getClass().getSimpleName().toLowerCase() + ".gif")));
         Random rand = new Random();
         Context.setCombat(this);
@@ -131,7 +155,7 @@ public class Combat extends javax.swing.JFrame {
 
         int random = rand.nextInt(5);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatBackgrounds/" + random + ".jpeg")));
+        jLabel1.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatBackgrounds/" + random + ".jpeg")));
 
         if (Context.getSession().getClass().getSimpleName().equals("Berserker") || Context.getSession().getClass().getSimpleName().equals("Archer")) {
             spell2.setVisible(false);
@@ -144,11 +168,11 @@ public class Combat extends javax.swing.JFrame {
         }
 
         if (Context.getSession().getClass().getSimpleName().equals("Berserker")) {
-            attack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/berserkerAttack.png"))); // NOI18N
+            attack.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/berserkerAttack.png"))); // NOI18N
         }
 
         if (Context.getSession().getClass().getSimpleName().equals("Archer")) {
-            attack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/archerAttack.png"))); // NOI18N
+            attack.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/archerAttack.png"))); // NOI18N
         }
 
         if (Context.getSession().getClass().getSimpleName().equals("Mage")) {
@@ -156,7 +180,7 @@ public class Combat extends javax.swing.JFrame {
             System.out.println(m.getMaxMana() + " " + m.getMaxMana());
             manaBar.setValue((int) m.getMana());
             manaBar.setMaximum((int) m.getMaxMana());
-            manaBar.setForeground(Color.blue);
+            manaBar.setForeground(ColorBlind.filter(Color.BLUE, Context.getColorblind()));   
 
             Spell[] spells = m.getSpells();
 
@@ -277,11 +301,11 @@ public class Combat extends javax.swing.JFrame {
 
         jProgressBar3.setValue((int) Context.getSession().getHp());
         jProgressBar3.setMaximum((int) Context.getSession().getMaxHp());
-        jProgressBar3.setForeground(Color.red);
-        
+        jProgressBar3.setForeground(ColorBlind.filter(Color.red, Context.getColorblind()));      
+        jProgressBar2.setForeground(ColorBlind.filter(Color.red, Context.getColorblind()));      
+
         jProgressBar2.setValue((int) enemy.getHp());
         jProgressBar2.setMaximum((int) enemy.getMaxHp());
-        jProgressBar2.setForeground(Color.red);
     }
 
     /**
@@ -297,10 +321,10 @@ public class Combat extends javax.swing.JFrame {
         block5 = new javax.swing.JLabel();
         block4 = new javax.swing.JLabel();
         block3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         block2 = new javax.swing.JLabel();
         block1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         mana = new javax.swing.JLabel();
         heal = new javax.swing.JLabel();
@@ -342,6 +366,11 @@ public class Combat extends javax.swing.JFrame {
         block3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/blocked.png"))); // NOI18N
         getContentPane().add(block3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, -1, -1));
 
+        jLabel5.setFont(new java.awt.Font("SF Pro Display", 0, 8)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("10");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(546, 44, -1, -1));
+
         block2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/blocked.png"))); // NOI18N
         getContentPane().add(block2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, -1, -1));
 
@@ -352,11 +381,6 @@ public class Combat extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("10");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(577, 93, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("SF Pro Display", 0, 8)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("10");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(546, 44, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("SF Pro Display", 0, 8)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -532,26 +556,26 @@ public class Combat extends javax.swing.JFrame {
         Spell[] spells = m.getSpells();
 
         if (currentMana >= spells[0].getMana()) {
-            attack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/spell1.png")));
-            jLabel5.setVisible(false);
+            attack.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/spell1.png")));
+            jLabel5.setVisible(true);
         } else {
-            attack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/mageAttack.png")));
+            attack.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/mageAttack.png")));
             jLabel5.setVisible(false);
         }
 
         if (currentMana >= spells[1].getMana()) {
-            spell2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/spell2.png")));
+            spell2.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/spell2.png")));
             spell2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         } else {
-            spell2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noSpell2.png")));
+            spell2.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/noSpell2.png")));
             spell2.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         }
 
         if (currentMana >= spells[2].getMana()) {
-            spell3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/spell3.png")));
+            spell3.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/spell3.png")));
             spell3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         } else {
-            spell3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/combatIcons/noSpell3.png")));
+            spell3.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/combatIcons/noSpell3.png")));
             spell3.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         }
     }

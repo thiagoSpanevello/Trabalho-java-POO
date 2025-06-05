@@ -9,6 +9,7 @@ import com.ciscos.project.equipment.Weapon;
 import com.ciscos.project.utils.Context;
 import com.ciscos.project.items.Item;
 import com.ciscos.project.items.List;
+import com.ciscos.project.utils.ColorBlind;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -214,6 +215,9 @@ public class Loot extends javax.swing.JFrame {
         for (int i = 0; i < potions.length; i++) {
             enemy.putOnInventory(potions[i]);
         }
+        
+        jLabel3.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/backblur.png")));
+        jLabel2.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/backblur.png")));
 
         Item[] randoms = List.randoms;
 
