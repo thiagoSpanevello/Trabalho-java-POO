@@ -7,6 +7,10 @@ import com.ciscos.project.utils.ColorBlind;
 import com.ciscos.project.Character;
 import com.ciscos.project.mage.Mage;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.awt.Cursor;
 import javax.swing.JOptionPane;
 import java.awt.image.BufferedImage;
@@ -20,6 +24,21 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         Context.setMainWindow(this);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        try {
+        InputStream is = getClass().getResourceAsStream("/Fonts/minecraft_font.ttf");
+        if (is == null) {
+            throw new IOException("Fonte não encontrada!");
+        }
+        Font minecraftFont = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(12f);
+        jButton1.setFont(minecraftFont);
+        } catch (FontFormatException | IOException e) {
+            e.printStackTrace();
+        }
+        jButton1.setForeground(new Color(221, 221, 197));
+        jButton1.setFocusPainted(false); 
+        jButton1.setContentAreaFilled(true);      
+        jButton1.setOpaque(true); 
+        jButton1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         jButton2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         jButton3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         jLabel4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -41,6 +60,8 @@ public class Principal extends javax.swing.JFrame {
         
         advice1.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/advice.png")));
         advice.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/advice.png")));
+        
+
         
         int w = this.getSize().width;
         int h = this.getSize().height;
@@ -91,6 +112,7 @@ public class Principal extends javax.swing.JFrame {
         landing = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -201,7 +223,7 @@ public class Principal extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        landing.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 220, 40));
+        landing.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 220, 40));
 
         jButton3.setBackground(new java.awt.Color(0, 0, 0));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/creditos.png"))); // NOI18N
@@ -212,7 +234,18 @@ public class Principal extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        landing.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 390, 220, 40));
+        landing.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 220, 40));
+
+        jButton1.setBackground(new java.awt.Color(111, 111, 111));
+        jButton1.setForeground(new java.awt.Color(221, 221, 197));
+        jButton1.setText("Modos");
+        jButton1.setToolTipText("");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        landing.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 350, 190, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cisco logo.png"))); // NOI18N
         jLabel1.setToolTipText("");
@@ -306,6 +339,34 @@ public class Principal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, Context.getSession().getName() + " descansou e está em seu perfeito estado!");
     }//GEN-LAST:event_jLabel10MouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int mode;  
+        if (Context.getColorblind()+1 < 4) {
+            mode = Context.getColorblind()+1;
+            Context.setColorblind(mode);
+        }else{
+            mode = 0;
+            Context.setColorblind(0);
+        }
+            switch (mode) {
+            case 0:
+                jButton1.setText("Normal");
+                break;
+            case 1:
+                 jButton1.setText("Protanopia");
+                 break;
+            case 2:
+                 jButton1.setText(" Deuteranopia");
+                 break;
+            case 3:
+                 jButton1.setText("Tritanopia");
+                break;
+            default:
+                throw new AssertionError("Modo inválido: " + mode);
+        }
+            reloadUI();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -316,8 +377,6 @@ public class Principal extends javax.swing.JFrame {
             labelHPP.setText("HP: " + String.format("%.2f", Context.getSession().getHp()) + "/" + String.format("%.2f", Context.getSession().getMaxHp()));
             HPbarP.setValue((int) Context.getSession().getHp());
             HPbarP.setMaximum((int) Context.getSession().getMaxHp());
-            
-            
             HPbarP.setForeground(ColorBlind.filter(Color.red, Context.getColorblind()));
             XPbar.setForeground(ColorBlind.filter(Color.BLUE, Context.getColorblind()));
             
@@ -333,6 +392,38 @@ public class Principal extends javax.swing.JFrame {
             landing.setVisible(false);
         }
     }
+    
+    private void reloadUI() {
+        jLabel1.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/cisco logo.png")));        
+        jButton2.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/jogar.png")));        
+        jButton3.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/creditos.png")));
+        jLabel9.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/gui.png")));     
+        jLabel3.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/background menu.png")));  
+        money.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/coin.png")));
+        jLabel8.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/mapIcon.png")));
+        jLabel7.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/luigi.png")));
+        advice1.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/advice.png")));
+        advice.setIcon(ColorBlind.colorblindimage(getClass().getResource("/images/advice.png")));
+
+        HPbarP.setForeground(ColorBlind.filter(Color.red, Context.getColorblind()));
+        XPbar.setForeground(ColorBlind.filter(Color.BLUE, Context.getColorblind()));
+
+        if (Context.getSession() != null) {
+            jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/" + Context.getSession().getClass().getSimpleName().toLowerCase() + ".gif")));
+            HPbarP.setMaximum((int) Context.getSession().getMaxHp());
+            HPbarP.setValue((int) Context.getSession().getHp());
+            XPbar.setValue((int) Context.getSession().getXp());
+            XPbar.setMaximum(100);
+            labelHPP.setText("HP: " + String.format("%.2f", Context.getSession().getHp()) + "/" + String.format("%.2f", Context.getSession().getMaxHp()));
+            labelXp.setText("Nível: " + Context.getSession().getLevel() + "   XP: " + String.format("%.2f", Context.getSession().getXp()) + "/" + String.format("%.2f", Context.getSession().getMaxXp()));
+            money.setText("  " + Context.getSession().getCoins());
+            characterName.setText(Context.getSession().getName());
+        }
+
+        // Revalidate e repaint para garantir atualização visual
+        this.revalidate();
+        this.repaint();
+}
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -372,6 +463,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel advice;
     private javax.swing.JLabel advice1;
     private javax.swing.JLabel characterName;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;

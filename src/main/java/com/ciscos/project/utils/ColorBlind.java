@@ -1,11 +1,18 @@
 package com.ciscos.project.utils;
-
 import java.awt.Color;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
+import javax.swing.ImageIcon;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JLabel;
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ColorBlind {
 
@@ -87,4 +94,48 @@ public class ColorBlind {
 
         return new ImageIcon(imagemFiltrada);
     }
+    
+    public static JLabel colorblindGif(URL path) {
+        ImageInputStream stream = null;
+        try {
+            ImageReader reader = ImageIO.getImageReadersByFormatName("gif").next();
+            stream = ImageIO.createImageInputStream(path.openStream());
+            reader.setInput(stream);
+
+            List<BufferedImage> frames = new ArrayList<>();
+            int numFrames = reader.getNumImages(true);
+
+            for (int i = 0; i < numFrames; i++) {
+                BufferedImage frame = reader.read(i);
+                BufferedImage filtrado = aplicarFiltroDaltonismo(frame, Context.getColorblind());
+                frames.add(filtrado);
+            }
+
+            return criarImageIconAnimado(frames, 80);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (stream != null) {
+                try { stream.close(); } catch (IOException e) { e.printStackTrace(); }
+            }
+        }
+    }
+        
+        public static JLabel criarImageIconAnimado(List<BufferedImage> frames, int delayMs) {
+            JLabel label = new JLabel(new ImageIcon(frames.get(0)));
+
+            Timer timer = new Timer(delayMs, new ActionListener() {
+                int index = 0;
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    index = (index + 1) % frames.size();
+                    label.setIcon(new ImageIcon(frames.get(index)));
+                }
+            });
+
+            timer.start();
+            return label;
+        }
 }

@@ -16,7 +16,7 @@ public class Context {
     private static Seller seller = null;    
     private static CombatMap map = null;
     private static Combat combat = null;
-    private static int colorblind = 3;
+    private static int colorblind = 0;
     
     private static int runningCount = 0;
         
